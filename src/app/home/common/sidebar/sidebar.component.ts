@@ -14,15 +14,17 @@ import { RouterModule } from '@angular/router';
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SidebarComponent {
+
   isSidebarClosed = true;
-  isDarkMode = false;
+  constructor() {
+    const sidebarState = localStorage.getItem('isSidebarClosed');
+    if (sidebarState) {
+      this.isSidebarClosed = JSON.parse(sidebarState);
+    }
+  }
 
   toggleSidebar(): void {
     this.isSidebarClosed = !this.isSidebarClosed;
-  }
-
-  toggleDarkMode(): void {
-    this.isDarkMode = !this.isDarkMode;
-    document.body.classList.toggle('dark', this.isDarkMode);
+    localStorage.setItem('isSidebarClosed', JSON.stringify(this.isSidebarClosed));
   }
 }
