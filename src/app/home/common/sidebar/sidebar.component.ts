@@ -14,8 +14,8 @@ import { RouterModule } from '@angular/router';
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SidebarComponent {
-
   isSidebarClosed = true;
+
   constructor() {
     const sidebarState = localStorage.getItem('isSidebarClosed');
     if (sidebarState) {

@@ -20,18 +20,23 @@
           <a class="dropdown-item" href="#">Edit Table</a>
         </div>
       </div>
-      <i class='bx bx-filter-alt border p-2 rounded' ></i>
+      @if (true) {
+        <i class='bx bx-filter-alt border p-2 rounded' ></i>
+      }
     </div>
   </div>
 
-  @if (false) {
+  @if (true) {
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
+        <th scope="col">Lead ID </th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Source </th>
+        <th scope="col">Created At </th>
+        <th scope="col">Created By </th>
+        <th scope="col">Status</th>
       </tr>
     </thead>
     <tbody>
