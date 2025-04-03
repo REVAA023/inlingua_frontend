@@ -1,0 +1,67 @@
+<div class="dialog-container">
+    <div class="dialog-header">
+        <div class="cursor-pointer close-icon" (click)="dialogRef.close()">
+            ✖
+        </div>
+    </div>
+    <div class="dialog-content">
+        <form #l="ngForm">
+            <div>
+                <app-input-control label="Event Title"></app-input-control>
+            </div>
+            <div>
+                <app-color-picker [items]="colorOptions" key="value" keyName="label" [(ngModel)]="colorValue"
+                    name="colorValue" (onChange)="onColorSelected($event)"></app-color-picker>
+            </div>
+            <div>
+                <app-input-control label="Event Title"></app-input-control>
+            </div>
+            <div>
+                <app-input-control label="Event Title"></app-input-control>
+            </div>
+            <div>
+                <app-input-control label="Event Title"></app-input-control>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- <h2 mat-dialog-title>Edit an event</h2>
+<form>
+
+    <div>
+        <app-input-control type="text" label="Summary" [(ngModel)]="event.summary" name="summary" [required]="true"
+            [errorTrue]="errorTrue"></app-input-control>
+    </div>
+
+    <div class="textarea">
+        <app-input-control designType="textareaTemplate" className="textarea" label="Description"
+            [(ngModel)]="event.description" name="description" [required]="true"
+            [errorTrue]="errorTrue"></app-input-control>
+    </div>
+
+    <mat-checkbox [(ngModel)]="event.isAllDay" name="isAllDay">All day event</mat-checkbox>
+
+    <div>
+        <app-input-control type="date" label="Start Date" [(ngModel)]="event.startDate" name="startDate"
+            [required]="true" [errorTrue]="errorTrue"></app-input-control>
+    </div>
+    <div>
+        <app-input-control type="date" label="Start Time" [(ngModel)]="event.startDate" name="startTime"
+            [required]="true" [errorTrue]="errorTrue"></app-input-control>
+    </div>
+    <div>
+        <app-input-control type="date" label="End Date" [(ngModel)]="event.endDate" name="endDate" [required]="true"
+            [errorTrue]="errorTrue"></app-input-control>
+    </div>
+    <div>
+        <app-input-control type="date" label="End Time" [(ngModel)]="event.endDate" name="endDate" [required]="true"
+            [errorTrue]="errorTrue"></app-input-control>
+    </div>
+
+    <div class="buttons">
+        <button (click)="onCancel()">Cancel</button>
+        <button color="warn" (click)="onRemove()">Remove</button>
+        <button color="primary" (click)="onSave()">Save</button>
+    </div>
+</form> -->

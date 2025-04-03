@@ -1,0 +1,21 @@
+<div class="calendar-container">
+    <div class="controls">
+        <button class="btn btn-sm btn-primary" (click)="changeMonth(-1)">Previous</button>
+        <h2>{{ monthYear }}</h2>
+        <button class="btn btn-sm btn-primary" (click)="changeMonth(1)">Next</button>
+    </div>
+
+    <div class="calendar">
+        <div class="day-header" *ngFor="let day of ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']">
+            {{ day }}
+        </div>
+
+        <div class="day" *ngFor="let day of days" [class.today-border]="isToday(day.date)">
+            <div *ngIf="day.date" class="day-header">{{ day.date.getDate() }}</div>
+            <div *ngFor="let event of day.events" class="event" [style.backgroundColor]="event.color"
+                (click)="openEventEditor(event)">
+                {{ event.summary }}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="color-picker">
+    <!-- Selected Color Display -->
+    <div class="color-display" (click)="toggleDropdown()">
+        <div class="selected-color" [style.backgroundColor]="value" aria-label="Selected Color"></div>
+        <span>{{ __label || 'Select a Color' }}</span>
+    </div>
+    @if(dropdownOpen) {
+    <div class="dropdown">
+        @for (item of __items; track $index) {
+        <div class="color-option" [matTooltip]="item[__keyName]" [matTooltipPosition]="'above'" [style.backgroundColor]="item[__key]"
+            [class.selected]="item[__key] === value" (click)="selectColor(item)" tabindex="0"
+            (keydown.enter)="selectColor(item)">
+            @if(item[__key] === value) {
+            <span class="checkmark">✔</span>
+            }
+        </div>
+        }
+    </div>
+    }
+</div>

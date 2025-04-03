@@ -1,0 +1,342 @@
+<!-- Main Component Template -->
+<ng-container *ngTemplateOutlet="getTemplate(designType)"></ng-container>
+
+<ng-template #textareaTemplate>
+  <div class="zill-form zill-form-group {{className}}-group">
+    <div class="label-container">
+      <ng-container *ngTemplateOutlet="labelContainer"></ng-container>
+      <div class="label-container-right">
+        <ng-container *ngTemplateOutlet="oldHtml"></ng-container>
+        <!-- <ng-container *ngTemplateOutlet="errorTextContainer"></ng-container> -->
+      </div>
+    </div>
+    <div class="zill-input-group  {{className}}" [ngClass]="
+      {
+        'input-error': control?.control?.invalid && __errorTrue, 
+        'bgRemove': removeBg, 
+        'focused': focused && !__errorTrue
+      }
+      ">
+      <ng-container *ngTemplateOutlet="textareaControl"></ng-container>
+      <div class="zill-input-group-append">
+        <ng-container *ngTemplateOutlet="BtnContainer"></ng-container>
+      </div>
+    </div>
+    @if(__maxCharacterLength === true) {
+    <div class="max-length-character end pr16">
+      <!-- {{value?.length || 0}} / {{__maxLength}} -->
+      {{ __maxLength - (value?.length || 0) }} characters remaining
+    </div>
+    }
+  </div>
+</ng-template>
+
+<ng-template #defaultTemplate>
+  <div class="zill-form zill-form-group {{className}}-group">
+    <div class="label-container">
+      <ng-container *ngTemplateOutlet="labelContainer"></ng-container>
+      <div class="label-container-right">
+        <ng-container *ngTemplateOutlet="oldHtml"></ng-container>
+      </div>
+    </div>
+    <div class="zill-input-group {{className}} mb8" [ngClass]="
+      {
+        'input-error': control?.control?.invalid && __errorTrue, 
+        'bgRemove': removeBg, 
+        'focused': focused && !__errorTrue
+      }
+        ">
+      @if(isInputIcon) {
+      <div class="password-icon">
+        @if(__inputIconIsSrc) {
+        <ion-icon [src]="__inputIcon"></ion-icon>
+        } @else {
+        <ion-icon [name]="__inputIcon"></ion-icon>
+        }
+      </div>
+      }
+      <ng-container *ngTemplateOutlet="inputControl"></ng-container>
+      @if (__type !== 'select') {
+      <div class="zill-input-group-append">
+        <ng-container *ngTemplateOutlet="BtnContainer"></ng-container>
+      </div>
+      }
+    </div>
+    @if(!removeBg) {
+    <div class="label-container bottom pt4">
+      <div class="label-container-right ">
+        <ng-container *ngTemplateOutlet="errorTextContainer"></ng-container>
+        <ng-container *ngTemplateOutlet="errorInvalidContainer"></ng-container>
+      </div>
+    </div>
+    }
+  </div>
+</ng-template>
+
+<ng-template #labelContainer>
+  <label [contentEditable]="__contentEditable">
+    {{__label}}
+    @if(__label!==''){
+    @if(__required){
+    <span class="text-danger pl2 fs16">*</span>
+    }
+    @if(__helpText !== ''){
+    <div class="form-help-text" [matTooltip]="__helpText"><ion-icon name="help-circle-outline"></ion-icon></div>
+    }
+    }
+  </label>
+</ng-template>
+
+<ng-template #inputControl>
+  @switch (this.__type) {
+  @case ("password") {
+  <input [type]="__passwordTextType" class="zill-input-control" autocomplete="none" [appNoEmoji]="true"
+    [appUpperCase]="__upperCase && !__lowerCase" [appLowerCase]="__lowerCase && !__upperCase" [appLimit]="__maxLength"
+    [autofocus]="__autoFocus" [placeholder]="__placeholder" [(ngModel)]="value" [name]="name+__addOnID"
+    [disabled]="__btnClicked" (blur)="onAction('blur')" (focus)="onAction('focus')" (keydown)="keyDownEvent($event)"
+    (keyup)="keyUpEvent($event)" [id]="name" #formInput [ngClass]="{'disabled' : this.__btnClicked}"
+    [inputMode]="__inputMode" [tabIndex]="__tabIndex" />
+  }
+  @case ("number") {
+  <input type="text" class="zill-input-control" autocomplete="none" [appNoEmoji]="true"
+    [appUpperCase]="__upperCase && !__lowerCase" [appLowerCase]="__lowerCase && !__upperCase" [appLimit]="__maxLength"
+    [autofocus]="__autoFocus" [placeholder]="__placeholder" [(ngModel)]="value" [name]="name+__addOnID"
+    [disabled]="__btnClicked" (blur)="onAction('blur')" (focus)="onAction('focus')" (keydown)="keyDownEvent($event)"
+    (keyup)="keyUpEvent($event)" [id]="name" #formInput [ngClass]="{'disabled' : this.__btnClicked}"
+    [inputMode]="__inputMode" [tabIndex]="__tabIndex" appNumberOnly [max]="__max" [decimal]="__decimal"
+    [limit]="__maxLength" [min]="__min" />
+  }
+  @case ("country") {
+  <ng-container *ngTemplateOutlet="countryTemplate"></ng-container>
+
+  }
+  @case ("date") {
+  <ng-container *ngTemplateOutlet="dateTemplate"></ng-container>
+  }
+  @case ("select") {
+  <ng-container *ngTemplateOutlet="selectTemplate"></ng-container>
+  }
+  @case("email"){
+  <input type="email" class="zill-input-control" autocomplete="none" [appNoEmoji]="true" [appLowerCase]="true"
+    [appLimit]="__maxLength" [autofocus]="__autoFocus" [placeholder]="__placeholder" [(ngModel)]="value"
+    [name]="name+__addOnID" [disabled]="__btnClicked" (blur)="onLocalAction('blur')" (focus)="onAction('focus')"
+    (keydown)="keyDownEvent($event)" (keyup)="keyUpEvent($event)" [id]="name" #formInput
+    [ngClass]="{'disabled' : this.__btnClicked}" [inputMode]="__inputMode" [tabIndex]="__tabIndex" />
+  }
+  @case ('tin') {
+  <input type="text" class="zill-input-control" autocomplete="none" appNoEmoji
+    [appUpperCase]="__upperCase && !__lowerCase" [appLowerCase]="__lowerCase && !__upperCase" [appLimit]="__maxLength"
+    [autofocus]="__autoFocus" [placeholder]="__placeholder" [(ngModel)]="__xvalue" [name]="name+__addOnID"
+    [disabled]="__btnClicked" (blur)="onAction('blur')" (focus)="onAction('focus')" (keydown)="keyDownEvent($event)"
+    (keyup)="keyUpEvent($event)" [id]="name" #formInput appNumberOnly [max]="__max" [decimal]="__decimal"
+    [ngClass]="{'disabled' : this.__btnClicked}" inputmode="decimal" [tabIndex]="__tabIndex" />
+  }
+  @default {
+  <input type="text" class="zill-input-control" autocomplete="none" [appNoEmoji]="__noEmoji"
+    [appUpperCase]="__upperCase && !__lowerCase" [appLowerCase]="__lowerCase && !__upperCase" [appLimit]="__maxLength"
+    [autofocus]="__autoFocus" [placeholder]="__placeholder" [(ngModel)]="value" [name]="name+__addOnID"
+    [disabled]="__btnClicked" (blur)="onAction('blur')" (focus)="onAction('focus')" (keydown)="keyDownEvent($event)"
+    (keyup)="keyUpEvent($event)" [id]="name" #formInput [ngClass]="{'disabled' : this.__btnClicked}"
+    [inputMode]="__inputMode" [tabIndex]="__tabIndex" />
+  }
+  }
+
+</ng-template>
+
+<ng-template #textareaControl>
+  <textarea class="zill-input-control textarea {{className}}" [ngClass]="{'disabled' : this.__btnClicked}"
+    autocomplete="off" [(ngModel)]="value" [name]="name+__addOnID" [placeholder]="__placeholder"
+    [autofocus]="__autoFocus" [disabled]="__btnClicked" (blur)="onAction('blur')" (focus)="onAction('focus')"
+    (keydown)="keyDownEvent($event)" (keyup)="keyUpEvent($event)" [id]="name+__addOnID" #formInput
+    [appNoEmoji]="__noEmoji" [appUpperCase]="__upperCase && !__lowerCase" [appCharacterOnly]="__noEmoji"
+    [appLowerCase]="__lowerCase && !__upperCase" [appLimit]="__maxLength" [tabIndex]="__tabIndex"></textarea>
+</ng-template>
+
+<ng-template #oldHtml>
+  <div class="old-value-box" #oldValueBox>
+    @if (__oldValue && value !== __oldValue) {
+    @if (__type !== 'select' && __type !== 'date') {
+    <div class="text-right old-value" [matTooltip]="__oldValue" [matTooltipDisabled]="true">{{__oldValue}}</div>
+    }
+    @if (__type === 'date') {
+    {{__oldValue | appDate}}
+    }
+    }
+    @if (__oldValueDescription && value !== __oldValue && __type !== 'date') {
+    <div class="text-right old-value" [matTooltip]="__oldValueDescription">{{__oldValueDescription}}</div>
+    }
+  </div>
+</ng-template>
+
+<ng-template #errorInvalidContainer>
+  @if (!__tableInputError) {
+  @if (value !== '' && control?.control?.invalid && __errorTrue) {
+  <div class="ms-auto error-text">
+    <small>
+      @if (__isPassword) { Invalid Pattern }
+      @else if (__isEmail) { Invalid email format. }
+    </small>
+  </div>
+  }
+  }
+</ng-template>
+
+<ng-template #errorTextContainer>
+  @if (!__tableInputError && (value === '' || value === 0) && control?.control?.invalid && __errorTrue) {
+  <div class="error-text">
+    {{__errorText}}
+  </div>
+  }
+</ng-template>
+
+<!-- Icon Templates -->
+<ng-template #BtnContainer>
+  <!-- Search Icon Button -->
+  @if(__search && !__btnClicked){
+  <div class="icon-btn search-icon" (click)="onAction('search')">
+    <ion-icon name="search-outline"></ion-icon>
+  </div>
+  }
+
+  <!-- Eye Icon Button -->
+  @if(__type === 'password'){
+  <div class="icon-btn" (click)="toggleHide()">
+    <ion-icon [name]="__passwordTextType === 'text' ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+  </div>
+  }
+
+  <!-- Calendar Icon Button -->
+  @if (__type === 'date' && !__btnClicked) {
+  <div class="icon-btn" (click)="picker.open()">
+    <ion-icon name="calendar-number-outline"></ion-icon>
+  </div>
+  }
+
+  <!-- Close Button -->
+  @if(!__btnClicked){
+  <div class="icon-btn close-btn" (click)="onLocalClear();">
+    <ion-icon name="close-circle"></ion-icon>
+  </div>
+  }
+
+  <!-- Password Strength -->
+  @if(__type === 'password' && __passwordStrength && __passwordStrengthShow){
+  <div class="password-strength">
+    <div class="password-strength-character">
+      @for (param of strengthParams; track $index) {
+      <div class="strength-character" [ngClass]="{'success': param.isValid}">
+        <span class="strength-main" [innerHTML]="param.main"></span>
+        <span class="strength-small">{{ param.small }}</span>
+        <span class="check-icon">
+          <ion-icon name="checkmark-outline"></ion-icon>
+        </span>
+      </div>
+      }
+    </div>
+
+    <div class="password-strength-meter">
+      <div class="strength-meter" [ngClass]="{'step1': __strength > 24}"></div>
+      <div class="strength-meter" [ngClass]="{'step2': __strength > 49}"></div>
+      <div class="strength-meter" [ngClass]="{'step3': __strength > 74}"></div>
+      <div class="strength-meter" [ngClass]="{'step4': __strength === 100}"></div>
+    </div>
+  </div>
+  }
+</ng-template>
+
+<ng-template #selectTemplate>
+  <mat-select class="zill-input-control border-right-radius border-left" [autofocus]="__autoFocus"
+    [placeholder]="__placeholder" [(ngModel)]="value" [name]="name + __addOnID" [disabled]="__btnClicked"
+    (blur)="onAction('blur')" (focus)="onAction('focus')" (keydown)="keyDownEvent($event)" (keyup)="keyUpEvent($event)"
+    [multiple]="__multiple" [id]="name + __addOnID" #formInput panelClass="search-option-list"
+    (openedChange)="isSelectOpened($event)" (ngModelChange)="onAction('change')" (selectionChange)="onAction('select')"
+    [tabIndex]="__tabIndex">
+    @if(__enableSelectSearch) {
+    <mat-option class="sticky-option" disabled>
+      <div class="zill-select-search">
+        <input type="text" class="sticky-input" #searchInput [(ngModel)]="__selectSearchInput"
+          name="__selectSearchInput" autocomplete="new-password" />
+        <a class="icon-btn" (click)="__selectSearchInput = ''">
+          <ion-icon name="close-outline"></ion-icon>
+        </a>
+      </div>
+    </mat-option>
+    }
+
+    <!-- Default Options -->
+    @if(defaultOption !== '' && value === 0) {
+    <mat-option [value]="0" class="zill-mat-option" [ngClass]="{'multipleSelected': __multiple}">
+      {{defaultOption}}
+    </mat-option>
+    }
+
+    @if(defaultOption !== '' && value === '') {
+    <mat-option value="" class="zill-mat-option" [ngClass]="{'multipleSelected': __multiple}">
+      {{defaultOption}}
+    </mat-option>
+    }
+
+    <!-- Dynamic Options -->
+    @for(item of __items | filterAndSort: __selectSearchInput: __keyName: __sort; track $index) {
+    <mat-option [value]="item[__key]" class="zill-mat-option" [ngClass]="{'multipleSelected': __multiple}">
+      {{item[__keyName]}}
+    </mat-option>
+    }
+
+  </mat-select>
+</ng-template>
+
+<ng-template #dateTemplate>
+  <input matInput type="text" class="zill-input-control" autocomplete="none" appNoEmoji
+    [appUpperCase]="__upperCase && !__lowerCase" [appLowerCase]="__lowerCase && !__upperCase" [appLimit]="__maxLength"
+    [autofocus]="__autoFocus" [placeholder]="__placeholder" [(ngModel)]="__xvalue" [name]="name + __addOnID"
+    [disabled]="__btnClicked" (blur)="onAction('blur')" (focus)="onAction('focus')" (keydown)="keyDownEvent($event)"
+    (keyup)="keyUpEvent($event)" [id]="name + __addOnID" #formInput [matDatepicker]="picker" (click)="picker.open()"
+    (dateChange)="onDateChange()" [max]="__maxDate" [min]="__minDate" [tabIndex]="__tabIndex" />
+</ng-template>
+
+<mat-datepicker #picker [disabled]="__btnClicked" panelClass="zill-calendar">
+</mat-datepicker>
+
+<ng-template #countryTemplate>
+  <div class="dropdown-container">
+    <div class="selected-country" (click)="toggleDropdown()">
+      <img [src]="__selectedCountry.flag" alt="flag" class="flag-icon" />
+      <span>{{ __selectedCountry.code }}</span>
+    </div>
+    <input type="text" class="zill-input-control" autocomplete="none" [appNoEmoji]="true"
+      [appUpperCase]="__upperCase && !__lowerCase" [appLowerCase]="__lowerCase && !__upperCase" [appLimit]="__maxLength"
+      [autofocus]="__autoFocus" [placeholder]="__placeholder" [(ngModel)]="value" [name]="name+__addOnID"
+      [disabled]="__btnClicked" (blur)="onAction('blur')" (focus)="onAction('focus')" (keydown)="keyDownEvent($event)"
+      (keyup)="keyUpEvent($event)" [id]="name" #formInput [ngClass]="{'disabled' : this.__btnClicked}"
+      [inputMode]="__inputMode" [tabIndex]="__tabIndex" appNumberOnly [max]="__max" [decimal]="__decimal"
+      [limit]="__maxLength" [min]="__min" />
+    <!-- Dropdown Menu -->
+    <div class="selectbox_options_container" [class.show]="__dropdownOpen">
+      <ul class="dropdown-menu">
+        <li>
+          <div class="zill-select-search">
+            <input type="text" class="sticky-input" #searchInput [(ngModel)]="__selectSearchInput"
+              name="__selectSearchInput" autocomplete="new-password" />
+            <a class="icon-btn" (click)="__selectSearchInput = ''">
+              <ion-icon name="close-outline"></ion-icon>
+            </a>
+          </div>
+        </li>
+        @for(country of appSetting.countryData| filterAndSort: __selectSearchInput: __keyName: __sort; track $index) {
+        <li class="dropdown-item" (click)="selectCountry(country)">
+          <div class="d-flex gap-3">
+            <div class="dropdown-flag">
+              <img [src]="country.flag" alt="flag" class="flag-icon" />
+            </div>
+            {{ country.Name }}
+          </div>
+          <div>
+            ({{ country.code }})
+          </div>
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+</ng-template>

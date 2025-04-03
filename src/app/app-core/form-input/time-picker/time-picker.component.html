@@ -1,0 +1,271 @@
+@switch (this.__designType) {
+@default {
+<ng-container *ngTemplateOutlet="defaultTemplate"></ng-container>
+} @case ('horizontalInput') {
+<ng-container *ngTemplateOutlet="horizontalTemplates"></ng-container>
+}@case ('horizontalWithoutErrorInput') {
+<ng-container *ngTemplateOutlet="horizontalWithoutErrorTemplates"></ng-container>
+}
+@case ('dualTemplate') {
+<ng-container *ngTemplateOutlet="dualTemplate"></ng-container>
+}
+}
+
+<ng-template #defaultTemplate>
+    <div class="itg-form itg-form-group {{className}}-group">
+        <div class="label-container">
+            <ng-container *ngTemplateOutlet="labelContainer"></ng-container>
+        </div>
+        <div class="itg-input-group {{className}} {{statusColorName}} {{colorChanges}} mb8"
+            [ngClass]="{'input-error': control?.control?.invalid && __errorTrue, 'bgRemove': removeBg}">
+            <ng-container *ngTemplateOutlet="inputControl"></ng-container>
+            @if (__type !== 'select') {
+            <div class="itg-input-group-append">    
+                <ng-container *ngTemplateOutlet="calendarBtn"></ng-container>
+                <ng-container *ngTemplateOutlet="clearBtnContainer"></ng-container>
+            </div>
+            }
+        </div>
+        @if(!removeBg) {
+        <div class="label-container bottom pt8">
+            <div class="label-container-right ">
+            </div>
+        </div>
+        }
+    </div>
+</ng-template>
+
+<ng-template #horizontalTemplates>
+    <div class="itg-horizontal-groups itg-horizontal {{className}}-group">
+        <row>
+            <div class="col-md-5 end">
+                <div class="horizontal-label-container">
+                    <ng-container *ngTemplateOutlet="labelContainer"></ng-container>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="itg-horizontal-input-group {{className}} {{statusColorName}} {{colorChanges}}"
+                    [ngClass]="{'input-error': control?.control?.invalid && __errorTrue, 'bgRemove': removeBg}">
+                    <ng-container *ngTemplateOutlet="inputControl"></ng-container>
+                    @if (__type !== 'select') {
+                    <div class="itg-input-group-append">
+                        <ng-container *ngTemplateOutlet="clearBtnContainer"></ng-container>
+                        <ng-container *ngTemplateOutlet="calendarBtn"></ng-container>
+                    </div>
+                    }
+                </div>
+            </div>
+            @if(control?.control?.invalid && __errorTrue) {
+            <div class="col-md-3">
+                <div class="horizontal-error pt8">
+                    <div class="label-container-right">
+                        <ng-container *ngTemplateOutlet="errorText1Container"></ng-container>
+                    </div>
+                </div>
+            </div>
+            }
+        </row>
+    </div>
+
+</ng-template>
+
+<ng-template #dualTemplate>
+    <div class="itg-horizontal-groups itg-horizontal {{className}}-group">
+        <row>
+            <div class="itg-horizontal-input-group {{className}} {{statusColorName}} {{colorChanges}}"
+                [ngClass]="{'input-error': control?.control?.invalid && __errorTrue, 'bgRemove': removeBg}">
+                <ng-container *ngTemplateOutlet="inputControl"></ng-container>
+                @if (__type !== 'select') {
+                <div class="itg-input-group-append">
+                    <ng-container *ngTemplateOutlet="clearBtnContainer"></ng-container>
+                    <ng-container *ngTemplateOutlet="calendarBtn"></ng-container>
+                </div>
+                }
+            </div>
+        </row>
+    </div>
+</ng-template>
+
+<ng-template #horizontalWithoutErrorTemplates>
+    <div class="itg-horizontal-groups itg-horizontal relative {{className}}-group">
+        <row>
+            <div class="col-md-4 flex align-items-center">
+                <div class="horizontal-label-container justify-content-start">
+                    <ng-container *ngTemplateOutlet="labelContainer"></ng-container>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="itg-horizontal-input-group {{className}} {{statusColorName}} {{colorChanges}}"
+                    [ngClass]="{'input-error': control?.control?.invalid && __errorTrue, 'bgRemove': removeBg}">
+                    <ng-container *ngTemplateOutlet="inputControl"></ng-container>
+
+                </div>
+            </div>
+
+            <div class="horizontal-error-bottom bottom pt8">
+                <div class="label-container-right">
+                    <ng-container *ngTemplateOutlet="errorText1Container"></ng-container>
+                    <!-- <ng-container *ngTemplateOutlet="errorInvalidContainer"></ng-container> -->
+                </div>
+            </div>
+        </row>
+    </div>
+
+</ng-template>
+
+<ng-template #labelContainer>
+    <label>
+        {{__label}}
+        @if(__label!==''){
+        @if(__required){
+        <span class="text-danger pl2 fs16">*</span>
+        }
+        @if(__helpText !== ''){
+        <div class="form-help-text" [matTooltip]="__helpText"><ion-icon name="help-circle-outline"></ion-icon></div>
+        }
+        }
+    </label>
+</ng-template>
+
+<ng-template #inputControl>
+    @switch (this.__type) {
+
+    @case ('time') {
+    <input type="text" class="itg-input-control" autocomplete="none" appNoEmoji
+        [appUpperCase]="__upperCase && !__lowerCase" [appLowerCase]="__lowerCase && !__upperCase"
+        [appLimit]="__maxLength" [autofocus]="__autoFocus" [placeholder]="__placeholder" [(ngModel)]="value"
+        [name]="name+addOnID" [disabled]="__btnClicked" (blur)="onAction('blur')" (focus)="onAction('focus')"
+        (keydown)="keyDownEvent($event)" (keyup)="keyUpEvent($event)" [id]="name" #formInput readonly
+        (click)="openOverlay()" />
+    }
+    @default {
+    <input type="text" class="itg-input-control" autocomplete="none" [appNoEmoji]="__noEmoji"
+        [appUpperCase]="__upperCase && !__lowerCase" [appLowerCase]="__lowerCase && !__upperCase"
+        [appLimit]="__maxLength" [autofocus]="__autoFocus" [placeholder]="__placeholder" [(ngModel)]="value"
+        [name]="name+addOnID" [disabled]="__btnClicked" (blur)="onAction('blur')" (focus)="onAction('focus')"
+        (keydown)="keyDownEvent($event)" (keyup)="keyUpEvent($event)" [id]="name" #formInput
+        [ngClass]="{'disabled' : this.__btnClicked}" [inputMode]="__inputMode" [tabIndex]="__tabIndex"
+        appCharacterOnly />
+    }
+    }
+
+</ng-template>
+
+
+
+
+<ng-template #errorText1Container>
+    @if(value === '' &&control?.control?.invalid && __errorTrue){
+    <div class="error-text">
+        This field is required
+    </div>
+    }
+</ng-template>
+
+<!-- Icon Templates -->
+
+<ng-template #clearBtnContainer>
+    @if(!__btnClicked && !removeBg && !hideIcon){
+    <a class="icon-btn close-btn" (click)="onLocalClear();">
+        <ion-icon name="close-outline"></ion-icon>
+    </a>
+    }
+</ng-template>
+
+
+
+
+
+
+
+
+
+
+<ng-template #calendarBtn>
+
+    @if (__type === 'time') {
+    <a class="icon-btn stable-btn" (click)="openOverlay()">
+        <ion-icon src="assets/clock.svg"></ion-icon>
+    </a>
+    }
+</ng-template>
+
+<ng-template #dropdownTemplate>
+
+    <div class="time-panel">
+        <div class="time-setter">
+            <div class="time-hour">
+                <div class="set-btn-up" (click)="setupClick('hour', 1)">
+                    <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M5.36996 0.175049L0.52298 5.02295C0.467528 5.07814 0.423549 5.14382 0.393524 5.21606C0.363499 5.28831 0.348022 5.36585 0.348022 5.44409C0.348022 5.52233 0.363499 5.59963 0.393524 5.67188C0.423549 5.74412 0.467528 5.8098 0.52298 5.86499L0.880005 6.22192C0.992294 6.33276 1.1437 6.39502 1.30148 6.39502C1.45926 6.39502 1.6107 6.33276 1.72299 6.22192L5.79398 2.1521L9.86801 6.22705C9.98034 6.33819 10.132 6.40063 10.29 6.40063C10.448 6.40063 10.5997 6.33819 10.712 6.22705L11.069 5.87012C11.1798 5.75783 11.242 5.60627 11.242 5.44849C11.242 5.29071 11.1798 5.13939 11.069 5.0271L6.21701 0.175049C6.10455 0.0629937 5.95224 0 5.79349 0C5.63473 0 5.48242 0.0629937 5.36996 0.175049Z"
+                            fill="black" />
+                    </svg>
+
+
+                </div>
+                <input class="time-input-control" [(ngModel)]="hour" name="{{name}}-hour" appNumberOnly [max]="12" />
+
+                <div class="set-btn-up" (click)="setupClick('hour', -1)">
+                    <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6.22098 6.7041L11.068 1.85596C11.1235 1.80076 11.1675 1.73533 11.1975 1.66309C11.2275 1.59084 11.243 1.5133 11.243 1.43506C11.243 1.35682 11.2275 1.27928 11.1975 1.20703C11.1675 1.13478 11.1235 1.06911 11.068 1.01392L10.711 0.656982C10.5987 0.546444 10.4475 0.484619 10.29 0.484619C10.1325 0.484619 9.98123 0.546444 9.86899 0.656982L5.79697 4.72705L1.72299 0.6521C1.61066 0.540956 1.45902 0.478516 1.30099 0.478516C1.14297 0.478516 0.991331 0.540956 0.878998 0.6521L0.522003 1.00903C0.411163 1.12132 0.348999 1.27264 0.348999 1.43042C0.348999 1.5882 0.411163 1.73976 0.522003 1.85205L5.37399 6.7041C5.48645 6.81616 5.63876 6.87891 5.79752 6.87891C5.95627 6.87891 6.10852 6.81616 6.22098 6.7041Z"
+                            fill="black" />
+                    </svg>
+
+                </div>
+            </div>
+            <span class="time-divider">:</span>
+            <div class="time-minute">
+                <div class="set-btn-up" (click)="setupClick('minutes', 1)">
+                    <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M5.36996 0.175049L0.52298 5.02295C0.467528 5.07814 0.423549 5.14382 0.393524 5.21606C0.363499 5.28831 0.348022 5.36585 0.348022 5.44409C0.348022 5.52233 0.363499 5.59963 0.393524 5.67188C0.423549 5.74412 0.467528 5.8098 0.52298 5.86499L0.880005 6.22192C0.992294 6.33276 1.1437 6.39502 1.30148 6.39502C1.45926 6.39502 1.6107 6.33276 1.72299 6.22192L5.79398 2.1521L9.86801 6.22705C9.98034 6.33819 10.132 6.40063 10.29 6.40063C10.448 6.40063 10.5997 6.33819 10.712 6.22705L11.069 5.87012C11.1798 5.75783 11.242 5.60627 11.242 5.44849C11.242 5.29071 11.1798 5.13939 11.069 5.0271L6.21701 0.175049C6.10455 0.0629937 5.95224 0 5.79349 0C5.63473 0 5.48242 0.0629937 5.36996 0.175049Z"
+                            fill="black" />
+                    </svg>
+                </div>
+                <input class="time-input-control" [(ngModel)]="minutes" name="{{name}}-minutes" appNumberOnly
+                    [max]="59" />
+                <div class="set-btn-up" (click)="setupClick('minutes', -1)">
+                    <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6.22098 6.7041L11.068 1.85596C11.1235 1.80076 11.1675 1.73533 11.1975 1.66309C11.2275 1.59084 11.243 1.5133 11.243 1.43506C11.243 1.35682 11.2275 1.27928 11.1975 1.20703C11.1675 1.13478 11.1235 1.06911 11.068 1.01392L10.711 0.656982C10.5987 0.546444 10.4475 0.484619 10.29 0.484619C10.1325 0.484619 9.98123 0.546444 9.86899 0.656982L5.79697 4.72705L1.72299 0.6521C1.61066 0.540956 1.45902 0.478516 1.30099 0.478516C1.14297 0.478516 0.991331 0.540956 0.878998 0.6521L0.522003 1.00903C0.411163 1.12132 0.348999 1.27264 0.348999 1.43042C0.348999 1.5882 0.411163 1.73976 0.522003 1.85205L5.37399 6.7041C5.48645 6.81616 5.63876 6.87891 5.79752 6.87891C5.95627 6.87891 6.10852 6.81616 6.22098 6.7041Z"
+                            fill="black" />
+                    </svg>
+                </div>
+            </div>
+            <div class="am-pm {{meridiem}}" *ngIf="meridian">
+                <div [ngClass]="{'active': meridiem === 'AM'}" (click)="meridiem = 'AM'" class="meridiem">AM</div>
+                <div [ngClass]="{'active': meridiem === 'PM'}" (click)="meridiem = 'PM'" class="meridiem">PM</div>
+            </div>
+        </div>
+        <div class="footer">
+            <button class="time-submit" (click)="submitDate()">
+                Submit
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M5.39612 1.09989L10.8912 1.09989C11.5506 1.09989 12.1001 1.6494 12.1001 2.3088L12.1001 11.8702C12.1001 12.5296 11.5506 13.0791 10.8912 13.0791L5.39612 13.0791"
+                        stroke="white" stroke-miterlimit="10" />
+                    <path d="M9.35246 7.03467L1.76929 7.03467" stroke="white" stroke-miterlimit="10" />
+                    <path d="M8.00002 4.94653L10.0881 7.14455L8.00002 9.23267" stroke="white" stroke-miterlimit="10" />
+                </svg>
+
+            </button>
+            <button class="time-cancel" (click)="clearAll()">
+                Cancel
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_2883_33392)">
+                        <path d="M1.47546 1.47559L13.2434 13.2435" stroke="#2E3191" stroke-miterlimit="10" />
+                        <path d="M1.47546 13.2435L13.2434 1.47559" stroke="#2E3191" stroke-miterlimit="10" />
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_2883_33392">
+                            <rect width="12.6" height="12.6" fill="white" transform="translate(1 1)" />
+                        </clipPath>
+                    </defs>
+                </svg>
+
+            </button>
+        </div>
+    </div>
+</ng-template>

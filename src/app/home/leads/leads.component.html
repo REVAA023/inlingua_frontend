@@ -1,11 +1,11 @@
 <div class="main-container">
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <p class="fw-bold fs-5 m-0 p-0">Leads</p>
-    <div class="d-flex gap-2">
-      <button class="btn btn-secondary btn-sm">Add Leads</button>
+    <p class="fw-bold fs-3 m-0 p-0 "> 25 Leads</p>
+    <div class="d-flex align-items-center gap-2">
+      <button class="btn btn-secondary btn-sm rounded-5 px-3"  routerLink="addleads">Create Leads</button>
       <div class="dropdown">
         <button
-          class="btn btn-secondary btn-sm dropdown-toggle"
+          class="btn btn-secondary btn-sm dropdown-toggle rounded-5 px-3"
           type="button"
           id="dropdownMenuButton"
           data-bs-toggle="dropdown"
@@ -15,69 +15,27 @@
           Actions
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Import Leads</a>
-          <a class="dropdown-item" href="#">Export Leads</a>
-          <a class="dropdown-item" href="#">Edit Table</a>
+          <a class="dropdown-item" routerLink="import">Import Leads</a>
+          <a class="dropdown-item" routerLink="export">Export Leads</a>
         </div>
       </div>
-      @if (true) {
-        <i class='bx bx-filter-alt border p-2 rounded' ></i>
-      }
     </div>
   </div>
 
   @if (true) {
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th scope="col">Lead ID </th>
-        <th scope="col">Name</th>
-        <th scope="col">Email</th>
-        <th scope="col">Source </th>
-        <th scope="col">Created At </th>
-        <th scope="col">Created By </th>
-        <th scope="col">Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry the Bird</td>
-        <td>Larry the Bird</td>
-        <td>twitter</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="d-flex  align-items-end justify-content-between gap-2 mb-3">
+    <div class="d-flex gap-2">
+      <app-input-control label="Leads Serach" type="text"></app-input-control>
+      <app-input-control label="Filter Date" type="number"></app-input-control>
+    </div>
+    <div class="">
+      <button class="btn border px-2 rounded btn-sm" type="button">
+        <i class='bx bx-filter-alt'></i>
+      </button>
 
-  <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-end pagination-sm">
-      <li class="page-item disabled">
-        <a class="page-link" href="#" tabindex="-1" aria-disabled="true"
-          >Previous</a
-        >
-      </li>
-      <li class="page-item active"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item"><a class="page-link" href="#">...</a></li>
-      <li class="page-item"><a class="page-link" href="#">10</a></li>
-      <li class="page-item">
-        <a class="page-link" href="#">Next</a>
-      </li>
-    </ul>
-  </nav>
+    </div>
+  </div>
+
   } @else {
   <div class="d-flex flex-column justify-content-center align-items-center">
     <img src="leads.png" alt="No Leads" width="400" />
@@ -88,3 +46,5 @@
   </div>
   }
 </div>
+<router-outlet></router-outlet>
+
