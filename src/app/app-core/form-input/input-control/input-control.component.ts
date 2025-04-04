@@ -28,7 +28,7 @@ import {
 import { CustomDateAdapter } from './custom-date-adapter';
 import { Platform } from '@angular/cdk/platform';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { addDays, addMonths, format, isMatch, isValid, parse, subDays, subYears } from 'date-fns';
+import { addDays, addMonths, isMatch, format, isValid, parse, subDays, subYears } from 'date-fns';
 import { AppSettingsService } from '../../../common/services/app-settings/app-settings.service';
 import { NumberOnlyDirective } from '../form-directive/number-only/number-only.directive';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -149,9 +149,9 @@ export class InputControlComponent extends FromInputControl implements OnInit {
   }
 
   setAddMaxMonth(){
-    let nextSixMonthDate = addMonths(this.__tempMinDate, this.__addMaxMonth); 
+    let nextSixMonthDate = addMonths(this.__tempMinDate, this.__addMaxMonth);
     let minDate = subDays(nextSixMonthDate, -1);
-    this.__minDate = minDate; 
+    this.__minDate = minDate;
   }
 
   @Input()
@@ -334,7 +334,7 @@ export class InputControlComponent extends FromInputControl implements OnInit {
 
   checkTIN(tin: any) {
     return new Promise((resolve) => {
-      let formattedTIN = tin.toString() 
+      let formattedTIN = tin.toString()
         .replace(/\D/g, '').replace(/^(\d{2})(\d{5})(\d{1})(\d{1}).*/, '$1-$2-$3-$4');;
       resolve(formattedTIN);
     });
