@@ -1,0 +1,106 @@
+.delete-dec {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: center;
+    color: #828282;
+   
+    b{
+        color: #212121;
+        font-weight: 600;
+        padding-bottom: 8px;
+    }
+}
+.home-dialog-template .home-dialog-header{
+    background-color: #eee;;
+}
+
+.home-submit-dialog-label {
+    font-family: Metropolis;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.25;
+    // letter-spacing: 0.02em;
+    text-align: left;
+    color: #F93232;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    ion-icon {
+        color: #F93232;
+    }
+}
+
+
+.home-dialog-template {
+    background: #ffffff;
+    border-radius: 12px;
+  
+    .home-dialog-header {
+      height: 54px;
+      padding: 0px 26px 0px 14px;
+      background-color: #eee;
+
+  
+      .home-dialog-label {
+        color: #000000;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 16px;
+        letter-spacing: 0.01em;
+        text-align: left;
+  
+        span {
+          color: #000000bf !important;
+        }
+      }
+  
+      .home-delete-dialog-label {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 16px;
+        letter-spacing: 0.01em;
+        text-align: left;
+        color: #000000;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+  
+        ion-icon {
+          color: #F93232;
+          font-size: 17.14px;
+          display: flex;
+          align-items: center;
+        }
+      }
+  
+      ion-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #00000080;
+        font-size: 24px;
+        cursor: pointer;
+      }
+    }
+  
+    .home-dialog-container {
+      background: #f6f8fa;
+      padding: 20px 30px;
+      border-radius: 12px;
+      margin: 8px;
+    }
+  
+    .document-dialog-container {
+      background: #f6f8fa;
+      padding: 20px 30px;
+      border-radius: 12px;
+    }
+  
+    .home-dialog-footer {
+      // height: 67px;
+      padding: 0px 12px 0px 14px;
+    }
+  }

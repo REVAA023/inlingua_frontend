@@ -1,0 +1,16 @@
+.base-input{
+    width: 50px;
+    padding: 4px 8px;
+    text-align: center;
+    border: 2px solid #ddd;
+    background-color: white;
+    border-radius: 6px;
+    margin: 0 2px;
+    &:focus{
+        outline: 0;
+        border-color: var(--app-primary);
+    }
+    &.border-danger{
+        border-color: var(--app-danger) !important;
+    }
+}

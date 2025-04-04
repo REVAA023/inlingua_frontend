@@ -1,0 +1,61 @@
+.color-picker {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+
+    .color-display {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        cursor: pointer;
+        background: #fff;
+
+        .selected-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+    }
+
+    .dropdown {
+        position: absolute;
+        top: 50px;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
+        gap: 10px;
+        padding: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+
+            &:hover,
+            &.selected {
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+                outline: 2px solid #000;
+            }
+
+            .checkmark {
+                color: white;
+                font-size: 12px;
+                position: absolute;
+            }
+        }
+    }
+}

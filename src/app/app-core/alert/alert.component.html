@@ -1,0 +1,120 @@
+@switch (responseType) {
+@case ('success') {
+<div class="success">
+    <div class="d-flex align-items-center justify-content-between success-box">
+        <div class="d-flex align-items-center">
+            <div class="success-icon">
+                <ion-icon src="svg/success/success-info.svg" />
+            </div>
+            <div class="info-content">
+                <div class="head-1">Success Info</div>
+                <div class="head-2">{{ snackBarData?.msg }}</div>
+            </div>
+        </div>
+        <div class="success-close" (click)="dismiss()">
+            <ion-icon name="close-outline"></ion-icon>
+        </div>
+    </div>
+    <mat-progress-bar id="progress-bar" mode="determinate" [value]="progress" color="warn" class="progress">
+    </mat-progress-bar>
+</div>
+}
+@case ('delete') {
+<div class="delete-alert-container">
+    <div class="delete-alert-header">
+        <div class="delete-alert-header-icon">
+            <ion-icon name="trash"></ion-icon>
+        </div>
+    </div>
+    <div class="delete-alert-body">
+        <div class="delete-alert-label">
+            Confirm Delete
+        </div>
+        <div class="p18"></div>
+        @if(dialogData.msg !== '') {
+        <div class="slot-center">
+            <div class="delete-alert-msg" [innerHTML]="dialogData.msg | appSafe: 'html'">
+            </div>
+        </div>
+        }
+        @if(dialogData.confirmationText !== '') {
+        <div class="confirmation-input">
+            <label>Type "<strong>{{ dialogData.confirmationText }}</strong>" to confirm</label>
+            <div class="pt-2">
+                <app-input-control type="text" [(ngModel)]="confirmationInput" name="confirmationInput"
+                    [required]="true" [errorTrue]="errorTrue"></app-input-control>
+            </div>
+        </div>
+        }
+    </div>
+    <div class="delete-alert-footer slot-center gap16">
+        <a class="clear-delete-btn slot-center" appButton="No" (click)="onNoClick()"></a>
+        <button class="btn-delete-primary" appButton="Yes" (click)="confirmDeletion()"></button>
+    </div>
+</div>
+}
+@case ('submitAlert') {
+<div class="v-flex h100 home-dialog-template">
+    <div class="home-dialog-header between">
+        <div class="home-submit-dialog-label">
+            <ion-icon name="warning-outline"></ion-icon> Alert
+        </div>
+    </div>
+    <div class="home-dialog-container">
+        <div class="p26"></div>
+        <div class="slot-center">
+            <div class="delete-dec div-center" [innerHTML]="dialogData.msg | appSafe: 'html'">
+            </div>
+        </div>
+        <div class="p26"></div>
+    </div>
+    <div class="home-dialog-footer hAuto">
+        <div class="py-2 d-flex end">
+            <div class=" d-flex gap16">
+                <a class="clear-btn slot-center h36px mW100px" appButton="No" (click)="onNoClick()"></a>
+                <button class="btn-primary btn-cus-primary h36px mW100px" appButton="Yes"
+                    (click)="confirmDeletion()"></button>
+            </div>
+        </div>
+    </div>
+</div>
+}
+@case ('alertMsg') {
+<div class="v-flex h100 home-dialog-template">
+    <div class="home-dialog-header between">
+        <div class="home-submit-dialog-label">
+            <ion-icon name="warning-outline"></ion-icon> Alert
+        </div>
+    </div>
+    <div class="home-dialog-container">
+        <div class="p26"></div>
+        <div class="slot-center">
+            <div class="delete-dec div-center" [innerHTML]="dialogData.msg | appSafe: 'html'">
+            </div>
+        </div>
+        <div class="p26"></div>
+    </div>
+    <div class="home-dialog-footer hAuto">
+        <div class="py-2 d-flex end">
+            <div class=" d-flex gap16">
+                <button class="btn-primary btn-cus-primary h36px mW100px" appButton="Ok"
+                    (click)="confirmDeletion()"></button>
+            </div>
+        </div>
+    </div>
+</div>
+}
+@case ('sessionAlert') {
+<div class="session-timeout-container">
+    <div class="timeout-content">
+        <div class="timeout-title">Session <div class="text-effect" data-text="Timeout">Timeout</div>
+        </div>
+        <div class="timeout-icon-container">
+            <ion-icon src="svg/504 _Error_Gateway _timeout.svg" class="timeout-icon" />
+        </div>
+        <div class="timeout-message" [innerHTML]="dialogData.msg | appSafe: 'html'"></div>
+        <button class="btn-primary w-100" (click)="confirm()">Go to Login</button>
+    </div>
+</div>
+}
+}

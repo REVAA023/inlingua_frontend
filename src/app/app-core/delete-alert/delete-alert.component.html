@@ -1,0 +1,81 @@
+@if(data.type === 'delete') {
+<div class="v-flex h100 home-dialog-template">
+    <div class="home-dialog-header between">
+        <div class="home-delete-dialog-label">
+            Delete <ion-icon name="trash-outline"></ion-icon>
+        </div>
+        <div class="cursor-pointer" (click)="onNoClick()">
+            <ion-icon name="close-circle"></ion-icon>
+        </div>
+    </div>
+    <div class="home-dialog-container">
+        <div class="p26"></div>
+        <div class="slot-center">
+            <div class="delete-dec" [innerHTML]="data.msg | appSafe: 'html'">
+
+            </div>
+        </div>
+        <div class="p26"></div>
+    </div>
+    <div class="home-dialog-footer">
+        <div class="py-2 d-flex end">
+            <div class=" d-flex gap16">
+                <a class="clear-btn slot-center h36px mW100px" appButton="No" (click)="onNoClick()"></a>
+                <button class="btn-primary btn-cus-primary h36px mW100px" appButton="Yes" (click)="close()"></button>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+@else if (data.type === 'submitAlert') {
+<div class="v-flex h100 home-dialog-template">
+    <div class="home-dialog-header between">
+        <div class="home-submit-dialog-label">
+            <ion-icon name="warning-outline"></ion-icon> Alert
+        </div>
+    </div>
+    <div class="home-dialog-container">
+        <div class="p26"></div>
+        <div class="slot-center">
+            <div class="delete-dec div-center" [innerHTML]="data.msg | appSafe: 'html'">
+                <!-- {{ data.msg }} -->
+            </div>
+        </div>
+        <div class="p26"></div>
+    </div>
+    <div class="home-dialog-footer hAuto">
+        <div class="py-2 d-flex end">
+            <div class=" d-flex gap16">
+                <a class="clear-btn slot-center h36px mW100px" appButton="No" (click)="onNoClick()"></a>
+                <button class="btn-primary btn-cus-primary h36px mW100px" appButton="Yes" (click)="close()"></button>
+            </div>
+        </div>
+    </div>
+</div>
+}
+@else if (data.type === 'alertMsg') {
+    <div class="v-flex h100 home-dialog-template">
+        <div class="home-dialog-header between">
+            <div class="home-submit-dialog-label">
+                <ion-icon name="warning-outline"></ion-icon> Alert
+            </div>
+        </div>
+        <div class="home-dialog-container">
+            <div class="p26"></div>
+            <div class="slot-center">
+                <div class="delete-dec div-center" [innerHTML]="data.msg | appSafe: 'html'">
+                    <!-- {{ data.msg }} -->
+                </div>
+            </div>
+            <div class="p26"></div>
+        </div>
+        <div class="home-dialog-footer hAuto">
+            <div class="py-2 d-flex end">
+                <div class=" d-flex gap16">
+                    <button class="btn-primary btn-cus-primary h36px mW100px" appButton="Ok" (click)="close()"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    }

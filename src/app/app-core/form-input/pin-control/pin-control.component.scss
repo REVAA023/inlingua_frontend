@@ -1,0 +1,59 @@
+@import '../../../../scss/responsive-mixin.scss';
+
+.itg-pin-group {
+  gap: 16px;
+  padding-top: 16px;
+
+  &.input-error {
+    .itg-pin-control {
+      border-color: #FF1717 !important;
+    }
+  }
+}
+
+.itg-pin-control {
+  width: 35px;
+  height: 50px;
+  border: 0.25px solid #828282;
+  // margin-top: 16px;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: var(--input-font-weight);
+  color: var(--input-color);
+  justify-content: center;
+  font-family: var(--font-family);
+
+  @include breakpoint(sm) {
+    width: 50px;
+    height: 70px;
+    border-radius: 12px;
+  }
+
+  &:focus,
+  &:active,
+  &:hover {
+    outline: 0;
+    border-color: var(--app-primary);
+  }
+}
+
+.icon-btn {
+  font-size: 20px !important;
+}
+
+
+label {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  text-align: left;
+  color: #595959E5 !important;
+}
+
+
+.bottom {
+  position: absolute;
+  bottom: 0;
+  top: 90px !important;
+}

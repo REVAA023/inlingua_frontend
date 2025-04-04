@@ -1,0 +1,58 @@
+@import './form.scss';
+
+.itg-form {
+    --bs-danger: #dc3545;
+
+    // Form Group
+    --input-group-margin-bottom: 16px;
+
+    // ICON size config
+    --icon-size: 0.875rem;
+
+    // Label Config
+    --label-font-size: 16px;
+    --label-font-weight: 500;
+    --label-font-size-sm: 14px;
+    --label-font-weight-sm: 400;
+    --label-color: var(--text-label-color);
+    --label-bottom-padding: 5px;
+
+    // Input Config
+    --input-width: 100%;
+    --input-height: 40px;
+    --input-font-size: 15px;
+    --input-font-weight: 500;
+    --input-color: #343434;
+    --input-padding: 0 11px;
+
+    --white-input-background: #FFFFFF;
+    --white-input-border: #00000040;
+    --white-input-border-radius: 6px;
+    --white-input-height: 35px;
+
+    --input-background-color: #F4F6F9;
+    --input-background-color-focus: var(--input-background-color);
+    --input-background-color-active: var(--input-background-color);
+    --input-background-color-error: var(--input-background-color);
+    --input-border-radius: 12px;
+    --input-box-shadow: none;
+
+    --input-border-color: transparent;
+    --input-border-color-focus: var(--bs-primary);
+    --input-border-color-active: transparent;
+    ;
+    --input-border-color-error: var(--app-danger);
+
+    // Error Text Config
+    --error-text-color: var(--app-danger);
+    --error-text-font-size: 12px;
+    --error-text-font-weight: 400;
+
+}
+
+// for float css
+.itg-form-group-float {
+    --input-control-background-color: #F7F7F7;
+    --input-height: 2.25rem;
+    --input-border-color: #F7F7F7;
+}

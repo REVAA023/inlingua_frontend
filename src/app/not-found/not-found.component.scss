@@ -1,0 +1,15 @@
+.btn-outline-primary {
+  color: #FF751A;
+  background-color: transparent;
+  border-color: #FF751A;
+  border-radius: 50px;
+
+}
+.btn-outline-primary:hover {
+  background-color: #FF751A !important;
+  color: white;
+
+}
+.btn-outline-primary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 117, 26, 0.5);
+}

@@ -1,0 +1,64 @@
+<div class="itg-form itg-form-group {{className}}-group pb16">
+  <div class="label-container">
+    <ng-container *ngTemplateOutlet="labelContainer"></ng-container>
+    <!-- <div class="label-container-right">
+      <ng-container *ngTemplateOutlet="errorTextContainer"></ng-container>
+    </div> -->
+  </div>
+  <!-- {{control?.control?.invalid}} {{__errorTrue}} -->
+  <div class="itg-pin-group {{className}}" [ngClass]="{'input-error': control?.control?.invalid && __errorTrue}">
+    <ng-container *ngTemplateOutlet="inputControl"></ng-container>
+    @if(isEyeIcon) {
+    <div class="itg-input-group-append">
+      <ng-container *ngTemplateOutlet="passwordEyeIconContainer"></ng-container>
+      <!-- <span>Valid only for {{timeLeft}} Sec</span> -->
+    </div>
+    }
+
+  </div>
+  <div class="label-container bottom">
+    <div class="label-container-right ">
+      <ng-container *ngTemplateOutlet="errorTextContainer"></ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #inputControl>
+  @for (set of sets; track $index) {
+  <input autocomplete="new-password" class="itg-pin-control" [type]="__passwordTextType" [(ngModel)]="set.value"
+    [class.border-warn]="set.value === '' && __errorTrue" appPinNumberOnly limits="1" (input)="setValueFn()"
+    [disabled]="__btnClicked" (blur)="onAction('blur')" (focus)="onAction('focus')" (keydown)="keyDownEvent($event)"
+    (keyup)="keyUpEvent($event)" id="{{set.id}}" [next]="set.nextid" [prev]="set.previd">
+  }
+</ng-template>
+
+<ng-template #labelContainer>
+  <label>
+    {{__label}}
+    @if(__required && !hideStar){
+    <span class="text-danger">*</span>
+    }
+  </label>
+</ng-template>
+
+<ng-template #errorTextContainer>
+  @if((value === '' || value === 0) && control?.control?.invalid && __errorTrue){
+  <div class="error-text">
+    <span class="error-text-icon">
+      <ion-icon name="alert-circle-outline"></ion-icon>
+    </span>
+    {{__errorText}}
+  </div>
+  }
+</ng-template>
+
+<ng-template #passwordEyeIconContainer>
+  <a class="icon-btn" (click)="toggleHide()">
+    @if(__passwordTextType === 'text'){
+      <ion-icon name="eye-outline"></ion-icon>
+    }
+    @if(__passwordTextType === 'password'){
+    <ion-icon name="eye-off-outline"></ion-icon>
+    }
+  </a>
+</ng-template>

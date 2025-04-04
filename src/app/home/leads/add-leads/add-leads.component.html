@@ -1,0 +1,17 @@
+<div>
+  <form #l="ngForm" (ngSubmit)="onSubmit(l)">
+    <row>
+      <div class="col-md-4">
+        <app-input-control type="text" label="First Name" [required]="true" [(ngModel)]="firstName" name="firstName"
+          [required]="true" [errorTrue]="errorTrue"></app-input-control>
+      </div>
+      <div class="col-md-4">
+        <app-input-control type="text" label="Last Name" [required]="true"></app-input-control>
+      </div>
+      <div class="col-md-4">
+        <app-input-control type="date" label="Last Name" [required]="true"></app-input-control>
+      </div>
+    </row>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

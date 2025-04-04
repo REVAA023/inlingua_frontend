@@ -1,0 +1,24 @@
+<div class="d-flex align-items-center">
+  @if(processData.length > 0){
+  @for (item of processData; track $index) {
+  <div>{{item}}</div>
+  @if($index < processData.length -1 && data[binder[$index]] !== undefined){
+     @if(!readonly){ 
+      <input type="text" class="base-input"
+    [value]="data[binder[$index]]" (input)="valueChanged($event, binder[$index])"
+    [ngClass]="{'border-danger': data[binder[$index]] === '' && errorTrue}" />
+    } @else {
+        {{data[binder[$index]]}}
+    }
+  }
+  }
+  }
+</div>
+<!-- @if(){
+  <div class="error-text mt-10">
+    <span class="error-text-icon">
+        <ion-icon name="alert-circle-outline"></ion-icon>
+    </span>
+    Mandatory
+</div>
+} -->
