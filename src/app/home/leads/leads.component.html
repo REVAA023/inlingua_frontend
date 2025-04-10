@@ -1,20 +1,25 @@
 <div class="main-container">
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <p class="fw-bold fs-3 m-0 p-0 "> 25 Leads</p>
+    <p class="fw-bold fs-3 m-0 p-0">25 Leads</p>
     <div class="d-flex align-items-center gap-2">
-      <button class="btn btn-secondary btn-sm rounded-5 px-3"  routerLink="addleads">Create Leads</button>
+      <button
+        class="btn btn-secondary btn-sm rounded-5 px-3"
+        routerLink="addleads"
+      >
+        Create Leads
+      </button>
       <div class="dropdown">
         <button
           class="btn btn-secondary btn-sm dropdown-toggle rounded-5 px-3"
           type="button"
-          id="dropdownMenuButton"
+          id="actiondropdownMenuButton"
           data-bs-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
         >
           Actions
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <div class="dropdown-menu" aria-labelledby="actiondropdownMenuButton">
           <a class="dropdown-item" routerLink="import">Import Leads</a>
           <a class="dropdown-item" routerLink="export">Export Leads</a>
         </div>
@@ -23,17 +28,306 @@
   </div>
 
   @if (true) {
-  <div class="d-flex  align-items-end justify-content-between gap-2 mb-3">
-    <div class="d-flex gap-2">
-      <app-input-control label="Leads Serach" type="text"></app-input-control>
-      <app-input-control label="Filter Date" type="number"></app-input-control>
+  <div class="filter-container row">
+    <div class="col-md-3">
+      <app-input-control
+        placeholder="Search Leads"
+        type="text"
+      ></app-input-control>
     </div>
-    <div class="">
-      <button class="btn border px-2 rounded btn-sm" type="button">
-        <i class='bx bx-filter-alt'></i>
+    <div class="col-md-3">
+      <app-input-control
+        placeholder="Filter Date"
+        type="date"
+      ></app-input-control>
+    </div>
+    <div class="col-md-6 d-flex align-items-start justify-content-end">
+      <button
+        class="btn border px-2 rounded btn-sm"
+        type="button"
+        id="actiondropdownMenuButton"
+        data-bs-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bx bx-filter-alt"></i>
       </button>
-
+      <div class="dropdown-menu" aria-labelledby="filterdropdownMenuButton">
+        <a class="dropdown-item" href="#">Filter by Date</a>
+        <a class="dropdown-item" href="#">Filter by Status</a>
+        <a class="dropdown-item" href="#">Filter by Source</a>
+      </div>
     </div>
+  </div>
+  <div class="table-responsive mt-2 mx-n1 px-1">
+    <table class="table  mb-0 leads-table border-top border-translucent">
+      <thead>
+        <tr>
+          <th
+            class="sort text-nowrap align-middle text-uppercase small"
+            scope="col"
+            data-sort="name"
+          >
+            Lead Name
+          </th>
+          <th
+            class="sort text-nowrap align-middle ps-4 pe-5 text-uppercase small border-end border-translucent"
+            scope="col"
+            data-sort="email"
+          >
+            <div class="d-inline-flex flex-center">
+              <div
+                class="d-flex align-items-center px-1 py-1 bg-success-subtle rounded me-2"
+              >
+                <img src="assets/table_svg/gmail.svg" alt="" />
+              </div>
+              <span>Email</span>
+            </div>
+          </th>
+          <th
+            class="sort small text-nowrap align-middle text-uppercase border-end border-translucent"
+            scope="col"
+            data-sort="phone"
+          >
+            <div class="d-inline-flex flex-center">
+              <div
+                class="d-flex align-items-center px-1 py-1 bg-primary-subtle rounded me-2"
+              >
+                <img src="assets/table_svg/phone.svg" alt="" />
+              </div>
+              <span>Phone</span>
+            </div>
+          </th>
+          <th
+            class="sort small text-nowrap align-middle text-uppercase border-end border-translucent"
+            scope="col"
+            data-sort="phone"
+          >
+            <div class="d-inline-flex flex-center">
+              <div
+                class="d-flex align-items-center px-1 py-1 bg-primary-subtle rounded me-2"
+              >
+                <img src="assets/table_svg/status.svg" alt="" />
+              </div>
+              <span>Lead Status</span>
+            </div>
+          </th>
+          <th
+            class="sort small text-nowrap align-middle text-uppercase border-end border-translucent"
+            scope="col"
+            data-sort="contact"
+          >
+            <div class="d-inline-flex flex-center">
+              <div
+                class="d-flex align-items-center px-1 py-1 bg-info-subtle rounded me-2"
+              >
+                <img src="assets/table_svg/user.svg" alt="" />
+              </div>
+              <span>Lead Owner</span>
+            </div>
+          </th>
+          <th
+            class="sort small text-nowrap align-middle text-uppercase border-end border-translucent"
+            scope="col"
+            data-sort="company"
+          >
+            <div class="d-inline-flex flex-center">
+              <div
+                class="d-flex align-items-center px-1 py-1 bg-warning-subtle rounded me-2"
+              >
+                <img src="assets/table_svg/lead_source.svg" alt="" />
+              </div>
+              <span>Lead source</span>
+            </div>
+          </th>
+          <th
+            class="sort text-nowrap align-middle text-uppercase"
+            scope="col"
+            data-sort="date"
+          >
+            Create date
+          </th>
+          <th class="sort text-end align-middle pe-0 ps-4" scope="col"></th>
+        </tr>
+      </thead>
+      <tbody class="list" id="leal-tables-body">
+        <tr class="hover-actions-trigger btn-reveal-trigger position-static">
+          <td class="name align-middle white-space-nowrap">
+            <div class="d-flex align-items-center">
+              <a href="#!" class="text-decoration-none">
+                <div class="avatar avatar-xl me-3">
+                  @if (false) {
+                    <img
+                    class="rounded-circle"
+                    src="https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8"
+                    alt="" width="40" height="40"
+                  />
+                  }@else {
+                    <div class="bg-secondary text-white fw-bold text-uppercase d-flex align-items-center justify-content-center rounded-circle" style="width: 40px; height: 40px;">
+                      am
+                    </div>
+                  }
+
+                </div>
+              </a>
+              <div>
+                <a class="small fw-bold text-decoration-none d-flex align-items-center gap-2" href="">Anthoney Michael
+                  <span class="p-0 m-0 badge badge-primary small border bg-success p-1 px-2">NEW</span>
+                </a>
+                <div class="d-flex align-items-center">
+                  <p class="mb-0 text-body-highlight small  me-2">
+                    Student
+                  </p>
+                  <span class="p-0 m-0 badge badge-primary small border bg-secondary p-1 d-flex gap-2"><span>English</span> <span>A1</span></span>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            class="email align-middle white-space-nowrap ps-4 border-end border-translucent"
+          >
+            <a class="text-body-highlight text-decoration-none small" href="mailto:anth125gmail.com"
+              >anth125gmail.com </a
+            >
+          </td>
+          <td
+            class="phone align-middle white-space-nowrap ps-4 border-end border-translucent"
+          >
+            <a class="text-body-highlight text-decoration-none small" href="tel:+91 97873 42110"
+              >+91 97873 42110</a
+            >
+          </td>
+          <td
+            class="phone align-middle white-space-nowrap ps-4 border-end border-translucent"
+          >
+            <a class="text-body-highlight text-decoration-none small" href="tel:+91 97873 42110"
+              >+91 97873 42110</a
+            >
+          </td>
+          <td
+            class="align-middle small white-space-nowrap ps-4 border-end border-translucent text-body-highlight"
+          >
+            Ally Aagaard
+          </td>
+          <td
+            class="company small align-middle white-space-nowrap text-body-tertiary text-opacity-85 ps-4 border-end border-translucent text-body-highlight"
+          >
+            Google.inc
+          </td>
+          <td
+            class="date small align-middle white-space-nowrap text-body-tertiary text-opacity-85 ps-4 text-body-tertiary"
+          >
+            Jan 01, 12:56 PM
+          </td>
+          <td class="align-middle white-space-nowrap text-end pe-0 ps-4">
+            <div class="btn-reveal-trigger position-static">
+              <button
+              class="btn border px-2 rounded btn-sm"
+              type="button"
+              id="actiondropdownMenuButton"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              >
+              <i class='bx bx-dots-horizontal'></i>
+              </button>
+              <div class="dropdown-menu dropdown-menu-end py-2">
+                <a class="dropdown-item" href="#!">View</a
+                ><a class="dropdown-item" href="#!">Export</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item text-danger" href="#!"><i class='bx bx-trash'></i> Remove</a>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr class="hover-actions-trigger btn-reveal-trigger position-static">
+          <td class="name align-middle white-space-nowrap">
+            <div class="d-flex align-items-center">
+              <a href="#!" class="text-decoration-none">
+                <div class="avatar avatar-xl me-3">
+                  @if (true) {
+                    <img
+                    class="rounded-circle"
+                    src="https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8"
+                    alt="" width="40" height="40"
+                  />
+                  }@else {
+                    <div class="incial-img-container bg-secondary p-2 rounded-5">
+                      <span class=" text-uppercase fw-bold text-white ">am</span>
+                    </div>
+                  }
+
+                </div>
+              </a>
+              <div>
+                <a class="small fw-bold text-decoration-none" href="">Ramesh Kumar</a>
+                <div class="d-flex align-items-center">
+                  <p class="mb-0 text-body-highlight small  me-2">
+                    Student
+                  </p>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            class="email align-middle white-space-nowrap ps-4 border-end border-translucent"
+          >
+            <a class="text-body-highlight text-decoration-none small" href="mailto:anth125gmail.com"
+              >rameshgmail.com</a
+            >
+          </td>
+          <td
+            class="phone align-middle white-space-nowrap ps-4 border-end border-translucent"
+          >
+            <a class="text-body-highlight text-decoration-none small" href="tel:+1-202-555-0126"
+              >+91 63697 06554</a
+            >
+          </td>
+          <td
+            class="phone align-middle white-space-nowrap ps-4 border-end border-translucent"
+          >
+            <a class="text-body-highlight text-decoration-none small" href="tel:+1-202-555-0126"
+              >+91 63697 06554</a
+            >
+          </td>
+          <td
+            class="align-middle small white-space-nowrap ps-4 border-end border-translucent text-body-highlight"
+          >
+            Karnan Raj
+          </td>
+          <td
+            class="company small align-middle white-space-nowrap text-body-tertiary text-opacity-85 ps-4 border-end border-translucent text-body-highlight"
+          >
+            Google.inc
+          </td>
+          <td
+            class="date small align-middle white-space-nowrap text-body-tertiary text-opacity-85 ps-4 text-body-tertiary"
+          >
+            Jan 01, 12:56 PM
+          </td>
+          <td class="align-middle white-space-nowrap text-end pe-0 ps-4">
+            <div class="btn-reveal-trigger position-static">
+              <button
+              class="btn border px-2 rounded btn-sm"
+              type="button"
+              id="actiondropdownMenuButton"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              >
+              <i class='bx bx-dots-horizontal'></i>
+              </button>
+              <div class="dropdown-menu dropdown-menu-end py-2">
+                <a class="dropdown-item" href="#!">View</a
+                ><a class="dropdown-item" href="#!">Export</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item text-danger" href="#!"><i class='bx bx-trash'></i> Remove</a>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   } @else {
@@ -47,4 +341,3 @@
   }
 </div>
 <router-outlet></router-outlet>
-

@@ -1,17 +1,17 @@
 @import '../../../../scss/responsive-mixin.scss';
 
-.itg-pin-group {
+.revaa-pin-group {
   gap: 16px;
   padding-top: 16px;
 
   &.input-error {
-    .itg-pin-control {
+    .revaa-pin-control {
       border-color: #FF1717 !important;
     }
   }
 }
 
-.itg-pin-control {
+.revaa-pin-control {
   width: 35px;
   height: 50px;
   border: 0.25px solid #828282;

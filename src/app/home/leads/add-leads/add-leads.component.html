@@ -1,16 +1,32 @@
 <div>
+  <p class="fs-5 fw-bold m-0">Add New Leads</p>
+  <!-- Share your leads sheet -->
+  <p class="fs-6 text-muted">Share your leads sheet with your team and get started.
+    <a href="" class=""> Share sheet</a>
+  </p>
+
+
+</div>
+
+<div>
   <form #l="ngForm" (ngSubmit)="onSubmit(l)">
     <row>
       <div class="col-md-4">
-        <app-input-control type="text" label="First Name" [required]="true" [(ngModel)]="firstName" name="firstName"
+        <app-input-control type="email" label="First Name" [required]="true" [(ngModel)]="firstName" name="firstName"
           [required]="true" [errorTrue]="errorTrue"></app-input-control>
       </div>
       <div class="col-md-4">
         <app-input-control type="text" label="Last Name" [required]="true"></app-input-control>
       </div>
       <div class="col-md-4">
-        <app-input-control type="date" label="Last Name" [required]="true"></app-input-control>
+        <app-input-control
+          type="date"
+          label="Date"
+          [required]="true"
+          >
+        </app-input-control>
       </div>
+
     </row>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>

@@ -1,0 +1,25 @@
+.import-form {
+  border: 2px dashed #ccc;
+  text-align: center;
+  padding: 20px;
+  transition: all 0.3s ease-in-out;
+  background-color: #f0f0f0;
+
+  &.drag-over {
+    border-color: #007bff;
+    background-color: #f8f9fa;
+  }
+}
+
+.file-upload-btn input {
+  display: none;
+}
+
+.download-sample a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.download-sample a:hover {
+  text-decoration: underline;
+}

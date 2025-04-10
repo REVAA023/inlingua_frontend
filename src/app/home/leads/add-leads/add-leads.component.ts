@@ -15,6 +15,13 @@ import { Row } from "../../../app-core/core-component/core-component.component";
 })
 export class AddLeadsComponent {
 
+  today: string;
+
+  constructor() {
+    const now = new Date();
+    this.today = now.toISOString().split('T')[0]; // Format: yyyy-mm-dd
+  }
+
   firstName: string = '';
 
   errorTrue = false;
@@ -27,8 +34,8 @@ export class AddLeadsComponent {
       this.errorTrue = false;
       console.log('Form is valid');
       console.log('First Name:', this.firstName);
-      
-      
+
+
     } else {
       console.log('Form is invalid');
       this.errorTrue = true;

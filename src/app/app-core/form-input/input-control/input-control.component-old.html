@@ -12,7 +12,7 @@
 }
 
 <ng-template #defaultTemplate>
-  <div class="itg-form itg-form-group {{className}}-group">
+  <div class="revaa-form revaa-form-group {{className}}-group">
     <div class="label-container">
       <ng-container *ngTemplateOutlet="labelContainer"></ng-container>
       <div class="label-container-right">
@@ -20,14 +20,14 @@
       </div>
     </div>
     <!-- {{control?.control?.invalid}} {{__errorTrue}} -->
-    <div class="itg-input-group {{className}}"
+    <div class="revaa-input-group {{className}}"
       [ngClass]="{'input-error': control?.control?.invalid && __errorTrue, 'bgRemove': removeBg, 'focused': focused}">
       @if(__assignIcon) {
       <ng-container *ngTemplateOutlet="reassignContainer"></ng-container>
       }
       <ng-container *ngTemplateOutlet="inputControl"></ng-container>
       @if (__type !== 'select') {
-      <div class="itg-input-group-append">
+      <div class="revaa-input-group-append">
         <ng-container *ngTemplateOutlet="clearBtnContainer"></ng-container>
         <ng-container *ngTemplateOutlet="calendarBtn"></ng-container>
         <ng-container *ngTemplateOutlet="searchBtnContainer"></ng-container>
@@ -61,7 +61,7 @@
 <ng-template #inputControl>
   @switch (this.__type) {
   @case ("password") {
-  <input [type]="__passwordTextType" class="itg-input-control" autocomplete="none" [appNoEmoji]="true"
+  <input [type]="__passwordTextType" class="revaa-input-control" autocomplete="none" [appNoEmoji]="true"
     [appUpperCase]="__upperCase && !__lowerCase" [appLowerCase]="__lowerCase && !__upperCase" [appLimit]="__maxLength"
     [autofocus]="__autoFocus" [placeholder]="__placeholder" [(ngModel)]="value" [name]="name+addOnID"
     [disabled]="__btnClicked" (blur)="onAction('blur')" (focus)="onAction('focus')" (keydown)="keyDownEvent($event)"
@@ -69,7 +69,7 @@
     [inputMode]="__inputMode" [tabIndex]="__tabIndex" />
   }
   @case ("number") {
-  <input type="text" class="itg-input-control" autocomplete="none" [appNoEmoji]="true"
+  <input type="text" class="revaa-input-control" autocomplete="none" [appNoEmoji]="true"
     [appUpperCase]="__upperCase && !__lowerCase" [appLowerCase]="__lowerCase && !__upperCase" [appLimit]="__maxLength"
     [autofocus]="__autoFocus" [placeholder]="__placeholder" [(ngModel)]="value" [name]="name+addOnID"
     [disabled]="__btnClicked" (blur)="onAction('blur')" (focus)="onAction('focus')" (keydown)="keyDownEvent($event)"
@@ -84,7 +84,7 @@
   <ng-container *ngTemplateOutlet="selectTemplate"></ng-container>
   }
   @case ("textarea") {
-  <textarea class="itg-input-control textarea {{className}}" [ngClass]="{'disabled' : this.__btnClicked}"
+  <textarea class="revaa-input-control textarea {{className}}" [ngClass]="{'disabled' : this.__btnClicked}"
     autocomplete="off" [(ngModel)]="value" [name]="name+addOnID" [placeholder]="__placeholder" [autofocus]="__autoFocus"
     [disabled]="__btnClicked" (blur)="onAction('blur')" (focus)="onAction('focus')" (keydown)="keyDownEvent($event)"
     (keyup)="keyUpEvent($event)" [id]="name+addOnID" #formInput [appNoEmoji]="true"
@@ -92,7 +92,7 @@
     [appLimit]="__maxLength" [tabIndex]="__tabIndex"></textarea>
   }
   @case ("textareaDoc") {
-  <textarea class="itg-input-control  {{className}}" [ngClass]="{'disabled' : this.__btnClicked}" autocomplete="off"
+  <textarea class="revaa-input-control  {{className}}" [ngClass]="{'disabled' : this.__btnClicked}" autocomplete="off"
     [(ngModel)]="value" [name]="name+addOnID" [placeholder]="__placeholder" [autofocus]="__autoFocus"
     [disabled]="__btnClicked" (blur)="onAction('blur')" (focus)="onAction('focus')" (keydown)="keyDownEvent($event)"
     (keyup)="keyUpEvent($event)" [id]="name+addOnID" #formInput [appNoEmoji]="true"
@@ -100,7 +100,7 @@
     [appLimit]="__maxLength" [tabIndex]="__tabIndex"></textarea>
   }
   @case("email"){
-  <input type="text" class="itg-input-control" autocomplete="none" [appNoEmoji]="true" [appLowerCase]="true"
+  <input type="text" class="revaa-input-control" autocomplete="none" [appNoEmoji]="true" [appLowerCase]="true"
     [appLimit]="__maxLength" [autofocus]="__autoFocus" [placeholder]="__placeholder" [(ngModel)]="value"
     [name]="name+addOnID" [disabled]="__btnClicked" (blur)="onAction('blur')" (focus)="onAction('focus')"
     (keydown)="keyDownEvent($event)" (keyup)="keyUpEvent($event)" [id]="name" #formInput
@@ -108,7 +108,7 @@
   }
 
   @default {
-  <input type="text" class="itg-input-control" autocomplete="none" [appNoEmoji]="__noEmoji"
+  <input type="text" class="revaa-input-control" autocomplete="none" [appNoEmoji]="__noEmoji"
     [appUpperCase]="__upperCase && !__lowerCase" [appLowerCase]="__lowerCase && !__upperCase" [appLimit]="__maxLength"
     [autofocus]="__autoFocus" [placeholder]="__placeholder" [(ngModel)]="value" [name]="name+addOnID"
     [disabled]="__btnClicked" (blur)="onAction('blur')" (focus)="onAction('focus')" (keydown)="keyDownEvent($event)"
@@ -241,14 +241,14 @@
 </ng-template>
 
 <ng-template #selectTemplate>
-  <mat-select class="itg-input-control border-right-radius border-left" [autofocus]="__autoFocus"
+  <mat-select class="revaa-input-control border-right-radius border-left" [autofocus]="__autoFocus"
     [placeholder]="__placeholder" [(ngModel)]="value" [name]="name+addOnID" [disabled]="__btnClicked"
     (blur)="onAction('blur')" (focus)="onAction('focus')" (keydown)="keyDownEvent($event)" (keyup)="keyUpEvent($event)"
     [id]="name+addOnID" #formInput panelClass="search-option-list" (openedChange)="isSelectOpened($event)"
     (ngModelChange)="onAction('change')" (selectionChange)="onAction('select')" [tabIndex]="__tabIndex">
     @if(__enableSelectSearch){
     <mat-option class="sticky-option" disabled>
-      <div class="itg-select-search">
+      <div class="revaa-select-search">
         <input type="text" class="sticky-input" #searchInput [(ngModel)]="__selectSearchInput"
           name="__selectSearchInput" />
         <a class="icon-btn" (click)="__selectSearchInput = ''">
@@ -258,17 +258,17 @@
     </mat-option>
     }
     @if (defaultOption!=='' && value===0) {
-    <mat-option [value]="0" class="itg-mat-option">
+    <mat-option [value]="0" class="revaa-mat-option">
       {{defaultOption}}
     </mat-option>
     }
     @if (defaultOption!=='' && value === '') {
-    <mat-option value="" class="itg-mat-option">
+    <mat-option value="" class="revaa-mat-option">
       {{defaultOption}}
     </mat-option>
     }
     @for (item of __items | filterAndSort: __selectSearchInput: __keyName: __sort; track $index) {
-    <mat-option [value]="item[__key]" class="itg-mat-option">
+    <mat-option [value]="item[__key]" class="revaa-mat-option">
       {{item[__keyName]}}
     </mat-option>
     }
@@ -276,7 +276,7 @@
 </ng-template>
 
 <ng-template #dateTemplate>
-  <input type="text" class="itg-input-control" autocomplete="none" appNoEmoji
+  <input type="text" class="revaa-input-control" autocomplete="none" appNoEmoji
     [appUpperCase]="__upperCase && !__lowerCase" [appLowerCase]="__lowerCase && !__upperCase" [appLimit]="__maxLength"
     [autofocus]="__autoFocus" [placeholder]="__placeholder" [(ngModel)]="__xvalue" [name]="name + addOnID"
     [disabled]="__btnClicked" (blur)="onAction('blur')" (focus)="onAction('focus')" (keydown)="keyDownEvent($event)"
@@ -284,7 +284,7 @@
     (click)="picker.open()" (dateChange)="onDateChange()" [max]="__maxDate" [min]="__minDate" [tabIndex]="__tabIndex" />
 </ng-template>
 
-<mat-datepicker #picker [disabled]="__btnClicked" panelClass="itg-calendar">
+<mat-datepicker #picker [disabled]="__btnClicked" panelClass="revaa-calendar">
 </mat-datepicker>
 
 <ng-template #calendarBtn>
@@ -296,7 +296,7 @@
 </ng-template>
 
 <ng-template #textareaTemplate>
-  <div class="itg-form itg-form-group {{className}}-group">
+  <div class="revaa-form revaa-form-group {{className}}-group">
     <div class="label-container">
       <ng-container *ngTemplateOutlet="labelContainer"></ng-container>
       <div class="label-container-right">
@@ -305,11 +305,11 @@
       </div>
     </div>
     <!-- {{control?.control?.invalid}} {{__errorTrue}} -->
-    <div class="itg-input-group {{className}}"
+    <div class="revaa-input-group {{className}}"
       [ngClass]="{'input-error': control?.control?.invalid && __errorTrue, 'bgRemove': removeBg,'focused': focused}">
       <ng-container *ngTemplateOutlet="textareaControl"></ng-container>
       @if (__type !== 'select') {
-      <div class="itg-input-group-append">
+      <div class="revaa-input-group-append">
         <ng-container *ngTemplateOutlet="clearBtnContainer"></ng-container>
       </div>
       }
@@ -324,7 +324,7 @@
 </ng-template>
 
 <ng-template #textareaTemplate1>
-  <div class="itg-form itg-form-group {{className}}-group">
+  <div class="revaa-form revaa-form-group {{className}}-group">
     <div class="label-container">
       <ng-container *ngTemplateOutlet="labelContainer"></ng-container>
       <div class="label-container-right">
@@ -333,11 +333,11 @@
       </div>
     </div>
     <!-- {{control?.control?.invalid}} {{__errorTrue}} -->
-    <div class="itg-input-group {{className}}"
+    <div class="revaa-input-group {{className}}"
       [ngClass]="{'input-error': control?.control?.invalid && __errorTrue, 'bgRemove': removeBg, 'focused': focused}">
       <ng-container *ngTemplateOutlet="textareaControl"></ng-container>
       @if (__type !== 'select') {
-      <div class="itg-input-group-append">
+      <div class="revaa-input-group-append">
         <ng-container *ngTemplateOutlet="clearBtnContainer"></ng-container>
       </div>
       }
@@ -352,7 +352,7 @@
 </ng-template>
 
 <ng-template #textareaControl>
-  <textarea class="itg-input-control textarea {{className}}" [ngClass]="{'disabled' : this.__btnClicked}"
+  <textarea class="revaa-input-control textarea {{className}}" [ngClass]="{'disabled' : this.__btnClicked}"
     autocomplete="off" [(ngModel)]="value" [name]="name+addOnID" [placeholder]="__placeholder" [autofocus]="__autoFocus"
     [disabled]="__btnClicked" (blur)="onAction('blur')" (focus)="onAction('focus')" (keydown)="keyDownEvent($event)"
     (keyup)="keyUpEvent($event)" [id]="name+addOnID" #formInput [appNoEmoji]="__noEmoji"

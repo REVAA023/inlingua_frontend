@@ -1,8 +1,12 @@
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import Chart from 'chart.js/auto';
+import { StudentDashboardComponent } from './student-dashboard/student-dashboard.component';
 
 @Component({
   selector: 'app-dashboard',
+  imports: [
+    StudentDashboardComponent
+  ],
   standalone: true,
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']

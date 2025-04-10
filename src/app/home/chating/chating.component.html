@@ -1,0 +1,69 @@
+<div class="v-flex h-100">
+  <div class="row h-100">
+    <div class="col-4 h-100" style="overflow-y: auto">
+      <div class="h-100">
+        <app-chat-sidebar></app-chat-sidebar>
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="border chating-main-container rounded h-100 w-100">
+        @if (true) {
+        <div class="d-flex v-flex justify-content-center align-items-center">
+          <img src="main_chating.svg" alt="" width="350" />
+          <p class="fs-5 fw-bold text-center w-75">
+            Chat only for educational content. We are tracking suspicious content.
+          </p>
+        </div>
+        } @else {
+        <div class="h-100">
+          <div
+            class="d-flex justify-content-between align-items-center border-bottom"
+          >
+            <div
+              class="d-flex align-items-center justify-content rounded p-2 gap-3 w-100 contact-container"
+            >
+              <div class="">
+                <img
+                  src="https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8"
+                  alt="Profile"
+                  width="40"
+                  height="40"
+                  class="rounded-circle"
+                />
+              </div>
+
+              <div
+                class="d-flex align-items-center justify-content-between gap-2 w-100"
+              >
+                <div class="">
+                  <p class="m-0 fw-semibold">Ramesh Kumar</p>
+                  <p class="m-0 small text-truncate" style="max-width: 222px">
+                    Online
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="chat-messages p-2" style="height: 65vh; overflow-y: auto">
+            <div class="others-message-container">
+              <div class="others-message border p-2 rounded mb-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, provident nobis, hic eaque sit facere ipsa ut laborum aperiam voluptas libero a delectus nulla id ad quisquam dolorum adipisci vel.</div>
+            </div>
+            <div class="your-message-container">
+              <div class="your-message border p-2 rounded mb-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, provident nobis, hic eaque sit facere ipsa ut laborum aperiam voluptas libero a delectus nulla id ad quisquam dolorum adipisci vel.</div>
+              <div class="your-message border p-2 rounded mb-1">Lorem ipsum dolor sit amet</div>
+            </div>
+          </div>
+          <div class="input-group">
+            <input
+              type="text"
+              class="custom-input-control m-0"
+              placeholder="Type a message..."
+            />
+            <button class="btn">Send</button>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

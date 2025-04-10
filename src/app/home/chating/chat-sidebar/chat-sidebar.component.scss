@@ -1,0 +1,34 @@
+.contact-container{
+  background-color: rgb(248, 248, 248);
+  cursor: pointer;
+}
+.chat-active{
+  background-color: #ffaf7a !important;
+  border-color: #ff6600 !important;
+  // color: white;
+}
+.contact-container:hover{
+  background-color: rgb(231, 231, 231);
+
+}
+.custom-badge{
+  min-width: 22px;
+  height: 22px;
+  background-color: #FF751A;
+  span{
+    font-size: small;
+  }
+}
+.search-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  background-color: #f3f3f3;
+  .custom-input-control{
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border: none;
+  }
+}

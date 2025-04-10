@@ -8,9 +8,9 @@ import * as CryptoJS from 'crypto-js';
 export class StorageService {
   private hasIndexedDB = false;
   private db: IDBDatabase | null = null;
-  private readonly objectStoreName = '__ITG__STORE__APP__';
-  private readonly encryptionKey = 'ITG_ENCRYPT@1234';
-  private readonly encryptionKeyIV = 'ITG_ENCRYPT@1234IV';
+  private readonly objectStoreName = '__revaa__STORE__APP__';
+  private readonly encryptionKey = 'revaa_ENCRYPT@1234';
+  private readonly encryptionKeyIV = 'revaa_ENCRYPT@1234IV';
   private type = 'session';
 
   constructor(private appSetting: AppSettingsService) {

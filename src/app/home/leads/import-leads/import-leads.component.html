@@ -1,1 +1,26 @@
-<p>import-leads works!</p>
+<div class="import-main-container">
+  <div class="import-header d-flex align-items-center gap-3">
+    <a href="" class="btn btn-sm btn-secondary rounded-5 px-3">Go Back</a>
+    <span class="fw-bold fs-5">Import Leads</span>
+    <div class="download-sample text-center">
+      Download Sample File:
+      <a href="assets/sample.csv"  class="small">CSV</a> |
+      <a href="assets/sample.xlsx" class="small" download>XLSX</a>
+      <span> Max 500 datas only</span>
+    </div>
+  </div>
+
+  <div class="import-body">
+    <div class="import-form p-3 mt-3 rounded-3"
+         (dragover)="onDragOver($event)"
+         (dragleave)="onDragLeave($event)"
+         (drop)="onDrop($event)">
+      <p class="text-center m-0">Drop your file here to upload.</p>
+      <p class="text-center m-0 small">- or -</p>
+      <label class="file-upload-btn btn btn-sm btn-secondary mt-1 rounded-5 px-3">
+        <input type="file" (change)="onFileSelect($event)" accept=".csv,.xlsx"/>
+        Select File
+      </label>
+    </div>
+  </div>
+</div>

@@ -8,6 +8,12 @@ export const routes: Routes = [
       import('./auth/auth.component').then((m) => m.AuthComponent),
   },
   {
+    path: 'leadsheet',
+    data: { title: 'Inlingua | Lead Sheet' },
+    loadComponent: () =>
+      import('./home/leads/leadsheet/leadsheet.component').then((m) => m.LeadsheetComponent),
+  },
+  {
     path: '',
     loadComponent: () =>
       import('./home/home.component').then((m) => m.HomeComponent),
@@ -18,6 +24,14 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./home/dashboard/dashboard.component').then(
             (m) => m.DashboardComponent
+          ),
+      },
+      {
+        path: 'chating',
+        data: { title: 'Inlingua | Chating' },
+        loadComponent: () =>
+          import('./home/chating/chating.component').then(
+            (m) => m.ChatingComponent
           ),
       },
       {

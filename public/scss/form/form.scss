@@ -5,12 +5,12 @@ input[type="password"]::-ms-reveal {
   display: none !important;
 }
 
-.itg-pin-group {
+.revaa-pin-group {
   gap: 16px;
   padding-top: 16px;
 
   &.input-error {
-    .itg-pin-control {
+    .revaa-pin-control {
       border-color: #FF1717 !important;
     }
   }
@@ -22,25 +22,25 @@ input {
 }
 
 .space-remove {
-  .itg-form-group {
+  .revaa-form-group {
     padding-bottom: 0px !important;
 
     .label-container {
       padding-bottom: 0px !important;
     }
 
-    .itg-input-group {
+    .revaa-input-group {
       margin-bottom: 0px !important;
     }
   }
 }
 
-.itg-form-group {
+.revaa-form-group {
   display: flex;
   flex-direction: column;
   width: 100%;
   position: relative;
-  padding-bottom: var(--input-group-margin-bottom);
+  // padding-bottom: var(--input-group-margin-bottom);
 
   .label-container {
     display: flex;
@@ -48,9 +48,8 @@ input {
     padding-bottom: var(--label-bottom-padding);
 
     &.bottom {
-      position: absolute;
       bottom: 0;
-      top: 55px;
+      top: 60px;
     }
 
     label {
@@ -108,7 +107,7 @@ input {
     background-color: var(--white-input-background) !important;
   }
 
-  .itg-input-group {
+  .revaa-input-group {
     display: flex;
     align-items: center;
     position: relative;
@@ -122,14 +121,15 @@ input {
     &.notes {
       --input-height: 90px;
 
-      .itg-input-control {
+      .revaa-input-control {
         border: 1px solid var(--input-border-color);
         border-right: none;
         border-top-left-radius: 3px;
         border-bottom-left-radius: 3px;
         resize: none;
+        border: 1px solid blue;
 
-        &+.itg-input-group-append {
+        &+.revaa-input-group-append {
           min-width: 28px;
           align-items: start;
           border: 1px solid var(--input-border-color);
@@ -148,7 +148,7 @@ input {
 
     }
 
-    .itg-input-control {
+    .revaa-input-control {
       padding: var(--input-padding);
       border: none;
       flex: 1;
@@ -157,18 +157,19 @@ input {
       // border-top-left-radius: var(--input-border-radius);
       // border-bottom-left-radius: var(--input-border-radius);
       font-size: var(--input-font-size);
-      font-weight: var(--input-font-weight);
+      // font-weight: var(--input-font-weight);
       color: var(--input-color);
       border-bottom: 1px solid var(--input-border-color);
       border-right-width: 0;
       // background-color: var(--input-background-color);
       font-family: var(--font-family);
+      width: 100% !important;
 
       &::placeholder {
         font-weight: 400;
       }
 
-      &+.itg-input-group-append {
+      &+.revaa-input-group-append {
         // border-top-right-radius: var(--input-border-radius);
         // border-bottom-right-radius: var(--input-border-radius);
         border-bottom: 1px solid var(--input-border-color);
@@ -181,7 +182,7 @@ input {
       }
 
       &:hover {
-        &+.itg-input-group-append {
+        &+.revaa-input-group-append {
           .close-btn {
             display: flex;
           }
@@ -193,7 +194,7 @@ input {
         // border-color: var(--input-border-color-focus);
         // background-color: var(--input-background-color-focus);
 
-        &+.itg-input-group-append {
+        &+.revaa-input-group-append {
           // border-color: var(--input-border-color-focus);
           // background-color: var(--input-background-color-focus);
 
@@ -208,7 +209,7 @@ input {
         // border-color: var(--input-border-color-active);
         // background-color: var(--input-background-color-active);
 
-        &+.itg-input-group-append {
+        &+.revaa-input-group-append {
           // border-color: var(--input-border-color-active);
           // background-color: var(--input-background-color-active);
 
@@ -234,15 +235,15 @@ input {
       width: var(--input-width);
       background-color: var(--input-background-color);
 
-      // .itg-input-control,
-      // .itg-input-group-append {
+      // .revaa-input-control,
+      // .revaa-input-group-append {
       //   border: var(--input-border-color-error) 0.5px solid;
       // }
 
-      // .itg-input-group-append {
+      // .revaa-input-group-append {
       //   border-left: transparent 0.5px solid;
       // }
-      // .itg-input-control {
+      // .revaa-input-control {
       //   border-right: 0.5px solid transparent;
       // }
 
@@ -252,7 +253,7 @@ input {
     }
   }
 
-  .itg-input-group-append {
+  .revaa-input-group-append {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -302,7 +303,7 @@ input {
   }
 }
 
-.itg-input-control {
+.revaa-input-control {
   .mat-mdc-select-value {
     line-height: 1.15;
   }
@@ -325,7 +326,7 @@ input {
     }
   }
 
-  .itg-select-search {
+  .revaa-select-search {
     display: flex;
     align-items: center;
     position: absolute;
@@ -375,7 +376,7 @@ input {
   color: #FF1717;
 }
 
-.itg-form-group {
+.revaa-form-group {
   &.label-light-group {
     .label-container {
       label {
@@ -413,14 +414,14 @@ input {
     border-radius: 6px !important;
     height: 157px !important;
 
-    .itg-input-control {
+    .revaa-input-control {
       height: 157px !important;
       background-color: transparent !important;
       border: 0.25px solid transparent !important;
       resize: none;
     }
 
-    .itg-input-group-append{
+    .revaa-input-group-append{
       align-items: baseline !important;
       height:100%
     }
@@ -443,13 +444,13 @@ input {
   border-radius: 6px !important;
   height: 87px !important;
 
-  .itg-input-control {
+  .revaa-input-control {
     height: 87px ;
     background-color: transparent !important;
     border: 0.25px solid transparent !important;
     resize: none;
   }
-  .itg-input-group-append{
+  .revaa-input-group-append{
     align-items: baseline !important;
     height:100%
   }
@@ -462,22 +463,22 @@ input {
        position: absolute !important;
        bottom: 0 !important;
        top: -2px !important;
-      }  
+      }
    }
-  } 
+  }
 }
-.itg-form-group{
+.revaa-form-group{
   // .textarea1-group{
     .label-container{
        .bottom{
         position: absolute !important;
         bottom: 0 !important;
         top: -2px !important;
-       }  
+       }
     }
-// } 
+// }
 }
- 
+
 
 .assignedIcon {
   min-width: 25.28px;
@@ -495,7 +496,7 @@ input {
 }
 
 
-.itg-pin-group {
+.revaa-pin-group {
   display: flex;
   align-items: center;
   position: relative;

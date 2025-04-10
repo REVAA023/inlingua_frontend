@@ -1,6 +1,6 @@
 @import './form.scss';
 
-.itg-form {
+.revaa-form {
     --bs-danger: #dc3545;
 
     // Form Group
@@ -34,7 +34,7 @@
     --input-background-color-focus: var(--input-background-color);
     --input-background-color-active: var(--input-background-color);
     --input-background-color-error: var(--input-background-color);
-    --input-border-radius: 12px;
+    --input-border-radius: 5px;
     --input-box-shadow: none;
 
     --input-border-color: transparent;
@@ -51,7 +51,7 @@
 }
 
 // for float css
-.itg-form-group-float {
+.revaa-form-group-float {
     --input-control-background-color: #F7F7F7;
     --input-height: 2.25rem;
     --input-border-color: #F7F7F7;
