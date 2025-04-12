@@ -41,3 +41,5 @@ export class ChatingComponent {
     chatBar.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }
 }
+
+// Hello
