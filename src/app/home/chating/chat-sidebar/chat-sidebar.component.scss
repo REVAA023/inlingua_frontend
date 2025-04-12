@@ -3,8 +3,7 @@
   cursor: pointer;
 }
 .chat-active{
-  background-color: #ffaf7a !important;
-  border-color: #ff6600 !important;
+  background-color: rgb(231, 231, 231);
   // color: white;
 }
 .contact-container:hover{
@@ -19,11 +18,15 @@
     font-size: small;
   }
 }
+.last-message-time{
+  font-size: small;
+  color: #a1a1a1;
+}
 .search-container{
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 40px;
+  height: 6vh;
   background-color: #f3f3f3;
   .custom-input-control{
     width: 100%;
