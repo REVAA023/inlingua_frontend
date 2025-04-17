@@ -8,7 +8,7 @@ export const routes: Routes = [
       import('./auth/auth.component').then((m) => m.AuthComponent),
   },
   {
-    path: 'leadsheet',
+    path: 'register-form',
     data: { title: 'Inlingua | Lead Sheet' },
     loadComponent: () =>
       import('./home/leads/leadsheet/leadsheet.component').then((m) => m.LeadsheetComponent),

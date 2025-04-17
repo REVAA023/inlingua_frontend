@@ -95,4 +95,8 @@ export class DataService implements OnDestroy {
   //     panelClass: ['custom-snackbar'], // Custom CSS class for styling
   //   });
   // }
+
+  errorMethod(err: any) {
+
+  }
 }

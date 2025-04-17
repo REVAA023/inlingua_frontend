@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sample Aadhaar Card</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background: #f3f3f3;
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+
+.aadhaar-card {
+  width: 600px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background: linear-gradient(to right, #ff9933, #ffffff, #138808);
+  color: #000;
+  text-align: center;
+}
+
+.emblem {
+  height: 60px;
+  margin-right: 20px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.card-content {
+  display: flex;
+  padding: 20px;
+}
+
+.photo img {
+  height: 120px;
+  width: 100px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+}
+
+.details {
+  flex-grow: 1;
+  padding: 0 20px;
+}
+
+.details p {
+  margin: 6px 0;
+}
+
+.aadhaar-number {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.qr img {
+  height: 100px;
+  width: 100px;
+}
+
+.footer {
+  background: #f8f8f8;
+  padding: 10px;
+  text-align: center;
+  color: red;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+  </style>
+</head>
+<body>
+  <div class="aadhaar-card">
+    <div class="header">
+      <img src="https://upload.wikimedia.org/wikipedia/en/4/4c/Emblem_of_India.svg" alt="India Emblem" class="emblem" />
+      <div class="title">
+        <span>भारत सरकार</span>
+        <span>Government of India</span>
+      </div>
+    </div>
+    <div class="card-content">
+      <div class="photo">
+        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Profile Photo" />
+      </div>
+      <div class="details">
+        <p><strong>Name:</strong> Amar Kumar</p>
+        <p><strong>DOB:</strong> 01/01/1990</p>
+        <p><strong>Gender:</strong> Male</p>
+        <p><strong>Address:</strong> 1234, ABC Nagar, Bengaluru, Karnataka</p>
+        <p class="aadhaar-number">1234 5678 9012</p>
+      </div>
+      <div class="qr">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?data=123456789012&size=100x100" alt="QR Code" />
+      </div>
+    </div>
+    <div class="footer">
+      <span>आधार - पहचान</span>
+    </div>
+  </div>
+</body>
+</html>

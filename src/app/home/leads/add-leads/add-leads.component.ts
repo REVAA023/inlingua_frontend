@@ -28,14 +28,10 @@ export class AddLeadsComponent {
 
 
   onSubmit(l: any) {
-
     if (l.valid) {
-
       this.errorTrue = false;
       console.log('Form is valid');
       console.log('First Name:', this.firstName);
-
-
     } else {
       console.log('Form is invalid');
       this.errorTrue = true;

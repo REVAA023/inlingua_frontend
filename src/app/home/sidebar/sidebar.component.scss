@@ -16,7 +16,7 @@
     height: 100%;
     padding: 10px 14px;
     transition: transform 0.4s ease-in-out, width 0.4s ease-in-out;
-    background-color: #c9c9c9;
+    // background-color: #f1f1f1;
 
     &.close {
         width: 88px;
@@ -203,4 +203,10 @@ header .image-text .profession {
     border-radius: 6px;
     position: relative;
     transition: var(--tran-05);
+}
+
+@media only screen and (max-width: 600px) {
+  .sidebar{
+    display: none !important;
+  }
 }

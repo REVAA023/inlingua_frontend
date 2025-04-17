@@ -152,10 +152,10 @@ export class InputControlComponent extends FromInputControl implements OnInit {
   }
 
   setAddMaxMonth(){
-    let nextSixMonthDate = addMonths(this.__tempMinDate, this.__addMaxMonth); 
+    let nextSixMonthDate = addMonths(this.__tempMinDate, this.__addMaxMonth);
     let minDate = subDays(nextSixMonthDate, -1);
     this.__minDate = minDate;
-    
+
   }
 
   setAddMaxYear() {
@@ -239,15 +239,15 @@ export class InputControlComponent extends FromInputControl implements OnInit {
         }
       });
     }
-    if (this.route.snapshot.data['title']) {
-      let routeTitle = this.route!.snapshot.data['title'];
-      if (routeTitle) {
-        let helperText = this.appSetting.helperText[routeTitle]?.[this.name];
-        if (helperText) {
-          this.helpText = helperText;
-        }
-      }
-    }
+    // if (this.route.snapshot.data['title']) {
+    //   let routeTitle = this.route!.snapshot.data['title'];
+    //   if (routeTitle) {
+    //     let helperText = this.appSetting.helperText[routeTitle]?.[this.name];
+    //     if (helperText) {
+    //       this.helpText = helperText;
+    //     }
+    //   }
+    // }
     this.setValidate(this.control);
     this.generatePNR();
   }

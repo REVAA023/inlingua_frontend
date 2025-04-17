@@ -1,0 +1,23 @@
+{
+  "applicationPath": "http://127.0.0.1:8000/api/",
+  "basePath": "",
+  "encrypt": true,
+  "dbName": "__inlingua__",
+  "serverDateFormat": "dd-MM-yyyy",
+  "serverDateFormatWithTime": "dd-MM-yyyy HH:mm a",
+  "dateViewFormat": "dd MMM yyyy",
+  "dateViewFormatWithTime": "dd MMM yyyy HH:mm a",
+  "httpErrorMsg": {
+      "default": "Unable to reach the server. Please check your internet connection or try after sometime.",
+      "error404": "Unable to reach Server Error code: 404",
+      "error401": "Due to browser inactivity for the past 1 Day your session has timed out and you must login again to access your data. We apologize for the inconvenience, but session timeouts were added for security reasons to ensure that your data is protected."
+  },
+  "showMaintenance": false,
+  "maintenanceText": "<p>We are currently performing scheduled maintenance. We apologize for any inconvenience this might have caused. </p><p><strong>Expected downtime:</strong> Until October 5, 2024 03:00 PM</p><p>Please check back later!</p>",
+  "isUnderScheduleMaintenance": false,
+  "scheduleMaintenanceText": {
+      "title": "<div style='color:#FF4141; font-weight: 500; font-size: 14px; padding-bottom: 6px'>Scheduled Maintenance</div>",
+      "message": "<div style='color:#212121; font-weight: 400; font-size: 12px; line-height: 15px'>Our Website will be temporarily unavailable <span style='font-size: 12px; font-weight: 700; color: #212121; line-height: 16px'>From <span style='color:#2874FC'> 20/11/2024 11.00 PM </span> - To <span style='color:#2874FC'> 20/11/2024 03.00 AM. </span></span></div><div style='color:#212121; font-weight: 400; font-size: 12px; line-height: 16px'>We apologize for any inconvenience and appreciate your patience as we work to enhance our services.</div><div style='color:#212121; font-weight: 400; font-size: 12px; line-height: 16px'>Thank you for your understanding!</div>"
+  },
+  "successDuration": 5000
+}
