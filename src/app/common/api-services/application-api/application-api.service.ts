@@ -15,6 +15,54 @@ export class ApplicationApiService {
     private appSettings: AppSettingsService
   ) {}
 
+  getToken(options?: any): Observable<any> {
+    this.data.serviceStarted();
+    options === undefined
+      ? (options = this.apiData.defaultOptions)
+      : (options = this.apiData.setOptions(options));
+    return this.apiData
+      .getData(
+        this.appSettings.environment.applicationPath + 'get-token',
+        options
+      )
+      .pipe(
+        finalize(() => this.data.serviceCompleted()),
+        catchError((err) => {
+          options
+            ? options.hideErrorMethod
+              ? ''
+              : this.data.errorMethod(err)
+            : '';
+          return throwError(() => new Error(err));
+        })
+      );
+  }
+
+  login(body: any, options?: any): Observable<any> {
+    this.data.serviceStarted();
+    options === undefined
+      ? (options = this.apiData.defaultOptions)
+      : (options = this.apiData.setOptions(options));
+    return this.apiData
+      .postData(
+        this.appSettings.environment.applicationPath +
+          'login',
+        body,
+        options
+      )
+      .pipe(
+        finalize(() => this.data.serviceCompleted()),
+        catchError((err) => {
+          options
+            ? options.hideErrorMethod
+              ? ''
+              : this.data.errorMethod(err)
+            : '';
+          return throwError(() => new Error(err));
+        })
+      );
+  }
+
   getLanguage(options?: any): Observable<any> {
     this.data.serviceStarted();
     options === undefined

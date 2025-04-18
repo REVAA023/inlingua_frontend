@@ -66,20 +66,56 @@ export const routes: Routes = [
       },
 
       {
-        path: 'studens',
+        path: '',
         data: { title: 'Inlingua | Studens' },
         loadComponent: () =>
           import('./home/students/students.component').then(
             (m) => m.StudentsComponent
           ),
+          children: [
+            {
+              path: 'students',
+              data: { title: 'Inlingua | Studens Details' },
+              loadComponent: () =>
+                import('./home/students/all-students/all-students.component').then(
+                  (m) => m.AllStudentsComponent
+                ),
+            },
+            {
+              path: 'students/details',
+              data: { title: 'Inlingua | Studens Details' },
+              loadComponent: () =>
+                import('./home/students/students-details/students-details.component').then(
+                  (m) => m.StudentsDetailsComponent
+                ),
+            },
+            {
+              path: '',
+              pathMatch: 'full',
+              redirectTo: 'studens',
+            },
+          ]
       },
+
       {
-        path: 'trainers',
+        path: '',
         data: { title: 'Inlingua | Trainers' },
         loadComponent: () =>
           import('./home/trainers/trainers.component').then(
             (m) => m.TrainersComponent
           ),
+          children:[
+            {
+              path : 'trainers',
+              data: { title: 'Inlingua | Trainer Details' },
+              loadComponent: () => import('./home/trainers/all-trainers/all-trainers.component').then(m => m.AllTrainersComponent)
+            },
+            {
+              path: '',
+              pathMatch: 'full',
+              redirectTo: 'trainers',
+            },
+          ]
       },
       {
         path: 'setting',

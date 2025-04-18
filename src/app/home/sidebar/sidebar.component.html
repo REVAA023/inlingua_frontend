@@ -1,4 +1,4 @@
-<nav class="sidebar bg-light" [ngClass]="{'close': !isSidebarClosed}">
+<div class="sidebar bg-light" [ngClass]="{'close': !isSidebarClosed}">
     <header>
         <div class="image-text">
             <span class="image">
@@ -32,7 +32,6 @@
                         <span class="text nav-text">Chating</span>
                     </a>
                 </li>
-                @if (true) {
                   <li class="nav-link">
                     <a routerLink="leads" routerLinkActive="active">
                         <ion-icon src="lead-generation.svg" class="icon icon-img"></ion-icon>
@@ -40,7 +39,7 @@
                     </a>
                 </li>
                 <li class="nav-link">
-                    <a routerLink="studens" routerLinkActive="active">
+                    <a routerLink="students" routerLinkActive="active">
                         <i class='bx bx-user icon'></i>
                         <span class="text nav-text">Students</span>
                     </a>
@@ -51,7 +50,7 @@
                         <span class="text nav-text">Trainers</span>
                     </a>
                 </li>
-                }
+
 
                 <li class="nav-link">
                     <a routerLink="setting" routerLinkActive="active">
@@ -70,4 +69,4 @@
             </li>
         </div>
     </div>
-</nav>
+</div>

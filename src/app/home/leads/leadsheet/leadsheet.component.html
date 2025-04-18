@@ -51,13 +51,19 @@
                 <app-input-control
                   [required]="true"
                   type="text"
+                  [(ngModel)]="leadSheet.FirstName"
+                  name="FirstName"
                 ></app-input-control>
               </div>
             </div>
             <div class="bg-white p-3 rounded mt-2">
               <p class="fs-6 fw-semibold">2. Last Name</p>
               <div class="col-md-6">
-                <app-input-control type="text"></app-input-control>
+                <app-input-control
+                  type="text"
+                  [(ngModel)]="leadSheet.LastName"
+                  name="LastName"
+                ></app-input-control>
               </div>
             </div>
             <div class="bg-white p-3 rounded mt-2">
@@ -65,7 +71,12 @@
                 3. Email <span class="text-danger">*</span>
               </p>
               <div class="col-md-6">
-                <app-input-control type="emil"></app-input-control>
+                <app-input-control
+                  [required]="true"
+                  [(ngModel)]="leadSheet.gmail"
+                  name="gmail"
+                  type="emil"
+                ></app-input-control>
               </div>
             </div>
             <div class="bg-white p-3 rounded mt-2">
@@ -73,7 +84,12 @@
                 4. Mobile Number <span class="text-danger">*</span>
               </p>
               <div class="col-md-6">
-                <app-input-control type="number"></app-input-control>
+                <app-input-control
+                  type="number"
+                  [required]="true"
+                  [(ngModel)]="leadSheet.MobileNumber"
+                  name="MobileNumber"
+                ></app-input-control>
               </div>
             </div>
             <div class="bg-white p-3 rounded mt-2">
@@ -81,7 +97,12 @@
                 5. Date Of Birth <span class="text-danger">*</span>
               </p>
               <div class="col-md-6">
-                <app-input-control type="date"></app-input-control>
+                <app-input-control
+                  [required]="true"
+                  type="date"
+                  [(ngModel)]="leadSheet.dob"
+                  name="dob"
+                ></app-input-control>
               </div>
             </div>
             <div class="bg-white p-3 rounded mt-2">
@@ -90,8 +111,14 @@
               </p>
               <div class="col-md-6">
                 <app-input-control
-                type="select"
-                items = studentDetailsChoices
+                  type="select"
+                  [required]="true"
+                  [(ngModel)]="leadSheet.professions"
+                  name="professions"
+                  defaultOption="--Select Professions--"
+                  [items]="studentDetailsChoices.PROFESSIONS_CHOICES"
+                  key="value"
+                  keyName="label"
                 ></app-input-control>
               </div>
             </div>
@@ -99,7 +126,7 @@
               <p class="fs-6 fw-semibold">7. Student Photo</p>
               <div class="col-12">
                 <app-file-selector
-                  (fileSelected)="getValues($event)"
+                  (onUpload)="getDocument($event, 'STUPD')"
                 ></app-file-selector>
               </div>
             </div>
@@ -108,7 +135,9 @@
                 8. Aadhar Card <span class="text-danger">*</span>
               </p>
               <div class="col-12">
-                <app-file-selector></app-file-selector>
+                <app-file-selector
+                  (onUpload)="getDocument($event, 'ADAR')"
+                ></app-file-selector>
               </div>
             </div>
             <div
@@ -132,6 +161,13 @@
               <div class="col-md-6">
                 <app-input-control
                   [required]="true"
+                  [(ngModel)]="leadSheet.languageId"
+                  name="languageId"
+                  (onSelect)="getLevelAndHours(leadSheet.languageId)"
+                  defaultOption="--Select Language--"
+                  [items]="languages.languages"
+                  key="id"
+                  keyName="name"
                   type="select"
                 ></app-input-control>
               </div>
@@ -144,6 +180,12 @@
                 <div class="col-md-6">
                   <app-input-control
                     [required]="true"
+                    [(ngModel)]="leadSheet.courseTypeId"
+                    name="courseTypeId"
+                    [items]="levelAndHour.Levelandhours"
+                    key="id"
+                    keyName="level"
+                    defaultOption="--Select Course Type"
                     type="select"
                   ></app-input-control>
                 </div>
@@ -157,6 +199,12 @@
                 <div class="col-md-6">
                   <app-input-control
                     [required]="true"
+                    [(ngModel)]="leadSheet.modeOfClass"
+                    name="modeOfClass"
+                    defaultOption="--Select Class Mode"
+                    [items]="studentDetailsChoices.BATCH_TYPE_CHOICES"
+                    key="value"
+                    keyName="label"
                     type="select"
                   ></app-input-control>
                 </div>
@@ -170,6 +218,9 @@
                 <div class="col-md-6">
                   <app-input-control
                     [required]="true"
+                    [(ngModel)]="leadSheet.counselorId"
+                    name="counselorId"
+                    defaultOption="--Select Counselor"
                     type="select"
                   ></app-input-control>
                 </div>
@@ -203,6 +254,12 @@
               <div class="col-md-6">
                 <app-input-control
                   [required]="true"
+                  [(ngModel)]="leadSheet.amountPaid"
+                  name="amountPaid"
+                  defaultOption="--Select Payment"
+                  [items]="studentDetailsChoices.PAYMENT_TYPE_CHOICES"
+                  key="value"
+                  keyName="label"
                   type="select"
                 ></app-input-control>
               </div>
@@ -214,6 +271,8 @@
               <div class="col-md-6">
                 <app-input-control
                   [required]="true"
+                  [(ngModel)]="leadSheet.amount"
+                  name="amount"
                   type="number"
                 ></app-input-control>
               </div>
@@ -225,6 +284,8 @@
               <div class="col-md-6">
                 <app-input-control
                   [required]="true"
+                  [(ngModel)]="leadSheet.TransactionId"
+                  name="TransactionId"
                   type="text"
                 ></app-input-control>
               </div>
@@ -236,6 +297,8 @@
               <div class="col-md-6">
                 <app-input-control
                   [required]="true"
+                  [(ngModel)]="leadSheet.accountHolderName"
+                  name="accountHolderName"
                   type="text"
                 ></app-input-control>
               </div>
@@ -245,7 +308,9 @@
                 5. Submit payment Screenshot <span class="text-danger">*</span>
               </p>
               <div class="col-12">
-                <app-file-selector></app-file-selector>
+                <app-file-selector
+                  (onUpload)="getDocument($event, 'payment-screenshot')"
+                ></app-file-selector>
               </div>
             </div>
 
@@ -318,17 +383,34 @@
                   solely based on the schedule provided by inlingua only.
                 </li>
                 <li class="mt-3">
-                  Transfer from one batch to another batch would be accepted only before the commencement of the course. The same would be decided based on the availability of seats in the desired batch.
+                  Transfer from one batch to another batch would be accepted
+                  only before the commencement of the course. The same would be
+                  decided based on the availability of seats in the desired
+                  batch.
                 </li>
-                <li class="mt-3">Under no circumstances will the postponement of final exam date would be entertained.
-                  However, students who are unable to take the examination due to valid reasons, will be allotted an alternate day on paying an additional fee of Rs.2500/- towards examination charges. </li>
-                  <li class="mt-3">Certificates will be processed in 10 working days from the date of completion of the examination from the respective centers. </li>
-
+                <li class="mt-3">
+                  Under no circumstances will the postponement of final exam
+                  date would be entertained. However, students who are unable to
+                  take the examination due to valid reasons, will be allotted an
+                  alternate day on paying an additional fee of Rs.2500/- towards
+                  examination charges.
+                </li>
+                <li class="mt-3">
+                  Certificates will be processed in 10 working days from the
+                  date of completion of the examination from the respective
+                  centers.
+                </li>
               </ul>
               <p class="fs-6 fw-semibold mt-3">
-                <input type="checkbox">
-                 I agree to the above Terms and Conditions <span class="text-danger">*</span></p>
-
+                <input
+                  type="checkbox"
+                  required="true"
+                  [(ngModel)]="leadSheet.isaggery"
+                  name="isaggery"
+                />
+                I agree to the above Terms and Conditions
+                <span class="text-danger">*</span>
+              </p>
             </div>
             <div
               class="btgroup d-flex justify-content-between align-items-center mt-3"

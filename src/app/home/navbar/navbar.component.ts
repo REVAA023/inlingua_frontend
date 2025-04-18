@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AppService } from '../../app.service';
+import { DataService } from '../../common/services/data/data.service';
 
 @Component({
   selector: 'app-navbar',
@@ -6,6 +8,14 @@ import { Component } from '@angular/core';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
-export class NavbarComponent {
+export class NavbarComponent  implements OnInit {
+
+constructor(public appservice: AppService, public data: DataService) {
+
+}
+
+  async ngOnInit(): Promise<void> {
+  await this.data.checkToken();
+}
 
 }

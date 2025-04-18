@@ -1,19 +1,27 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild, OnInit } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { StudentDashboardComponent } from './student-dashboard/student-dashboard.component';
+import { TrainerDashboardComponent } from './trainer-dashboard/trainer-dashboard.component';
+import { DataService } from '../../common/services/data/data.service';
+import { AppService } from '../../app.service';
 
 @Component({
   selector: 'app-dashboard',
   imports: [
-    StudentDashboardComponent
+    StudentDashboardComponent,
+    TrainerDashboardComponent
   ],
   standalone: true,
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements AfterViewInit {
+export class DashboardComponent implements AfterViewInit, OnInit {
   @ViewChild('myChart') chartRef!: ElementRef<HTMLCanvasElement>;
   chart!: Chart;
+
+  constructor(public data: DataService, public appService: AppService) {
+
+  }
 
   ngAfterViewInit() {
     this.renderChart();
@@ -59,5 +67,10 @@ export class DashboardComponent implements AfterViewInit {
         }
       });
     }
+  }
+
+  async ngOnInit(): Promise<void> {
+    await this.data.checkToken();
+
   }
 }

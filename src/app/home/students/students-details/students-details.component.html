@@ -1,0 +1,174 @@
+<div class="pb-3">
+  <div class="d-flex justify-content-between">
+    <div>
+      <i class="bx bx-arrow-back fs-4"></i>
+    </div>
+    <div class="d-flex gap-2 align-items-center">
+      <button class="btn btn-primary px-3 rounded-5">Edit Details</button>
+      <i class="bx bx-trash fs-4"></i>
+      <i class="bx bx-dots-vertical fs-4"></i>
+    </div>
+  </div>
+
+  <div class="d-flex gap-2 align-items-center mt-4">
+    <div class="student-img-container">
+      @if (false) {
+      <img
+        src="https://live.staticflickr.com/4365/37082384235_a643fba80d_b.jpg"
+        alt="Student Avatar"
+      />
+      } @else {
+      <div class="initials fw-bold">VM</div>
+      }
+      <i class="bx bx-edit-alt edit-icon fs-4"></i>
+    </div>
+    <p class="fs-5 fw-bold">Vignesh Muthaiyam</p>
+  </div>
+
+  <div class="icon-row-container mt-4">
+    <div class="icon-row">
+      <div class="icon-box">
+        <i class="bx bx-envelope"></i>
+        <span>Email</span>
+      </div>
+      <div class="icon-box">
+        <i class="bx bx-calendar"></i>
+        <span>Schedule</span>
+      </div>
+      <div class="icon-box">
+        <i class="bx bx-chat"></i>
+        <span>Chat</span>
+      </div>
+      <div class="icon-box">
+        <i class="bx bx-phone"></i>
+        <span>Call</span>
+      </div>
+    </div>
+    <div class="divider-line"></div>
+  </div>
+  <div>
+    <div class="row">
+      <p class="fs-5 fw-bold">Student Details</p>
+      <div class="col-md-4">
+        <app-input-control
+          label="First Name"
+          [required]="true"
+          [btnClicked]="true"
+        ></app-input-control>
+      </div>
+      <div class="col-md-4">
+        <app-input-control
+          label="Last Name"
+          [required]="true"
+          [btnClicked]="true"
+        ></app-input-control>
+      </div>
+      <div class="col-md-4">
+        <app-input-control
+          label="Email"
+          [required]="true"
+          [btnClicked]="true"
+        ></app-input-control>
+      </div>
+      <div class="col-md-4">
+        <app-input-control
+          label="Mobile Number"
+          [required]="true"
+          [btnClicked]="true"
+        ></app-input-control>
+      </div>
+      <div class="col-md-4">
+        <app-input-control
+          label="Date Of Birth"
+          [required]="true"
+          [btnClicked]="true"
+        ></app-input-control>
+      </div>
+      <div class="col-md-4">
+        <app-input-control
+          label="Professions"
+          [required]="true"
+          [btnClicked]="true"
+        ></app-input-control>
+      </div>
+      <div class="col-md-4">
+        <app-input-control
+          label="Professions"
+          [required]="true"
+          [btnClicked]="true"
+        ></app-input-control>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <p class="fs-5 fw-bold">Language Details</p>
+      <div class="col-md-4">
+        <app-input-control
+          label="Language"
+          [required]="true"
+          [btnClicked]="true"
+        ></app-input-control>
+      </div>
+      <div class="col-md-4">
+        <app-input-control
+          label="Course Type"
+          [required]="true"
+          [btnClicked]="true"
+        ></app-input-control>
+      </div>
+      <div class="col-md-4">
+        <app-input-control
+          label="Mode Of Class"
+          [required]="true"
+          [btnClicked]="true"
+        ></app-input-control>
+      </div>
+      <div class="col-md-4">
+        <app-input-control
+          label="Name Of The Counselor"
+          [required]="true"
+          [btnClicked]="true"
+        ></app-input-control>
+      </div>
+      <div class="col-md-4">
+        <app-input-control
+          label="Batch Details"
+          [required]="true"
+          [btnClicked]="true"
+        ></app-input-control>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <p class="fs-5 fw-bold">Payment Details</p>
+      <div class="col-md-4">
+        <app-input-control
+          label="Amount Paid Type"
+          [required]="true"
+          [btnClicked]="true"
+        ></app-input-control>
+      </div>
+      <div class="col-md-4">
+        <app-input-control
+          label="Amount of paid"
+          [required]="true"
+          [btnClicked]="true"
+        ></app-input-control>
+      </div>
+      <div class="col-md-4">
+        <app-input-control
+          label="Trsnsation ID"
+          [required]="true"
+          [btnClicked]="true"
+        ></app-input-control>
+      </div>
+      <div class="col-md-4">
+        <app-input-control
+          label="Account Holder Name"
+          [required]="true"
+          [btnClicked]="true"
+        ></app-input-control>
+      </div>
+
+    </div>
+  </div>
+
+</div>

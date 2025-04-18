@@ -1,4 +1,4 @@
-@if (false) {
+@if (appService.user.userRole === "SUSER") {
   <div class="dashboard-main-comtainer">
     <div class="dashboard-header">
       <h1 class="fs-5 fw-bold">CRM Dashboard</h1>
@@ -104,6 +104,9 @@
     </div>
   </div>
 }
-@else if (true) {
+@else if (appService.user.userRole === "TRAINER") {
+  <app-trainer-dashboard></app-trainer-dashboard>
+}
+@else if (false) {
 <app-student-dashboard></app-student-dashboard>
 }

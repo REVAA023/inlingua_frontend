@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { FileSelectorComponent } from '../../../app-core/form-input/file-selector/file-selector.component';
+import { entRegisterForm } from '../../../common/api-services/application-api/application-api.classes';
 
 @Component({
   selector: 'app-leadsheet',
@@ -43,21 +44,7 @@ export class LeadsheetComponent {
     this.getStudentDetailsChoices()
   }
 
-  leadSheet = {
-    FirstName: '',
-    LastName: '',
-    MobileNumber: '',
-    dob: '',
-    gmail: '',
-    languageId: 0,
-    LevelId: 0,
-    CourseTypeId: 0,
-    ModeOfClassId: 0,
-    counselorId: 0,
-    TransactionId: '',
-    paymentTypeId: 0,
-    amountPaid: '',
-  };
+  leadSheet = new entRegisterForm()
 
   languages: any = {};
   levelAndHour: any = {};
@@ -68,7 +55,6 @@ export class LeadsheetComponent {
     const option = { hideJwt: true };
     this.apiService.getLanguage(option).subscribe((response: any) => {
       this.languages = response;
-
     });
   }
 
@@ -86,8 +72,6 @@ export class LeadsheetComponent {
     const option = { hideJwt: true };
     this.apiService.getLevelAndHours(obj, option).subscribe((responce: any) => {
       this.levelAndHour = responce;
-      console.log(responce);
-
     });
   }
 
@@ -99,11 +83,13 @@ export class LeadsheetComponent {
     }
     else{
       console.log('invalid form');
+      console.log(l);
+      console.log(this.leadSheet);
     }
   }
 
-  getValues(event: any) {
-    console.log(event);
+  getDocument(event: any, type?: any) {
+    console.log(event, type);
 
   }
 }

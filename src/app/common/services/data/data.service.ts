@@ -5,6 +5,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { StorageService } from '../storage/storage.service';
 
 import { AppSettingsService } from '../app-settings/app-settings.service';
+import { AppService } from '../../../app.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,9 +19,8 @@ export class DataService implements OnDestroy {
   isLoading = false;
   constructor(
     private router: Router,
-    private snackBar: MatSnackBar,
     private storage: StorageService,
-    private appSetting: AppSettingsService
+    public appService: AppService
   ) {
     this.router.events.subscribe((val) => {
       if (val instanceof NavigationStart) {
@@ -72,15 +72,30 @@ export class DataService implements OnDestroy {
 
         if (!token) {
           // this.confirmSessionOut();
+          console.log("token is missing");
+          this.router.navigateByUrl('login')
+
         } else {
           this.token = token;
+          await this.init()
           resolve(true);
         }
+
 
       } catch (error) {
         reject(error); // Reject if there's an error retrieving the token
       }
     });
+  }
+
+  async init() {
+    const userData = await this.storage.get('userData');
+    console.log(userData);
+
+    if (userData !== null || userData !== undefined) {
+      this.appService.user = userData;
+      console.log(this.appService.user, "ghfahsjgdj");
+    }
   }
 
   // successMessage(msg: any, successType: any = 'Success') {
