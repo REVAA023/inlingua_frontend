@@ -11,7 +11,7 @@ export class StorageService {
   private readonly objectStoreName = '__revaa__STORE__APP__';
   private readonly encryptionKey = 'revaa_ENCRYPT@1234';
   private readonly encryptionKeyIV = 'revaa_ENCRYPT@1234IV';
-  private type = 'session';
+  private type = 'local';
 
   constructor(private appSetting: AppSettingsService) {
     this.init();

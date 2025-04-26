@@ -25,7 +25,7 @@
 
 <ng-template #inputControl>
   @for (set of sets; track $index) {
-  <input autocomplete="new-password" class="revaa-pin-control" [type]="__passwordTextType" [(ngModel)]="set.value"
+  <input autocomplete="new-password" class="revaa-pin-control" [type]="passwordTextType" [(ngModel)]="set.value"
     [class.border-warn]="set.value === '' && __errorTrue" appPinNumberOnly limits="1" (input)="setValueFn()"
     [disabled]="__btnClicked" (blur)="onAction('blur')" (focus)="onAction('focus')" (keydown)="keyDownEvent($event)"
     (keyup)="keyUpEvent($event)" id="{{set.id}}" [next]="set.nextid" [prev]="set.previd">
@@ -54,10 +54,10 @@
 
 <ng-template #passwordEyeIconContainer>
   <a class="icon-btn" (click)="toggleHide()">
-    @if(__passwordTextType === 'text'){
+    @if(passwordTextType === 'text'){
       <ion-icon name="eye-outline"></ion-icon>
     }
-    @if(__passwordTextType === 'password'){
+    @if(passwordTextType === 'password'){
     <ion-icon name="eye-off-outline"></ion-icon>
     }
   </a>

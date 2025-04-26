@@ -2,116 +2,141 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sample Aadhaar Card</title>
+  <title>Dynamic Calendar (9 AM to 6 PM)</title>
   <style>
     body {
-  font-family: Arial, sans-serif;
-  background: #f3f3f3;
-  display: flex;
-  justify-content: center;
-  padding: 40px;
-}
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
 
-.aadhaar-card {
-  width: 600px;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
+    h1 {
+      text-align: center;
+      padding: 1rem 0;
+      background-color: #007bff;
+      color: white;
+      margin: 0;
+    }
 
-.header {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  background: linear-gradient(to right, #ff9933, #ffffff, #138808);
-  color: #000;
-  text-align: center;
-}
+    .calendar-container {
+      overflow-x: auto;
+      /* padding: 20px; */
+    }
 
-.emblem {
-  height: 60px;
-  margin-right: 20px;
-}
+    .calendar {
+      display: flex;
+      gap: 2px;
+    }
 
-.title {
-  font-size: 18px;
-  font-weight: bold;
-  line-height: 1.2;
-}
+    .day-column {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
 
-.card-content {
-  display: flex;
-  padding: 20px;
-}
+    .day-header {
+      font-size: small;
+      text-align: center;
+      padding: 6px;
+      background-color: #e0e0e0;
+    }
 
-.photo img {
-  height: 120px;
-  width: 100px;
-  object-fit: cover;
-  border: 1px solid #ccc;
-}
+    .time-slot {
+      font-size: 12px;
+      background-color: #f1f1f1;
+      width: 25px;
+      height: 20px;
+      border: 1px solid #ccc;
+      position: relative;
+      cursor: pointer;
+      text-align: center;
+    }
 
-.details {
-  flex-grow: 1;
-  padding: 0 20px;
-}
-
-.details p {
-  margin: 6px 0;
-}
-
-.aadhaar-number {
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-.qr img {
-  height: 100px;
-  width: 100px;
-}
-
-.footer {
-  background: #f8f8f8;
-  padding: 10px;
-  text-align: center;
-  color: red;
-  font-size: 18px;
-  font-weight: bold;
-}
-
+    .time-slot:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      top: 50%;
+      left: 105%;
+      transform: translateY(-50%);
+      background: #333;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      white-space: nowrap;
+      font-size: 12px;
+      z-index: 10;
+    }
+    .reting{
+      display: flex;
+      align-items: start ;
+      justify-content: start;
+      gap: 2px;
+    }
+    .low, .low, .normal ,.full{
+      background-color: green;
+      height: 10px;
+      width: 10px;
+    }
   </style>
 </head>
 <body>
-  <div class="aadhaar-card">
-    <div class="header">
-      <img src="https://upload.wikimedia.org/wikipedia/en/4/4c/Emblem_of_India.svg" alt="India Emblem" class="emblem" />
-      <div class="title">
-        <span>भारत सरकार</span>
-        <span>Government of India</span>
-      </div>
-    </div>
-    <div class="card-content">
-      <div class="photo">
-        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Profile Photo" />
-      </div>
-      <div class="details">
-        <p><strong>Name:</strong> Amar Kumar</p>
-        <p><strong>DOB:</strong> 01/01/1990</p>
-        <p><strong>Gender:</strong> Male</p>
-        <p><strong>Address:</strong> 1234, ABC Nagar, Bengaluru, Karnataka</p>
-        <p class="aadhaar-number">1234 5678 9012</p>
-      </div>
-      <div class="qr">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?data=123456789012&size=100x100" alt="QR Code" />
-      </div>
-    </div>
-    <div class="footer">
-      <span>आधार - पहचान</span>
+  <h1 id="calendar-title">Dynamic Calendar</h1>
+  <div class="calendar-container">
+    <div class="calendar" id="calendar"></div>
+    <div class="reting">
+      <div class="low"></div>
+      <div class="normal"></div>
+      <div class="midium"></div>
+      <div class="full"></div>
     </div>
   </div>
+
+  <script>
+    const calendar = document.getElementById("calendar");
+    const calendarTitle = document.getElementById("calendar-title");
+
+    const now = new Date(); // Current date
+    const year = now.getFullYear();
+    const month = now.getMonth(); // 0 = Jan
+    const monthName = now.toLocaleString("default", { month: "long" });
+
+    const startHour = 9;
+    const endHour = 18;
+
+    // Set title
+    calendarTitle.textContent = `${monthName} ${year} Calendar (9 AM to 6 PM)`;
+
+    // Get number of days in this month
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dayColumn = document.createElement("div");
+      dayColumn.className = "day-column";
+
+      const dateStr = `${String(day).padStart(2, "0")}`;
+
+      const dayHeader = document.createElement("div");
+      dayHeader.className = "day-header";
+      dayHeader.innerText = dateStr;
+      dayColumn.appendChild(dayHeader);
+
+      for (let hour = startHour; hour < endHour; hour++) {
+        const timeSlot = document.createElement("div");
+        timeSlot.className = "time-slot";
+
+        const hourStart12 = hour > 12 ? hour - 12 : hour;
+        const hourEnd12 = hour + 1 > 12 ? hour + 1 - 12 : hour + 1;
+        const ampmStart = hour >= 12 ? "PM" : "AM";
+        const ampmEnd = (hour + 1) >= 12 ? "PM" : "AM";
+
+        const tooltipText = `${hourStart12}:00 ${ampmStart}
+        - ${hourEnd12}:00 ${ampmEnd} | ${dateStr}`;
+        timeSlot.setAttribute("data-tooltip", tooltipText);
+
+        dayColumn.appendChild(timeSlot);
+      }
+
+      calendar.appendChild(dayColumn);
+    }
+  </script>
 </body>
 </html>

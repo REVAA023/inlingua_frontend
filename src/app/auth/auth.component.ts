@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { ApplicationApiService } from '../common/api-services/application-api/application-api.service';
 import { StorageService } from '../common/services/storage/storage.service';
+import { DataService } from '../common/services/data/data.service';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-auth',
@@ -20,11 +22,15 @@ export class AuthComponent {
 
   constructor(private router: Router,
     public apiService: ApplicationApiService,
-    public storage: StorageService
-  ) {}
+    public storage: StorageService,
+    public data: DataService,
+  ) { }
 
-  ngOnInit(): void {
-
+  async ngOnInit(): Promise<void> {
+    const token = await this.storage.get('token');
+    if (token) {
+      this.router.navigate(['/dashboard']);
+    }
   }
   onLogin() {
     if (this.emailOrPhone && this.password) {
@@ -43,7 +49,6 @@ export class AuthComponent {
         console.log(response);
         this.storage.set('token', response.token);
         this.storage.set('userData', response.userData);
-
         this.router.navigateByUrl('/dashboard')
       })
     }

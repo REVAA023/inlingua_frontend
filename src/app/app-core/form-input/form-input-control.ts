@@ -13,10 +13,10 @@ export class FromInputControl extends FormAccessorBase {
     addOnID = ''
     __inputMode = "";
     @Input() public defaultOption: string = '';
+    @Input() public passwordTextType: string = 'password';
 
     // Password requirements
     // __passwordTextType = "password";
-    __passwordTextType = "password";
     __passwordStrengthShow = false; // this to use when input on focus
     __strength = 0;
     __strengthParams = {
@@ -404,8 +404,8 @@ export class FromInputControl extends FormAccessorBase {
         if (this.__passwordToggleTimeout) {
             clearTimeout(this.__passwordToggleTimeout);
         }
-        this.__passwordTextType === 'password' ? this.__passwordTextType = 'text' : this.__passwordTextType = 'password';
-        if (this.__passwordTextType === 'text') {
+        this.passwordTextType === 'password' ? this.passwordTextType = 'text' : this.passwordTextType = 'password';
+        if (this.passwordTextType === 'text') {
             this.__passwordToggleTimeout = setTimeout(() => {
                 this.toggleHide();
             }, 15000);

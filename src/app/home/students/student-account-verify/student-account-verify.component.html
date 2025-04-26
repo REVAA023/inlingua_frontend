@@ -1,0 +1,48 @@
+<div class="main-container">
+  <div class="container">
+    <div class="row">
+      <!-- Left Side: Image -->
+      <div
+        class="col-md-6 d-none d-md-block d-flex justify-content-center align-items-center p-4"
+      >
+        <img
+          src="assets/svg/verification.svg"
+          class="img-fluid"
+          alt="OTP Illustration"
+        />
+      </div>
+
+      <!-- Right Side: OTP Form -->
+      <div
+        class="col-md-6 d-flex justify-content-center align-items-center p-4"
+      >
+        <form #l="ngForm" (ngSubmit)="onSubmit(l)">
+          <div class="border p-5 rounded">
+            <div>
+              <div style="width: 100%">
+                <h4 class="m-0 p-0 text-center">OTP Verification</h4>
+
+                <!-- OTP Boxes -->
+                 <div class="mt-4">
+                  <app-pin-control [boxes]="6" label="Enter OTP Code sent to +91 80********42" [required]="true" passwordTextType="text" [(ngModel)]="numberotp" name="numberotp"></app-pin-control>
+                 </div>
+
+                <!-- OTP Boxes -->
+                <div class="mt-4">
+                  <app-pin-control label="Enter OTP Code sent to muth******7@gmail.com" [boxes]="6" [required]="true" passwordTextType="text" [(ngModel)]="gmailotp" name="gmailotp"></app-pin-control>
+                </div>
+              </div>
+            </div>
+            <!-- Resend + Button -->
+            <div class="text-center mt-3">
+              <p class="small">
+                Didn't receive OTP code? <a href="#">Resend Code</a>
+              </p>
+              <button class="btn btn-c-primary px-4 rounded-5" type="submit">Verify & Proceed</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

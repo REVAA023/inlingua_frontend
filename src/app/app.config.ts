@@ -1,22 +1,16 @@
-import { ApplicationConfig, provideAppInitializer, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideAppInitializer, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { appInitializerFactory } from './app.config.initializer';
-import { FullSpinnerInterceptor } from './common/full-spinner/full-spinner.interceptor';
+import { fullSpinnerInterceptor } from './common/full-spinner/full-spinner.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(),
-    provideHttpClient(),
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: FullSpinnerInterceptor,
-      multi: true
-    },
+    provideHttpClient(withInterceptors([fullSpinnerInterceptor])),
     provideAppInitializer(appInitializerFactory()),
   ]
 };

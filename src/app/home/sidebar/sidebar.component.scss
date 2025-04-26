@@ -206,3 +206,16 @@ header .image-text .profession {
     display: none !important;
   }
 }
+
+.logout-btn{
+  cursor: pointer;
+  border: 1px solid #ff751a;
+  &:hover{
+    background-color: #ff751a;
+    a{
+      i, span{
+        color: #FFF;
+      }
+    }
+  }
+}

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InputPlacerComponent } from './input-placer.component';
+import { BatchsComponent } from './batchs.component';
 
-describe('InputPlacerComponent', () => {
-  let component: InputPlacerComponent;
-  let fixture: ComponentFixture<InputPlacerComponent>;
+describe('BatchsComponent', () => {
+  let component: BatchsComponent;
+  let fixture: ComponentFixture<BatchsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [InputPlacerComponent]
+      imports: [BatchsComponent]
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(InputPlacerComponent);
+
+    fixture = TestBed.createComponent(BatchsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

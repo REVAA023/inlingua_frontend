@@ -1,72 +1,87 @@
-<div class="sidebar bg-light" [ngClass]="{'close': !isSidebarClosed}">
-    <header>
-        <div class="image-text">
-            <span class="image">
-                <a routerLink="dashboard">
-                    <img src="favicon.png" alt="">
-                </a>
-            </span>
-            <a routerLink="dashboard" class="text-dark text-decoration-none">
-                <div class="text logo-text">
-                    <span class="name fs-5 fw-bold m-0">Inlingua</span>
-                    <span class="profession">Language Center</span>
-                </div>
-            </a>
+<div class="sidebar bg-light" [ngClass]="{ close: !isSidebarClosed }">
+  <header>
+    <div class="image-text">
+      <span class="image">
+        <a routerLink="dashboard">
+          <img src="favicon.png" alt="" />
+        </a>
+      </span>
+      <a routerLink="dashboard" class="text-dark text-decoration-none">
+        <div class="text logo-text">
+          <span class="name fs-5 fw-bold m-0">Inlingua</span>
+          <span class="profession">Language Center</span>
         </div>
-        <div (click)="toggleSidebar()" class="toggle">
-            <i class='bx bx-chevron-right'></i>
-        </div>
-    </header>
-    <div class="menu-bar">
-        <div class="menu">
-            <ul class="menu-links">
-                <li class="nav-link">
-                    <a routerLink="dashboard" routerLinkActive="active">
-                        <i class='bx bxs-dashboard icon'></i>
-                        <span class="text nav-text">Dashboard</span>
-                    </a>
-                </li>
-                <li class="nav-link">
-                    <a routerLink="chating" routerLinkActive="active">
-                      <i class='bx bx-message-dots icon'></i>
-                        <span class="text nav-text">Chating</span>
-                    </a>
-                </li>
-                  <li class="nav-link">
-                    <a routerLink="leads" routerLinkActive="active">
-                        <ion-icon src="lead-generation.svg" class="icon icon-img"></ion-icon>
-                        <span class="text nav-text">Leads</span>
-                    </a>
-                </li>
-                <li class="nav-link">
-                    <a routerLink="students" routerLinkActive="active">
-                        <i class='bx bx-user icon'></i>
-                        <span class="text nav-text">Students</span>
-                    </a>
-                </li>
-                <li class="nav-link">
-                    <a routerLink="trainers" routerLinkActive="active">
-                        <i class='bx bx-bell icon'></i>
-                        <span class="text nav-text">Trainers</span>
-                    </a>
-                </li>
-
-
-                <li class="nav-link">
-                    <a routerLink="setting" routerLinkActive="active">
-                        <i class='bx bx-cog icon'></i>
-                        <span class="text nav-text">Settings</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="bottom-content">
-            <li class="">
-                <a>
-                    <i class='bx bx-log-out icon'></i>
-                    <span class="text nav-text">Logout</span>
-                </a>
-            </li>
-        </div>
+      </a>
     </div>
+    <div (click)="toggleSidebar()" class="toggle">
+      <i class="bx bx-chevron-right"></i>
+    </div>
+  </header>
+  <div class="menu-bar">
+    <div class="menu">
+      <ul class="menu-links">
+        <li class="nav-link">
+          <a routerLink="dashboard" routerLinkActive="active">
+            <i class="bx bxs-dashboard icon"></i>
+            <span class="text nav-text">Dashboard</span>
+          </a>
+        </li>
+        @if (appservice.user.userRole === "SUSER") {
+        <li class="nav-link">
+          <a routerLink="leads" routerLinkActive="active">
+            <ion-icon
+              src="lead-generation.svg"
+              class="icon icon-img"
+            ></ion-icon>
+            <span class="text nav-text">Leads</span>
+          </a>
+        </li>
+        } @if (appservice.user.userRole === "SUSER") {
+        <li class="nav-link">
+          <a routerLink="students" routerLinkActive="active">
+            <i class="bx bx-user icon"></i>
+            <span class="text nav-text">Students</span>
+          </a>
+        </li>
+        } @if (appservice.user.userRole === "SUSER") {
+        <li class="nav-link">
+          <a routerLink="trainers" routerLinkActive="active">
+            <i class="bx bx-bell icon"></i>
+            <span class="text nav-text">Trainers</span>
+          </a>
+        </li>
+        } @if (appservice.user.userRole === "SUSER" || appservice.user.userRole
+        === "TRAINER") {
+        <li class="nav-link">
+          <a routerLink="batchs" routerLinkActive="active">
+            <i class="bx bx-video icon"></i>
+            <span class="text nav-text">Batchs</span>
+          </a>
+        </li>
+        }
+        <li class="nav-link">
+          <a routerLink="chating" routerLinkActive="active">
+            <i class="bx bx-message-dots icon"></i>
+            <span class="text nav-text">Chating</span>
+          </a>
+        </li>
+        <li class="nav-link">
+          <a routerLink="setting" routerLinkActive="active">
+            <i class="bx bx-cog icon"></i>
+            <span class="text nav-text">Settings</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="bottom-content">
+      <ul class="">
+        <li class="logout-btn">
+          <a (click)="logout()">
+            <i class="bx bx-log-out icon"></i>
+            <span class="text nav-text">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>

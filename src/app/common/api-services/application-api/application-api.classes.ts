@@ -9,15 +9,14 @@ export class entRegisterForm {
   gmail = "";
   dob = "";
   professions = "";
-  studentPhoto = "";
-  aadharCard = "";
+  studentPhoto = new entDocument();
+  aadharCard = new entDocument();
   modeOfClass = "";
   amountPaid = "";
   TransactionId = "";
   accountHolderName = "";
-  paymentScreenShot = "";
+  paymentScreenShot = new entDocument();
   isaggery = "";
-
 }
 
 

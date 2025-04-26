@@ -1,7 +1,9 @@
 import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { StorageService } from '../../common/services/storage/storage.service';
+import { AppService } from '../../app.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,11 +15,18 @@ import { RouterModule } from '@angular/router';
   styleUrl: './sidebar.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
   isSidebarClosed = true;
 
-  constructor() {
-    const sidebarState = localStorage.getItem('isSidebarClosed');
+  constructor(
+    public storage: StorageService,
+    private router: Router,
+    public appservice: AppService,
+  )
+    {}
+
+  async ngOnInit() {
+    const sidebarState: any = await this.storage.get('isSidebarClosed');
     if (sidebarState) {
       this.isSidebarClosed = JSON.parse(sidebarState);
     }
@@ -25,6 +34,11 @@ export class SidebarComponent {
 
   toggleSidebar(): void {
     this.isSidebarClosed = !this.isSidebarClosed;
-    localStorage.setItem('isSidebarClosed', JSON.stringify(this.isSidebarClosed));
+    this.storage.set('isSidebarClosed', JSON.stringify(this.isSidebarClosed))
+  }
+
+  logout() {
+    this.storage.clear();
+    this.router.navigateByUrl('/login')
   }
 }

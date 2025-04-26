@@ -2,12 +2,13 @@
 // For more information: https://material.angular.io/guide/theming
 @use "@angular/material" as mat;
 
-:root{
+:root {
   --primary: #ff751a !important;
+  --app-danger: #dc3545;
 }
 
 html {
-  font-family: 'Open Sans', sans-serif !important;
+  font-family: "Open Sans", sans-serif !important;
   @include mat.theme(
     (
       color: (
@@ -96,4 +97,40 @@ body {
       }
     }
   }
+}
+
+app-spinner {
+  width: 100%;
+}
+.calendar {
+  display: flex;
+  gap: 3px;
+  .day-column, .hour-name-column {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .day-header {
+    font-size: small;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+  }
+}
+.time-slot, .time-label {
+  font-size: 12px;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ccc;
+  position: relative;
+  cursor: pointer;
+  text-align: center;
+}
+.time-label{
+  width: 100px;
+  border:  none;
 }

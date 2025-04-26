@@ -38,6 +38,29 @@ export class ApplicationApiService {
       );
   }
 
+  getStudentCounselors(options?: any): Observable<any> {
+    this.data.serviceStarted();
+    options === undefined
+      ? (options = this.apiData.defaultOptions)
+      : (options = this.apiData.setOptions(options));
+    return this.apiData
+      .getData(
+        this.appSettings.environment.applicationPath + 'student-counselors',
+        options
+      )
+      .pipe(
+        finalize(() => this.data.serviceCompleted()),
+        catchError((err) => {
+          options
+            ? options.hideErrorMethod
+              ? ''
+              : this.data.errorMethod(err)
+            : '';
+          return throwError(() => new Error(err));
+        })
+      );
+  }
+
   login(body: any, options?: any): Observable<any> {
     this.data.serviceStarted();
     options === undefined
@@ -118,6 +141,56 @@ export class ApplicationApiService {
       .postData(
         this.appSettings.environment.applicationPath +
           'show-level-and-hour',
+        body,
+        options
+      )
+      .pipe(
+        finalize(() => this.data.serviceCompleted()),
+        catchError((err) => {
+          options
+            ? options.hideErrorMethod
+              ? ''
+              : this.data.errorMethod(err)
+            : '';
+          return throwError(() => new Error(err));
+        })
+      );
+  }
+
+  studentRegister(body: any, options?: any): Observable<any> {
+    this.data.serviceStarted();
+    options === undefined
+      ? (options = this.apiData.defaultOptions)
+      : (options = this.apiData.setOptions(options));
+    return this.apiData
+      .postData(
+        this.appSettings.environment.applicationPath +
+          'student-register',
+        body,
+        options
+      )
+      .pipe(
+        finalize(() => this.data.serviceCompleted()),
+        catchError((err) => {
+          options
+            ? options.hideErrorMethod
+              ? ''
+              : this.data.errorMethod(err)
+            : '';
+          return throwError(() => new Error(err));
+        })
+      );
+  }
+
+  studentAccountVerification(body: any, options?: any): Observable<any> {
+    this.data.serviceStarted();
+    options === undefined
+      ? (options = this.apiData.defaultOptions)
+      : (options = this.apiData.setOptions(options));
+    return this.apiData
+      .postData(
+        this.appSettings.environment.applicationPath +
+          'student-account-verify',
         body,
         options
       )

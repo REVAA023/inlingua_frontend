@@ -90,11 +90,11 @@ export class DataService implements OnDestroy {
 
   async init() {
     const userData = await this.storage.get('userData');
-    console.log(userData);
+    // console.log(userData);
 
     if (userData !== null || userData !== undefined) {
       this.appService.user = userData;
-      console.log(this.appService.user, "ghfahsjgdj");
+      console.log(this.appService.user);
     }
   }
 
@@ -112,6 +112,14 @@ export class DataService implements OnDestroy {
   // }
 
   errorMethod(err: any) {
+    console.log(err, 'errorMethod');
+    if (err.status === 401) {
+      this.router.navigateByUrl('login')
+      console.log(true);
 
+    }
+    else if (err.status === 0) {
+
+    }
   }
 }

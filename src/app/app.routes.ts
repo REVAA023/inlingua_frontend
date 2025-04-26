@@ -11,7 +11,13 @@ export const routes: Routes = [
     path: 'register-form',
     data: { title: 'Inlingua | Lead Sheet' },
     loadComponent: () =>
-      import('./home/leads/leadsheet/leadsheet.component').then((m) => m.LeadsheetComponent),
+      import('./home/students/leadsheet/leadsheet.component').then((m) => m.LeadsheetComponent),
+  },
+  {
+    path: 'student-account-verify',
+    data: { title: 'Inlingua | Lead OTP Verification' },
+    loadComponent: () =>
+      import('./home/students/student-account-verify/student-account-verify.component').then((m) => m.StudentAccountVerifyComponent),
   },
   {
     path: '',
@@ -64,7 +70,6 @@ export const routes: Routes = [
             (m) => m.ExportLeadsComponent
           ),
       },
-
       {
         path: '',
         data: { title: 'Inlingua | Studens' },
@@ -72,31 +77,38 @@ export const routes: Routes = [
           import('./home/students/students.component').then(
             (m) => m.StudentsComponent
           ),
-          children: [
-            {
-              path: 'students',
-              data: { title: 'Inlingua | Studens Details' },
-              loadComponent: () =>
-                import('./home/students/all-students/all-students.component').then(
-                  (m) => m.AllStudentsComponent
-                ),
-            },
-            {
-              path: 'students/details',
-              data: { title: 'Inlingua | Studens Details' },
-              loadComponent: () =>
-                import('./home/students/students-details/students-details.component').then(
-                  (m) => m.StudentsDetailsComponent
-                ),
-            },
-            {
-              path: '',
-              pathMatch: 'full',
-              redirectTo: 'studens',
-            },
-          ]
+        children: [
+          {
+            path: 'students',
+            data: { title: 'Inlingua | Studens Details' },
+            loadComponent: () =>
+              import('./home/students/all-students/all-students.component').then(
+                (m) => m.AllStudentsComponent
+              ),
+          },
+          {
+            path: 'students/details',
+            data: { title: 'Inlingua | Studens Details' },
+            loadComponent: () =>
+              import('./home/students/students-details/students-details.component').then(
+                (m) => m.StudentsDetailsComponent
+              ),
+          },
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'studens',
+          },
+        ]
       },
-
+      {
+        path: 'batchs',
+        data: { title: 'Inlingua | Batch List' },
+        loadComponent: () =>
+          import('./home/batchs/batchs.component').then(
+            (m) => m.BatchsComponent
+          ),
+      },
       {
         path: '',
         data: { title: 'Inlingua | Trainers' },
@@ -104,18 +116,18 @@ export const routes: Routes = [
           import('./home/trainers/trainers.component').then(
             (m) => m.TrainersComponent
           ),
-          children:[
-            {
-              path : 'trainers',
-              data: { title: 'Inlingua | Trainer Details' },
-              loadComponent: () => import('./home/trainers/all-trainers/all-trainers.component').then(m => m.AllTrainersComponent)
-            },
-            {
-              path: '',
-              pathMatch: 'full',
-              redirectTo: 'trainers',
-            },
-          ]
+        children: [
+          {
+            path: 'trainers',
+            data: { title: 'Inlingua | Trainer Details' },
+            loadComponent: () => import('./home/trainers/all-trainers/all-trainers.component').then(m => m.AllTrainersComponent)
+          },
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'trainers',
+          },
+        ]
       },
       {
         path: 'setting',

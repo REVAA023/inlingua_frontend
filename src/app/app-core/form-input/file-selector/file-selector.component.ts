@@ -181,10 +181,6 @@ export class FileSelectorComponent {
     this.processSingleFile(file);
   }
 
-  async loadImageFromDevice(event: any) {
-    const file = event.target?.files[0];
-    this.processSingleFile(file);
-  }
 
   private processSingleFile(file: File) {
 
@@ -212,9 +208,9 @@ export class FileSelectorComponent {
 
     if (file) {
 
-      if (
-        [this.accept].some((type) => file.type.match(type))
-      ) {
+      // if (
+      //   [this.accept].some((type) => file.type.match(type))
+      // ) {
         this.tempFile = {
           fileName: file.name,
           fileSize: file.size,
@@ -240,10 +236,10 @@ export class FileSelectorComponent {
 
         };
         reader.onerror = (error) => { };
-      } else {
-        this.fileInput.nativeElement.value = '';
+      // } else {
+      //   this.fileInput.nativeElement.value = '';
 
-      }
+      // }
     }
   }
 
@@ -253,7 +249,13 @@ export class FileSelectorComponent {
   }
 
   async loadImageFromDeviceMulti(event: any) {
-    this.processMultipleFiles(event.target.files);
+    if (this.__isMultiple) {
+      this.processMultipleFiles(event.target.files);
+    } else {
+      const file = event.target?.files[0];
+      this.processSingleFile(file);
+    }
+
   }
 
   private async processMultipleFiles(files: FileList) {

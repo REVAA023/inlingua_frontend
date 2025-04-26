@@ -1,8 +1,8 @@
-@import '../../../../scss/responsive-mixin.scss';
+// @import '../../../../scss/responsive-mixin.scss';
 
 .revaa-pin-group {
   gap: 16px;
-  padding-top: 16px;
+  // padding-top: 16px;
 
   &.input-error {
     .revaa-pin-control {
@@ -12,23 +12,23 @@
 }
 
 .revaa-pin-control {
-  width: 35px;
+  width: 44px;
   height: 50px;
-  border: 0.25px solid #828282;
+  border: 0.25px solid #CCC;
   // margin-top: 16px;
   text-align: center;
-  border-radius: 10px;
+  border-radius: 6px;
   font-size: 20px;
   font-weight: var(--input-font-weight);
   color: var(--input-color);
   justify-content: center;
   font-family: var(--font-family);
 
-  @include breakpoint(sm) {
-    width: 50px;
-    height: 70px;
-    border-radius: 12px;
-  }
+  // @include breakpoint(sm) {
+  //   width: 50px;
+  //   height: 70px;
+  //   border-radius: 12px;
+  // }
 
   &:focus,
   &:active,

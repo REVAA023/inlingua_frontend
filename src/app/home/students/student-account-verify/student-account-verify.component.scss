@@ -1,0 +1,23 @@
+.btn-c-primary{
+  background-color: #FF751A;
+  color: #FFF;
+}
+
+.main-container{
+  background-color: #f4f6fb !important;
+  height: 100vh;
+}
+.otp-box {
+  width: 45px;
+  height: 50px;
+  margin: 0 5px;
+  font-size: 24px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.otp-box:focus {
+  outline: none;
+  border-color: #FF751A;
+}
