@@ -11,7 +11,7 @@ export const routes: Routes = [
     path: 'register-form',
     data: { title: 'Inlingua | Lead Sheet' },
     loadComponent: () =>
-      import('./home/students/leadsheet/leadsheet.component').then((m) => m.LeadsheetComponent),
+      import('./home/students/students-register-form/students-register-form.component').then((m) => m.StudentsRegisterFormComponent),
   },
   {
     path: 'student-account-verify',
@@ -87,7 +87,7 @@ export const routes: Routes = [
               ),
           },
           {
-            path: 'students/details',
+            path: 'students/details/:id',
             data: { title: 'Inlingua | Studens Details' },
             loadComponent: () =>
               import('./home/students/students-details/students-details.component').then(

@@ -1,0 +1,36 @@
+.bar-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  span:nth-child(1) {
+    animation-delay: 0s;
+  }
+  span:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  span:nth-child(3) {
+    animation-delay: 0.2s;
+  }
+}
+
+.bar-loader span {
+  width: 4px;
+  height: 20px;
+  margin: 0 1.5px;
+  border-radius: 50px;
+  background: #FF751A;
+  animation: barAnim 0.6s ease-in-out infinite;
+}
+
+@keyframes barAnim {
+  0%,
+  100% {
+    transform: scaleY(0.3);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}

@@ -1,101 +1,140 @@
+@if (isLoading) {
 <div class="pb-3">
   <div class="d-flex justify-content-between">
     <div>
-      <i class="bx bx-arrow-back fs-4"></i>
+      <i
+        class="bx bx-arrow-back fs-4"
+        style="cursor: pointer"
+        (click)="goBack()"
+      ></i>
     </div>
     <div class="d-flex gap-2 align-items-center">
-      <button class="btn btn-primary px-3 rounded-5">Edit Details</button>
-      <i class="bx bx-trash fs-4"></i>
-      <i class="bx bx-dots-vertical fs-4"></i>
+      <button
+        class="btn btn-primary px-3 rounded-5 btn-sm"
+        (click)="editDetails()"
+      >
+        Edit Details
+      </button>
+      <i class="bx bx-trash fs-4 cr-pointer" (click)="deliteDetails()"></i>
+      <i class="bx bx-dots-vertical fs-4 cr-pointer"></i>
     </div>
   </div>
 
   <div class="d-flex gap-2 align-items-center mt-4">
     <div class="student-img-container">
-      @if (false) {
+      @if (studentDetails.student.user.photo.documentSize > 0) {
       <img
-        src="https://live.staticflickr.com/4365/37082384235_a643fba80d_b.jpg"
+        src="{{ studentDetails.student.user.photo.documentContant }}"
         alt="Student Avatar"
       />
       } @else {
-      <div class="initials fw-bold">VM</div>
+      <div class="initials fw-bold">
+        @if (studentDetails.student.user.lastName) {
+        {{ studentDetails.student.user.firstName.charAt(0)
+        }}{{ studentDetails.student.user.lastName.charAt(0) }}
+        } @else {
+        {{ studentDetails.student.user.firstName.charAt(0)
+        }}{{ studentDetails.student.user.firstName.charAt(1) }}
+        }
+      </div>
       }
       <i class="bx bx-edit-alt edit-icon fs-4"></i>
     </div>
-    <p class="fs-5 fw-bold">Vignesh Muthaiyam</p>
+    <p class="fs-5 fw-bold">
+      {{ studentDetails.student.user.firstName }}
+      {{ studentDetails.student.user.lastName }}
+    </p>
   </div>
 
   <div class="icon-row-container mt-4">
     <div class="icon-row">
       <div class="icon-box">
-        <i class="bx bx-envelope"></i>
+        <a
+          href="{{ studentDetails.student.user.email }}"
+          class="text-dark text-decoration-none"
+          ><i class="bx bx-envelope"></i
+        ></a>
         <span>Email</span>
       </div>
       <div class="icon-box">
-        <i class="bx bx-calendar"></i>
+        <a href="" class="text-dark text-decoration-none"
+          ><i class="bx bx-calendar"></i
+        ></a>
         <span>Schedule</span>
       </div>
       <div class="icon-box">
-        <i class="bx bx-chat"></i>
+        <a href="" class="text-dark text-decoration-none"
+          ><i class="bx bx-chat"></i
+        ></a>
         <span>Chat</span>
       </div>
       <div class="icon-box">
-        <i class="bx bx-phone"></i>
+        <a
+          href="tel:+91 {{ studentDetails.student.user.mobileNumber }}"
+          class="text-dark text-decoration-none"
+          ><i class="bx bx-phone"></i
+        ></a>
         <span>Call</span>
       </div>
     </div>
     <div class="divider-line"></div>
   </div>
   <div>
+  <form >
     <div class="row">
       <p class="fs-5 fw-bold">Student Details</p>
       <div class="col-md-4">
         <app-input-control
           label="First Name"
           [required]="true"
-          [btnClicked]="true"
+          [btnClicked]="isEnabled"
+          [(ngModel)]="firstName"
+          name="firstName"
         ></app-input-control>
       </div>
       <div class="col-md-4">
         <app-input-control
           label="Last Name"
           [required]="true"
-          [btnClicked]="true"
+          [btnClicked]="isEnabled"
+          [(ngModel)]="lastName"
+          name="lastName"
         ></app-input-control>
       </div>
       <div class="col-md-4">
         <app-input-control
           label="Email"
           [required]="true"
-          [btnClicked]="true"
+          [btnClicked]="isEnabled"
+          [(ngModel)]="email"
+          name="email"
         ></app-input-control>
       </div>
       <div class="col-md-4">
         <app-input-control
           label="Mobile Number"
           [required]="true"
-          [btnClicked]="true"
+          [btnClicked]="isEnabled"
+          [(ngModel)]="mobileNumber"
+          name="mobileNumber"
         ></app-input-control>
       </div>
       <div class="col-md-4">
         <app-input-control
           label="Date Of Birth"
           [required]="true"
-          [btnClicked]="true"
+          [btnClicked]="isEnabled"
+          [(ngModel)]="dateOfBirth"
+          name="dateOfBirth"
         ></app-input-control>
       </div>
       <div class="col-md-4">
         <app-input-control
           label="Professions"
           [required]="true"
-          [btnClicked]="true"
-        ></app-input-control>
-      </div>
-      <div class="col-md-4">
-        <app-input-control
-          label="Professions"
-          [required]="true"
-          [btnClicked]="true"
+          [btnClicked]="isEnabled"
+          [(ngModel)]="professions"
+          name="professions"
         ></app-input-control>
       </div>
     </div>
@@ -105,35 +144,35 @@
         <app-input-control
           label="Language"
           [required]="true"
-          [btnClicked]="true"
+          [btnClicked]="isEnabled"
         ></app-input-control>
       </div>
       <div class="col-md-4">
         <app-input-control
           label="Course Type"
           [required]="true"
-          [btnClicked]="true"
+          [btnClicked]="isEnabled"
         ></app-input-control>
       </div>
       <div class="col-md-4">
         <app-input-control
           label="Mode Of Class"
           [required]="true"
-          [btnClicked]="true"
+          [btnClicked]="isEnabled"
         ></app-input-control>
       </div>
       <div class="col-md-4">
         <app-input-control
           label="Name Of The Counselor"
           [required]="true"
-          [btnClicked]="true"
+          [btnClicked]="isEnabled"
         ></app-input-control>
       </div>
       <div class="col-md-4">
         <app-input-control
           label="Batch Details"
           [required]="true"
-          [btnClicked]="true"
+          [btnClicked]="isEnabled"
         ></app-input-control>
       </div>
     </div>
@@ -143,32 +182,69 @@
         <app-input-control
           label="Amount Paid Type"
           [required]="true"
-          [btnClicked]="true"
+          [btnClicked]="isEnabled"
         ></app-input-control>
       </div>
       <div class="col-md-4">
         <app-input-control
           label="Amount of paid"
           [required]="true"
-          [btnClicked]="true"
+          [btnClicked]="isEnabled"
         ></app-input-control>
       </div>
       <div class="col-md-4">
         <app-input-control
           label="Trsnsation ID"
           [required]="true"
-          [btnClicked]="true"
+          [btnClicked]="isEnabled"
         ></app-input-control>
       </div>
       <div class="col-md-4">
         <app-input-control
           label="Account Holder Name"
           [required]="true"
-          [btnClicked]="true"
+          [btnClicked]="isEnabled"
         ></app-input-control>
       </div>
+    </div>
+  </form>
+    <div class="row mt-4">
+      <p class="fs-5 fw-bold">Proof Details</p>
+      @if (studentDetails.student.aadhar.documentSize > 0) {
+      <div class="col-3">
+        <p>Aadhar Card</p>
+        <div class="student-detail-proof aadhar-proof-container">
+          <img
+            src="{{ studentDetails.student.aadhar.documentContant }}"
+            alt="Aadhar Proof"
+          />
+          <div class="proof-actions">
+            <button >
+              <i class='bx bx-expand' style='color:#d2d2d2' ></i>
+            </button>
+            <a [href]="studentDetails.student.aadhar.documentContant" download>
+              <i class='bx bx-download' style='color:#d2d2d2' ></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+      }
+      @if (studentDetails.student.paymentConformScreenshot.documentSize > 0) {
+        <div class="col-3">
+          <p>Payment Conformation</p>
+          <div class="aadhar-proof-container">
+            <img
+              src="{{ studentDetails.student.paymentConformScreenshot.documentContant }}"
+              alt=""
+            />
+          </div>
+        </div>
+      }
 
     </div>
   </div>
-
 </div>
+} @else {
+<app-page-loding></app-page-loding>
+}

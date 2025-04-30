@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'spinner',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   template: `
-  <div class="spinner">
-    <svg width="24px" height="24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 27">
+  <div class="spinner {{__spinnerClass}}">
+    <svg [attr.width]="__width" [attr.height]="__height" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 27">
         <path
             d="M18.696,10.5c-0.275-0.479-0.113-1.09,0.365-1.367l4.759-2.751c0.482-0.273,1.095-0.11,1.37,0.368 c0.276,0.479,0.115,1.092-0.364,1.364l-4.764,2.751C19.583,11.141,18.973,10.977,18.696,10.5z" />
         <path
@@ -102,5 +103,31 @@ import { Component } from '@angular/core';
 }`]
 })
 export class XSpinnerComponent {
+
+  __spinnerClass = '';
+  __width = '24px';
+  __height = '24px';
+
+  @Input()
+  set spinnerClass(spinnerClass: string) {
+    this.__spinnerClass = spinnerClass || "";
+  }
+  get spinnerClass() {
+    return this.__spinnerClass;
+  }
+  @Input()
+  set width(width: string) {
+    this.__width = width || "24px";
+  }
+  get width() {
+    return this.__width;
+  }
+  @Input()
+  set height(height: string) {
+    this.__height = height || "24px";
+  }
+  get height() {
+    return this.__height;
+  }
 
 }

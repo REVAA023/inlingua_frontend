@@ -27,10 +27,7 @@ export class AuthComponent {
   ) { }
 
   async ngOnInit(): Promise<void> {
-    const token = await this.storage.get('token');
-    if (token) {
-      this.router.navigate(['/dashboard']);
-    }
+
   }
   onLogin() {
     if (this.emailOrPhone && this.password) {

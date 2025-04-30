@@ -21,7 +21,7 @@
     </div>
     <!-- {{control?.control?.invalid}} {{__errorTrue}} -->
     <div class="revaa-input-group {{className}}"
-      [ngClass]="{'input-error': control?.control?.invalid && __errorTrue, 'bgRemove': removeBg, 'focused': focused}">
+      [ngClass]="{'input-error': control?.control?.invalid && __errorTrue, 'bgRemove': removeBg, 'focused': focused, 'disabled': this.__btnClicked}">
       @if(__assignIcon) {
       <ng-container *ngTemplateOutlet="reassignContainer"></ng-container>
       }
@@ -61,7 +61,7 @@
 <ng-template #inputControl>
   @switch (this.__type) {
   @case ("password") {
-  <input [type]="__passwordTextType" class="revaa-input-control" autocomplete="none" [appNoEmoji]="true"
+  <input [type]="passwordTextType" class="revaa-input-control" autocomplete="none" [appNoEmoji]="true"
     [appUpperCase]="__upperCase && !__lowerCase" [appLowerCase]="__lowerCase && !__upperCase" [appLimit]="__maxLength"
     [autofocus]="__autoFocus" [placeholder]="__placeholder" [(ngModel)]="value" [name]="name+addOnID"
     [disabled]="__btnClicked" (blur)="onAction('blur')" (focus)="onAction('focus')" (keydown)="keyDownEvent($event)"
@@ -181,10 +181,10 @@
 <ng-template #passwordEyeIconContainer>
   @if(__type === 'password'){
   <a class="icon-btn" (click)="toggleHide()">
-    @if(__passwordTextType === 'text'){
+    @if(passwordTextType === 'text'){
     <ion-icon name="eye-off-outline"></ion-icon>
     }
-    @if(__passwordTextType === 'password'){
+    @if(passwordTextType === 'password'){
     <ion-icon name="eye-outline"></ion-icon>
     }
   </a>
