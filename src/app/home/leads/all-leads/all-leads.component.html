@@ -1,0 +1,195 @@
+@if (isLoading) {
+  <div class="main-container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <p class="fw-bold fs-3 m-0 p-0">{{leads.length}} Leads</p>
+      <div class="d-flex align-items-center gap-2">
+        <button
+          class="btn btn-secondary btn-sm rounded-5 px-3"
+          routerLink="addleads"
+        >
+          Create Leads
+        </button>
+        <div class="dropdown">
+          <button
+            class="btn btn-secondary btn-sm dropdown-toggle rounded-5 px-3"
+            type="button"
+            id="actiondropdownMenuButton"
+            data-bs-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Actions
+          </button>
+          <div class="dropdown-menu" aria-labelledby="actiondropdownMenuButton">
+            <a class="dropdown-item" routerLink="import">Import Leads</a>
+            <a class="dropdown-item" routerLink="export">Export Leads</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    @if (leads.length > 0) {
+    <div class="filter-container row">
+      <div class="col-md-3">
+        <app-input-control
+          placeholder="Search Leads"
+          type="text"
+        ></app-input-control>
+      </div>
+      <div class="col-md-3">
+        <app-input-control
+          placeholder="Filter Date"
+          type="date"
+        ></app-input-control>
+      </div>
+      <div class="col-md-6 d-flex align-items-start justify-content-end">
+        <button
+          class="btn border px-2 rounded btn-sm"
+          type="button"
+          id="actiondropdownMenuButton"
+          data-bs-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <i class="bx bx-filter-alt"></i>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="filterdropdownMenuButton">
+          <a class="dropdown-item" href="#">Filter by Date</a>
+          <a class="dropdown-item" href="#">Filter by Status</a>
+          <a class="dropdown-item" href="#">Filter by Source</a>
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive mt-2 mx-n1 px-1">
+      <table class="table table-hover mb-0 leads-table border-top border-translucent">
+        <thead>
+          <tr>
+            <th
+              class="sort text-nowrap align-middle text-uppercase small"
+              scope="col"
+              data-sort="name"
+            >
+              Lead Name
+            </th>
+            <th
+              class="sort text-nowrap align-middle ps-4 pe-5 text-uppercase small border-end border-translucent"
+              scope="col"
+              data-sort="email"
+            >
+              <div class="d-inline-flex flex-center">
+                <div
+                  class="d-flex align-items-center px-1 py-1 bg-success-subtle rounded me-2"
+                >
+                  <img src="assets/table_svg/gmail.svg" alt="" />
+                </div>
+                <span>Email</span>
+              </div>
+            </th>
+            <th
+              class="sort small text-nowrap align-middle text-uppercase border-end border-translucent"
+              scope="col"
+              data-sort="phone"
+            >
+              <div class="d-inline-flex flex-center">
+                <div
+                  class="d-flex align-items-center px-1 py-1 bg-primary-subtle rounded me-2"
+                >
+                  <img src="assets/table_svg/phone.svg" alt="" />
+                </div>
+                <span>Phone</span>
+              </div>
+            </th>
+            <th
+              class="sort small text-nowrap align-middle text-uppercase border-end border-translucent"
+              scope="col"
+              data-sort="phone"
+            >
+              <div class="d-inline-flex flex-center">
+                <div
+                  class="d-flex align-items-center px-1 py-1 bg-primary-subtle rounded me-2"
+                >
+                  <img src="assets/table_svg/phone.svg" alt="" />
+                </div>
+                <span>Lead Status</span>
+              </div>
+            </th>
+            <th
+              class="sort text-nowrap align-middle text-uppercase"
+              scope="col"
+              data-sort="date"
+            >
+              Create date
+            </th>
+          </tr>
+        </thead>
+        <tbody class="list" id="leal-tables-body">
+          @for (lead of leads; track $index) {
+            <tr class="hover-actions-trigger cr-pointer btn-reveal-trigger position-static" (click)="navigate(lead.id)">
+              <td class="name align-middle white-space-nowrap">
+                <div class="d-flex align-items-center">
+                  <a href="#!" class="text-decoration-none">
+                    <div class="avatar avatar-xl me-3">
+                      @if (false) {
+                        <img
+                        class="rounded-circle"
+                        src="https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8"
+                        alt="" width="40" height="40"
+                      />
+                      }@else {
+                        <div class="bg-secondary text-white fw-bold text-uppercase d-flex align-items-center justify-content-center rounded-circle" style="width: 40px; height: 40px;">
+                          {{(lead.leadName).charAt(0)}}{{(lead.leadName).charAt(1)}}
+                        </div>
+                      }
+
+                    </div>
+                  </a>
+                  <div>
+                    <span class="fw-bold">{{lead.leadName}}</span>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="email align-middle white-space-nowrap ps-4 border-end border-translucent"
+              >
+                <a class="text-body-highlight text-decoration-none small" href="mailto:{{lead.leadEmail}}"
+                  >{{lead.leadEmail}} </a
+                >
+              </td>
+              <td
+                class="phone align-middle white-space-nowrap ps-4 border-end border-translucent"
+              >
+                <a class="text-body-highlight text-decoration-none small" href="tel:+91 {{lead.leadMobileNumber}}"
+                  >+91 {{lead.leadMobileNumber}}</a
+                >
+              </td>
+              <td
+                class="phone align-middle white-space-nowrap ps-4 border-end border-translucent"
+              >
+                <span class="{{lead.leadStatusValue}} px-2 py-1 rounded cr-pointer small">{{lead.leadStatusLabel}}</span>
+              </td>
+              <td
+                class="date small align-middle white-space-nowrap text-body-tertiary text-opacity-85 ps-4 text-body-tertiary"
+              >
+              {{lead.createdDate}}
+              </td>
+            </tr>
+          }
+
+        </tbody>
+      </table>
+    </div>
+
+    } @else {
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <img src="leads.png" alt="No Leads" width="400" />
+      <p class="text-center fs-5 fw-bold">No leads found</p>
+      <p class="text-center">
+        You can add or import leads by clicking the button above
+      </p>
+    </div>
+    }
+  </div>
+}
+@else {
+  <app-page-loding></app-page-loding>
+}

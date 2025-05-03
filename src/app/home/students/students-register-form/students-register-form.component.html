@@ -1,4 +1,3 @@
-
 <div class="sheet-main-container">
   <div class="container py-3">
     <div class="row">
@@ -42,395 +41,474 @@
           </div>
         </div>
         <form #l="ngForm" (ngSubmit)="onSubmit(l)">
-          @if (currentStep === 1) {
-          <div>
-            <div class="bg-white p-3 rounded mt-2">
-              <p class="fs-6 fw-semibold">
-                1. First Name <span class="text-danger">*</span>
-              </p>
-              <div class="col-md-6">
-                <app-input-control
-                  [required]="true"
-                  type="text"
-                  [(ngModel)]="leadSheet.FirstName"
-                  name="FirstName"
-                ></app-input-control>
-              </div>
-            </div>
-            <div class="bg-white p-3 rounded mt-2">
-              <p class="fs-6 fw-semibold">2. Last Name</p>
-              <div class="col-md-6">
-                <app-input-control
-                  type="text"
-                  [(ngModel)]="leadSheet.LastName"
-                  name="LastName"
-                ></app-input-control>
-              </div>
-            </div>
-            <div class="bg-white p-3 rounded mt-2">
-              <p class="fs-6 fw-semibold">
-                3. Email <span class="text-danger">*</span>
-              </p>
-              <div class="col-md-6">
-                <app-input-control
-                  [required]="true"
-                  [(ngModel)]="leadSheet.gmail"
-                  name="gmail"
-                  type="emil"
-                ></app-input-control>
-              </div>
-            </div>
-            <div class="bg-white p-3 rounded mt-2">
-              <p class="fs-6 fw-semibold">
-                4. Mobile Number <span class="text-danger">*</span>
-              </p>
-              <div class="col-md-6">
-                <app-input-control
-                  type="number"
-                  [required]="true"
-                  [(ngModel)]="leadSheet.MobileNumber"
-                  name="MobileNumber"
-                ></app-input-control>
-              </div>
-            </div>
-            <div class="bg-white p-3 rounded mt-2">
-              <p class="fs-6 fw-semibold">
-                5. Date Of Birth <span class="text-danger">*</span>
-              </p>
-              <div class="col-md-6">
-                <app-input-control
-                  [required]="true"
-                  type="date"
-                  [(ngModel)]="leadSheet.dob"
-                  name="dob"
-                ></app-input-control>
-              </div>
-            </div>
-            <div class="bg-white p-3 rounded mt-2">
-              <p class="fs-6 fw-semibold">
-                6. Professions <span class="text-danger">*</span>
-              </p>
-              <div class="col-md-6">
-                <app-input-control
-                  type="select"
-                  [required]="true"
-                  [(ngModel)]="leadSheet.professions"
-                  name="professions"
-                  defaultOption="--Select Professions--"
-                  [items]="studentDetailsChoices.PROFESSIONS_CHOICES"
-                  key="value"
-                  keyName="label"
-                ></app-input-control>
-              </div>
-            </div>
-            <div class="bg-white p-3 rounded mt-2">
-              <p class="fs-6 fw-semibold">7. Student Photo</p>
-              <div class="col-12">
-                <app-file-selector
-                  (onUpload)="getDocument($event, 'STUPD')"
-                ></app-file-selector>
-              </div>
-            </div>
-            <div class="bg-white p-3 rounded mt-2">
-              <p class="fs-6 fw-semibold">
-                8. Aadhar Card <span class="text-danger">*</span>
-              </p>
-              <div class="col-12">
-                <app-file-selector
-                  (onUpload)="getDocument($event, 'ADAR')"
-                ></app-file-selector>
-              </div>
-            </div>
-            <div
-              class="btngroup mt-3 d-flex justify-content-end align-items-center"
-            >
-              <button
-                type="button"
-                class="btn btn-sm px-5 rounded-5 btn-primary"
-                (click)="nextStep()"
-              >
-                Next
-              </button>
-            </div>
-          </div>
-          } @else if (currentStep === 2) {
-          <div>
-            <div class="bg-white p-3 rounded mt-2">
-              <p class="fs-6 fw-semibold">
-                1. Language <span class="text-danger">*</span>
-              </p>
-              <div class="col-md-6">
-                <app-input-control
-                  [required]="true"
-                  [(ngModel)]="leadSheet.languageId"
-                  name="languageId"
-                  (onSelect)="getLevelAndHours(leadSheet.languageId)"
-                  defaultOption="--Select Language--"
-                  [items]="languages.languages"
-                  key="id"
-                  keyName="name"
-                  type="select"
-                ></app-input-control>
-              </div>
-            </div>
+          @switch (currentStep) {
+            @case (1){
             <div>
               <div class="bg-white p-3 rounded mt-2">
                 <p class="fs-6 fw-semibold">
-                  2. Course Type <span class="text-danger">*</span>
+                  1. First Name <span class="text-danger">*</span>
+                </p>
+                <div class="col-md-6">
+                  <app-input-control
+                    [required]="true" [errorTrue]="errorTrue"
+                    type="text"
+                    [(ngModel)]="leadSheet.FirstName"
+                    name="FirstName"
+                  ></app-input-control>
+                </div>
+              </div>
+              <div class="bg-white p-3 rounded mt-2">
+                <p class="fs-6 fw-semibold">2. Last Name</p>
+                <div class="col-md-6">
+                  <app-input-control
+                    type="text"
+                    [(ngModel)]="leadSheet.LastName"
+                    name="LastName"
+                  ></app-input-control>
+                </div>
+              </div>
+              <div class="bg-white p-3 rounded mt-2">
+                <p class="fs-6 fw-semibold">
+                  3. Email <span class="text-danger">*</span>
                 </p>
                 <div class="col-md-6">
                   <app-input-control
                     [required]="true"
-                    [(ngModel)]="leadSheet.courseTypeId"
-                    name="courseTypeId"
-                    [items]="levelAndHour.Levelandhours"
+                    [(ngModel)]="leadSheet.gmail"
+                    name="gmail"
+                    type="email"
+                  ></app-input-control>
+                </div>
+              </div>
+              <div class="bg-white p-3 rounded mt-2">
+                <p class="fs-6 fw-semibold">
+                  4. Mobile Number <span class="text-danger">*</span>
+                </p>
+                <div class="col-md-6">
+                  <app-input-control
+                    type="number"
+                    [required]="true"
+                    [(ngModel)]="leadSheet.MobileNumber"
+                    name="MobileNumber"
+                  ></app-input-control>
+                </div>
+              </div>
+              <div class="bg-white p-3 rounded mt-2">
+                <p class="fs-6 fw-semibold">
+                  5. Date Of Birth <span class="text-danger">*</span>
+                </p>
+                <div class="col-md-6">
+                  <app-input-control
+                    [required]="true"
+                    type="date"
+                    [(ngModel)]="leadSheet.dob"
+                    name="dob"
+                  ></app-input-control>
+                </div>
+              </div>
+              <div class="bg-white p-3 rounded mt-2">
+                <p class="fs-6 fw-semibold">
+                  6. Professions <span class="text-danger">*</span>
+                </p>
+                <div class="col-md-6">
+                  <app-input-control
+                    type="select"
+                    [required]="true"
+                    [(ngModel)]="leadSheet.professions"
+                    name="professions"
+                    defaultOption="--Select Professions--"
+                    [items]="studentDetailsChoices.PROFESSIONS_CHOICES"
+                    key="value"
+                    keyName="label"
+                  ></app-input-control>
+                </div>
+              </div>
+              <div class="bg-white p-3 rounded mt-2">
+                <p class="fs-6 fw-semibold">7. Student Photo</p>
+                <div class="col-12">
+                  <!-- Show file input if no image uploaded -->
+                  @if (!leadSheet.studentPhoto.documentName) {
+                  <app-file-selector
+                    (onUpload)="getDocument($event, 'STUPD')"
+                  ></app-file-selector>
+                  } @else {
+                  <div>
+                    <p
+                      class="d-flex align-items-center m-0 p-0 gap-3 justify-content-between"
+                    >
+                      <span> {{ leadSheet.studentPhoto.documentName }}</span>
+                      <span
+                        class="input-img-container d-flex align-items-center gap-2"
+                      >
+                        <img
+                          [src]="leadSheet.studentPhoto.documentContant"
+                          alt="Student Photo"
+                          height="60"
+                          class="rounded"
+                        />
+                        <i
+                          class="bx bx-x rounded-circle cr-pointer"
+                          (click)="removeImage('STUPD')"
+                        ></i>
+                      </span>
+                    </p>
+                  </div>
+                  }
+                </div>
+              </div>
+              <div class="bg-white p-3 rounded mt-2">
+                <p class="fs-6 fw-semibold">
+                  8. Aadhar Card <span class="text-danger">*</span>
+                </p>
+                <div class="col-12">
+                  <!-- Show file input if no image uploaded -->
+                  @if (!leadSheet.aadharCard.documentName) {
+                  <app-file-selector
+                    (onUpload)="getDocument($event, 'AADHAR')"
+                  ></app-file-selector>
+                  } @else {
+                  <div>
+                    <p
+                      class="d-flex align-items-center m-0 p-0 gap-3 justify-content-between"
+                    >
+                      <span> {{ leadSheet.aadharCard.documentName }}</span>
+                      <span
+                        class="input-img-container d-flex align-items-center gap-2"
+                      >
+                        <img
+                          [src]="leadSheet.aadharCard.documentContant"
+                          alt="Student Photo"
+                          height="60"
+                          class="rounded"
+                        />
+                        <i
+                          class="bx bx-x rounded-circle cr-pointer"
+                          (click)="removeImage('AADHAR')"
+                        ></i>
+                      </span>
+                    </p>
+                  </div>
+                  }
+                </div>
+              </div>
+              <div
+                class="btngroup mt-3 d-flex justify-content-end align-items-center"
+              >
+                <button
+                  type="submit"
+                  class="btn btn-sm px-5 rounded-5 btn-primary"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+            }
+            @case (2){
+            <div>
+              <div class="bg-white p-3 rounded mt-2">
+                <p class="fs-6 fw-semibold">
+                  1. Language <span class="text-danger">*</span>
+                </p>
+                <div class="col-md-6">
+                  <app-input-control
+                    [required]="true"
+                    [(ngModel)]="leadSheet.languageId"
+                    name="languageId"
+                    (onSelect)="getLevelAndHours(leadSheet.languageId)"
+                    defaultOption="--Select Language--"
+                    [items]="languages.languages"
                     key="id"
-                    keyName="level"
-                    defaultOption="--Select Course Type"
+                    keyName="name"
                     type="select"
                   ></app-input-control>
                 </div>
               </div>
+              <div>
+                <div class="bg-white p-3 rounded mt-2">
+                  <p class="fs-6 fw-semibold">
+                    2. Course Type <span class="text-danger">*</span>
+                  </p>
+                  <div class="col-md-6">
+                    <app-input-control
+                      [required]="true"
+                      [(ngModel)]="leadSheet.courseTypeId"
+                      name="courseTypeId"
+                      [items]="levelAndHour.Levelandhours"
+                      key="id"
+                      keyName="level"
+                      defaultOption="--Select Course Type"
+                      type="select"
+                    ></app-input-control>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="bg-white p-3 rounded mt-2">
+                  <p class="fs-6 fw-semibold">
+                    3. Mode Of Class <span class="text-danger">*</span>
+                  </p>
+                  <div class="col-md-6">
+                    <app-input-control
+                      [required]="true"
+                      [(ngModel)]="leadSheet.modeOfClass"
+                      name="modeOfClass"
+                      defaultOption="--Select Class Mode"
+                      [items]="studentDetailsChoices.BATCH_TYPE_CHOICES"
+                      key="value"
+                      keyName="label"
+                      type="select"
+                    ></app-input-control>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="bg-white p-3 rounded mt-2">
+                  <p class="fs-6 fw-semibold">
+                    4. Name Of The Counselor <span class="text-danger">*</span>
+                  </p>
+                  <div class="col-md-6">
+                    <app-input-control
+                      [required]="true"
+                      [(ngModel)]="leadSheet.counselorId"
+                      name="counselorId"
+                      [items]="StudentCounselors.counselors"
+                      key="id"
+                      keyName="fullName"
+                      defaultOption="--Select Counselor"
+                      type="select"
+                    ></app-input-control>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="btgroup d-flex justify-content-between align-items-center mt-3"
+              >
+                <button
+                  type="button"
+                  class="btn btn-sm btn-danger px-5 rounded-5"
+                  (click)="prevStep()"
+                >
+                  Back
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-sm btn-primary px-5 rounded-5"
+                >
+                  Next
+                </button>
+              </div>
             </div>
+            }
+            @case (3) {
             <div>
               <div class="bg-white p-3 rounded mt-2">
                 <p class="fs-6 fw-semibold">
-                  3. Mode Of Class <span class="text-danger">*</span>
+                  1. Amount Paid <span class="text-danger">*</span>
                 </p>
                 <div class="col-md-6">
                   <app-input-control
                     [required]="true"
-                    [(ngModel)]="leadSheet.modeOfClass"
-                    name="modeOfClass"
-                    defaultOption="--Select Class Mode"
-                    [items]="studentDetailsChoices.BATCH_TYPE_CHOICES"
+                    [(ngModel)]="leadSheet.amountPaid"
+                    name="amountPaid"
+                    defaultOption="--Select Payment"
+                    [items]="studentDetailsChoices.PAYMENT_TYPE_CHOICES"
                     key="value"
                     keyName="label"
                     type="select"
                   ></app-input-control>
                 </div>
               </div>
-            </div>
-            <div>
               <div class="bg-white p-3 rounded mt-2">
                 <p class="fs-6 fw-semibold">
-                  4. Name Of The Counselor <span class="text-danger">*</span>
+                  2. Mention the amount paid <span class="text-danger">*</span>
                 </p>
                 <div class="col-md-6">
                   <app-input-control
                     [required]="true"
-                    [(ngModel)]="leadSheet.counselorId"
-                    name="counselorId"
-                    defaultOption="--Select Counselor"
-                    type="select"
+                    [(ngModel)]="leadSheet.amount"
+                    name="amount"
+                    type="number"
                   ></app-input-control>
                 </div>
               </div>
-            </div>
-            <div
-              class="btgroup d-flex justify-content-between align-items-center mt-3"
-            >
-              <button
-                type="button"
-                class="btn btn-sm btn-danger px-5 rounded-5"
-                (click)="prevStep()"
-              >
-                Back
-              </button>
-              <button
-                type="button"
-                class="btn btn-sm btn-primary px-5 rounded-5"
-                (click)="nextStep()"
-              >
-                Next
-              </button>
-            </div>
-          </div>
-          } @else if (currentStep === 3) {
-          <div>
-            <div class="bg-white p-3 rounded mt-2">
-              <p class="fs-6 fw-semibold">
-                1. Amount Paid <span class="text-danger">*</span>
-              </p>
-              <div class="col-md-6">
-                <app-input-control
-                  [required]="true"
-                  [(ngModel)]="leadSheet.amountPaid"
-                  name="amountPaid"
-                  defaultOption="--Select Payment"
-                  [items]="studentDetailsChoices.PAYMENT_TYPE_CHOICES"
-                  key="value"
-                  keyName="label"
-                  type="select"
-                ></app-input-control>
+              <div class="bg-white p-3 rounded mt-2">
+                <p class="fs-6 fw-semibold">
+                  3. Trsnsation ID <span class="text-danger">*</span>
+                </p>
+                <div class="col-md-6">
+                  <app-input-control
+                    [required]="true"
+                    [(ngModel)]="leadSheet.TransactionId"
+                    name="TransactionId"
+                    type="text"
+                  ></app-input-control>
+                </div>
               </div>
-            </div>
-            <div class="bg-white p-3 rounded mt-2">
-              <p class="fs-6 fw-semibold">
-                2. Mention the amount paid <span class="text-danger">*</span>
-              </p>
-              <div class="col-md-6">
-                <app-input-control
-                  [required]="true"
-                  [(ngModel)]="leadSheet.amount"
-                  name="amount"
-                  type="number"
-                ></app-input-control>
+              <div class="bg-white p-3 rounded mt-2">
+                <p class="fs-6 fw-semibold">
+                  4. Account Holder Name <span class="text-danger">*</span>
+                </p>
+                <div class="col-md-6">
+                  <app-input-control
+                    [required]="true"
+                    [(ngModel)]="leadSheet.accountHolderName"
+                    name="accountHolderName"
+                    type="text"
+                  ></app-input-control>
+                </div>
               </div>
-            </div>
-            <div class="bg-white p-3 rounded mt-2">
-              <p class="fs-6 fw-semibold">
-                3. Trsnsation ID <span class="text-danger">*</span>
-              </p>
-              <div class="col-md-6">
-                <app-input-control
-                  [required]="true"
-                  [(ngModel)]="leadSheet.TransactionId"
-                  name="TransactionId"
-                  type="text"
-                ></app-input-control>
+              <div class="bg-white p-3 rounded mt-2">
+                <p class="fs-6 fw-semibold">
+                  5. Submit payment Screenshot <span class="text-danger">*</span>
+                </p>
+                <div class="col-12">
+                  <!-- Show file input if no image uploaded -->
+                  @if (!leadSheet.paymentScreenShot.documentName) {
+                  <app-file-selector
+                    (onUpload)="getDocument($event, 'payment-screenshot')"
+                  ></app-file-selector>
+                  } @else {
+                  <div>
+                    <p
+                      class="d-flex align-items-center m-0 p-0 gap-3 justify-content-between"
+                    >
+                      <span> {{ leadSheet.paymentScreenShot.documentName }}</span>
+                      <span
+                        class="input-img-container d-flex align-items-center gap-2"
+                      >
+                        <img
+                          [src]="leadSheet.paymentScreenShot.documentContant"
+                          alt="Student Photo"
+                          height="60"
+                          class="rounded"
+                        />
+                        <i
+                          class="bx bx-x rounded-circle cr-pointer"
+                          (click)="removeImage('payment-screenshot')"
+                        ></i>
+                      </span>
+                    </p>
+                  </div>
+                  }
+                </div>
               </div>
-            </div>
-            <div class="bg-white p-3 rounded mt-2">
-              <p class="fs-6 fw-semibold">
-                4. Account Holder Name <span class="text-danger">*</span>
-              </p>
-              <div class="col-md-6">
-                <app-input-control
-                  [required]="true"
-                  [(ngModel)]="leadSheet.accountHolderName"
-                  name="accountHolderName"
-                  type="text"
-                ></app-input-control>
-              </div>
-            </div>
-            <div class="bg-white p-3 rounded mt-2">
-              <p class="fs-6 fw-semibold">
-                5. Submit payment Screenshot <span class="text-danger">*</span>
-              </p>
-              <div class="col-12">
-                <app-file-selector
-                  (onUpload)="getDocument($event, 'payment-screenshot')"
-                ></app-file-selector>
-              </div>
-            </div>
 
-            <div
-              class="btgroup d-flex justify-content-between align-items-center mt-3"
-            >
-              <button
-                type="button"
-                class="btn btn-sm btn-danger px-5 rounded-5"
-                (click)="prevStep()"
+              <div
+                class="btgroup d-flex justify-content-between align-items-center mt-3"
               >
-                Back
-              </button>
-              <button
-                type="button"
-                class="btn btn-sm btn-primary px-5 rounded-5"
-                (click)="nextStep()"
-              >
-                Next
-              </button>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-danger px-5 rounded-5"
+                  (click)="prevStep()"
+                >
+                  Back
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-sm btn-primary px-5 rounded-5"
+                >
+                  Next
+                </button>
+              </div>
             </div>
-          </div>
-          } @if (currentStep === 4) {
-          <div>
-            <div class="bg-white p-3 rounded mt-2">
-              <p class="fs-6 fw-semibold">Terms and Conditions</p>
-              <ul>
-                <li class="mt-3">
-                  The course fee must be paid in full at least 7days prior to
-                  the commencement of the course.
-                </li>
-                <li class="mt-3">
-                  Payment has to be made by online transfer / credit / debit
-                  card / Cheque / DD.
-                </li>
-                <li class="mt-3">
-                  Remaining Payment has to be made on or before 30 days from the
-                  course start date. (only for who have paid the part payment)
-                </li>
-                <li class="mt-3">
-                  Fee once paid is valid for a period of six months before which
-                  the course has to be completed or else the admission stands
-                  cancelled and the fee will not be refunded.
-                </li>
-                <li class="mt-3">
-                  Minimum number of students required to start a online batch is
-                  6 and for offline batch is 10.
-                </li>
-                <li class="mt-3">
-                  Fee once paid will not be refunded. inlingua Chennai refunds
-                  the fee collected only if inlingua drops the batch due to
-                  unavoidable situations. If the student wants to withdraw
-                  his/her admission prior to the commencement of the course, a
-                  processing fee of Rs 2500/- would be deducted. Once the class
-                  commences, there will be no refund provided.
-                </li>
-                <li class="mt-3">
-                  inlingua reserves the right to change the trainer of any
-                  ongoing batch at any point of time for a valid reason.
-                </li>
-                <li class="mt-3">
-                  A minimum attendance of 80% is required to be eligible to take
-                  up the inlingua examination at the end of the course. If a
-                  student has less than 80% attendance and above 50% attendance,
-                  he/she will be provided participation certificates only.
-                </li>
-                <li class="mt-3">
-                  All back up/missed classes will be charged at the rate of
-                  Rs.800/- per hour. Such sessions will be planned and executed
-                  solely based on the schedule provided by inlingua only.
-                </li>
-                <li class="mt-3">
-                  Transfer from one batch to another batch would be accepted
-                  only before the commencement of the course. The same would be
-                  decided based on the availability of seats in the desired
-                  batch.
-                </li>
-                <li class="mt-3">
-                  Under no circumstances will the postponement of final exam
-                  date would be entertained. However, students who are unable to
-                  take the examination due to valid reasons, will be allotted an
-                  alternate day on paying an additional fee of Rs.2500/- towards
-                  examination charges.
-                </li>
-                <li class="mt-3">
-                  Certificates will be processed in 10 working days from the
-                  date of completion of the examination from the respective
-                  centers.
-                </li>
-              </ul>
-              <p class="fs-6 fw-semibold mt-3">
-                <input
-                  type="checkbox"
-                  required="true"
-                  [(ngModel)]="leadSheet.isaggery"
-                  name="isaggery"
-                />
-                I agree to the above Terms and Conditions
-                <span class="text-danger">*</span>
-              </p>
-            </div>
-            <div
-              class="btgroup d-flex justify-content-between align-items-center mt-3"
-            >
-              <button
-                type="button"
-                class="btn btn-sm btn-danger px-5 rounded-5"
-                (click)="prevStep()"
+            }
+            @case (4) {
+            <div>
+              <div class="bg-white p-3 rounded mt-2">
+                <p class="fs-6 fw-semibold">Terms and Conditions</p>
+                <ul>
+                  <li class="mt-3">
+                    The course fee must be paid in full at least 7days prior to
+                    the commencement of the course.
+                  </li>
+                  <li class="mt-3">
+                    Payment has to be made by online transfer / credit / debit
+                    card / Cheque / DD.
+                  </li>
+                  <li class="mt-3">
+                    Remaining Payment has to be made on or before 30 days from the
+                    course start date. (only for who have paid the part payment)
+                  </li>
+                  <li class="mt-3">
+                    Fee once paid is valid for a period of six months before which
+                    the course has to be completed or else the admission stands
+                    cancelled and the fee will not be refunded.
+                  </li>
+                  <li class="mt-3">
+                    Minimum number of students required to start a online batch is
+                    6 and for offline batch is 10.
+                  </li>
+                  <li class="mt-3">
+                    Fee once paid will not be refunded. inlingua Chennai refunds
+                    the fee collected only if inlingua drops the batch due to
+                    unavoidable situations. If the student wants to withdraw
+                    his/her admission prior to the commencement of the course, a
+                    processing fee of Rs 2500/- would be deducted. Once the class
+                    commences, there will be no refund provided.
+                  </li>
+                  <li class="mt-3">
+                    inlingua reserves the right to change the trainer of any
+                    ongoing batch at any point of time for a valid reason.
+                  </li>
+                  <li class="mt-3">
+                    A minimum attendance of 80% is required to be eligible to take
+                    up the inlingua examination at the end of the course. If a
+                    student has less than 80% attendance and above 50% attendance,
+                    he/she will be provided participation certificates only.
+                  </li>
+                  <li class="mt-3">
+                    All back up/missed classes will be charged at the rate of
+                    Rs.800/- per hour. Such sessions will be planned and executed
+                    solely based on the schedule provided by inlingua only.
+                  </li>
+                  <li class="mt-3">
+                    Transfer from one batch to another batch would be accepted
+                    only before the commencement of the course. The same would be
+                    decided based on the availability of seats in the desired
+                    batch.
+                  </li>
+                  <li class="mt-3">
+                    Under no circumstances will the postponement of final exam
+                    date would be entertained. However, students who are unable to
+                    take the examination due to valid reasons, will be allotted an
+                    alternate day on paying an additional fee of Rs.2500/- towards
+                    examination charges.
+                  </li>
+                  <li class="mt-3">
+                    Certificates will be processed in 10 working days from the
+                    date of completion of the examination from the respective
+                    centers.
+                  </li>
+                </ul>
+                <p class="fs-6 fw-semibold mt-3">
+                  <mat-checkbox
+                    class=""
+                    [(ngModel)]="leadSheet.isaggery"
+                    [required]="true"
+                    >I agree to the above Terms and Conditions</mat-checkbox
+                  >
+                  <span class="text-danger">*</span>
+                </p>
+              </div>
+              <div
+                class="btgroup d-flex justify-content-between align-items-center mt-3"
               >
-                Back
-              </button>
-              <button
-                type="button"
-                class="btn btn-sm btn-success px-5 rounded-5"
-              >
-                Submit
-              </button>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-danger px-5 rounded-5"
+                  (click)="prevStep()"
+                >
+                  Back
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-sm btn-success px-5 rounded-5"
+                >
+                  Submit
+                </button>
+              </div>
             </div>
-          </div>
+            }
           }
         </form>
       </div>

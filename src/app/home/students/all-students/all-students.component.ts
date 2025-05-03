@@ -5,13 +5,13 @@ import { InputControlComponent } from '../../../app-core/form-input/input-contro
 import { ApplicationApiService } from '../../../common/api-services/application-api/application-api.service';
 import { DataService } from '../../../common/services/data/data.service';
 import { UrlService } from '../../../common/services/url/url.service';
-import { XSpinnerComponent } from '../../../common/spinner/spinner.component';
+import { PageLodingComponent } from '../../../app-core/page-loding/page-loding.component';
 
 @Component({
   selector: 'app-all-students',
   imports: [
     InputControlComponent,
-    XSpinnerComponent
+    PageLodingComponent
   ],
   templateUrl: './all-students.component.html',
   styleUrl: './all-students.component.scss'
@@ -42,10 +42,6 @@ export class AllStudentsComponent {
       this.allStudents = response;
       this.isLoading = true;
     });
-  }
-
-  showDetails(id: any) {
-
   }
 
   async navigate(id: any) {

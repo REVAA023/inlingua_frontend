@@ -1,16 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { InputControlComponent } from '../../app-core/form-input/input-control/input-control.component';
 
 @Component({
   selector: 'app-leads',
   imports: [
-    RouterModule,
-    InputControlComponent
+    RouterModule
   ],
   templateUrl: './leads.component.html',
   styleUrl: './leads.component.scss'
 })
 export class LeadsComponent {
-
 }

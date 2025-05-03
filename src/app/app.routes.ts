@@ -41,10 +41,30 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'leads',
+        path: '',
         data: { title: 'Inlingua | Leads' },
         loadComponent: () =>
-          import('./home/leads/leads.component').then((m) => m.LeadsComponent),
+          import('./home/leads/leads.component').then(
+            (m) => m.LeadsComponent
+          ),
+        children: [
+          {
+            path: 'leads',
+            data: { title: 'Inlingua | All Leads list' },
+            loadComponent: () =>
+              import('./home/leads/all-leads/all-leads.component').then(
+                (m) => m.AllLeadsComponent
+              ),
+          },
+          {
+            path: 'leads/details/:id',
+            data: { title: 'Inlingua | Leads Details' },
+            loadComponent: () =>
+              import('./home/leads/leads-profile/leads-profile.component').then(
+                (m) => m.LeadsProfileComponent
+              ),
+          }
+        ]
       },
       {
         path: 'leads/addleads',
@@ -72,7 +92,7 @@ export const routes: Routes = [
       },
       {
         path: '',
-        data: { title: 'Inlingua | Studens' },
+        data: { title: 'Inlingua | Students' },
         loadComponent: () =>
           import('./home/students/students.component').then(
             (m) => m.StudentsComponent
@@ -80,7 +100,7 @@ export const routes: Routes = [
         children: [
           {
             path: 'students',
-            data: { title: 'Inlingua | Studens Details' },
+            data: { title: 'Inlingua | Students Details' },
             loadComponent: () =>
               import('./home/students/all-students/all-students.component').then(
                 (m) => m.AllStudentsComponent
@@ -88,17 +108,12 @@ export const routes: Routes = [
           },
           {
             path: 'students/details/:id',
-            data: { title: 'Inlingua | Studens Details' },
+            data: { title: 'Inlingua | Students Details' },
             loadComponent: () =>
               import('./home/students/students-details/students-details.component').then(
                 (m) => m.StudentsDetailsComponent
               ),
-          },
-          {
-            path: '',
-            pathMatch: 'full',
-            redirectTo: 'studens',
-          },
+          }
         ]
       },
       {
@@ -121,12 +136,7 @@ export const routes: Routes = [
             path: 'trainers',
             data: { title: 'Inlingua | Trainer Details' },
             loadComponent: () => import('./home/trainers/all-trainers/all-trainers.component').then(m => m.AllTrainersComponent)
-          },
-          {
-            path: '',
-            pathMatch: 'full',
-            redirectTo: 'trainers',
-          },
+          }
         ]
       },
       {

@@ -4,15 +4,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UrlService } from '../../../common/services/url/url.service';
 import { DataService } from '../../../common/services/data/data.service';
 import { ApplicationApiService } from '../../../common/api-services/application-api/application-api.service';
-import { PageLodingComponent } from '../../../app-core/page-loding/page-loding.component';
 import { FormsModule } from '@angular/forms';
+import { PageLodingComponent } from '../../../app-core/page-loding/page-loding.component';
 
 @Component({
   selector: 'app-students-details',
   imports: [
     InputControlComponent,
-    PageLodingComponent,
-    FormsModule
+    FormsModule,
+    PageLodingComponent
   ],
   templateUrl: './students-details.component.html',
   styleUrl: './students-details.component.scss'
@@ -21,13 +21,10 @@ export class StudentsDetailsComponent implements OnInit {
   isLoading = false;
   isEnabled = true;
 
-  firstName = "";
-  lastName = "";
-  email = "";
-  mobileNumber = "";
-  dateOfBirth = "";
-  professions = "";
+  professionsValue = "";
+  professionsDescription = "";
 
+  studentDetailsChoices: any = {};
 
   constructor(
     public data: DataService,
@@ -46,7 +43,7 @@ export class StudentsDetailsComponent implements OnInit {
       studentId:obj
     }
     this.getStudentDetails(payload);
-
+    this.getStudentDetailsChoices();
   }
 
   studentDetails: any;
@@ -54,11 +51,25 @@ export class StudentsDetailsComponent implements OnInit {
   getStudentDetails(id: any) {
     this.apiService.getStudentDetails(id).subscribe((response: any) => {
       this.studentDetails = response;
+      console.log("Student Details",this.studentDetails);
       this.isEnabled =  true;
-      console.log(this.studentDetails);
-      this.firstName = this.studentDetails.student.user.firstName;
-      this.lastName = this.studentDetails.student.user.lastName;
       this.isLoading = true;
+    })
+  }
+
+  getStudentDetailsChoices() {
+    const option = { hideJwt: true };
+    this.apiService.getStudentDetailsChoices(option).subscribe((response: any) => {
+      this.studentDetailsChoices = response;
+      console.log(this.studentDetailsChoices);
+    });
+  }
+
+  changeStudentStatus(value: any){
+    const obj = {status: value, student_id: this.studentDetails.student.id};
+    this.apiService.changeStudentStatus(obj).subscribe((response: any) => {
+      console.log(response);
+      this.studentDetails.student.status = value;
     })
   }
 
@@ -73,5 +84,4 @@ export class StudentsDetailsComponent implements OnInit {
   goBack(){
     this.router.navigateByUrl('students')
   }
-
 }

@@ -37,13 +37,32 @@
         }}{{ studentDetails.student.user.firstName.charAt(1) }}
         }
       </div>
-      }
+      } @if (!isEnabled) {
       <i class="bx bx-edit-alt edit-icon fs-4"></i>
+      }
     </div>
-    <p class="fs-5 fw-bold">
+    <p class="fs-5 fw-bold m-0 p-0">
       {{ studentDetails.student.user.firstName }}
       {{ studentDetails.student.user.lastName }}
     </p>
+    <!-- Example single danger button -->
+    <div class="btn-group">
+      <span
+        class="{{
+          studentDetails.student.studentStatusValue
+        }} px-2 py-1 rounded cr-pointer dropdown-toggle btn-sm small"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        {{ studentDetails.student.studentStatusLabel }}
+      </span>
+      <div class="dropdown-menu">
+        @for (status of studentDetailsChoices.STUDENT_STATUS_CHOICES; track $index) {
+          <a class="dropdown-item" (click)="changeStudentStatus(status.value)">{{status.label}}</a>
+
+        }
+      </div>
+    </div>
   </div>
 
   <div class="icon-row-container mt-4">
@@ -80,134 +99,149 @@
     <div class="divider-line"></div>
   </div>
   <div>
-  <form >
-    <div class="row">
-      <p class="fs-5 fw-bold">Student Details</p>
-      <div class="col-md-4">
-        <app-input-control
-          label="First Name"
-          [required]="true"
-          [btnClicked]="isEnabled"
-          [(ngModel)]="firstName"
-          name="firstName"
-        ></app-input-control>
+    <form>
+      <div class="row">
+        <p class="fs-5 fw-bold">Student Details</p>
+        <div class="col-md-4">
+          <app-input-control
+            label="First Name"
+            [required]="true"
+            [btnClicked]="isEnabled"
+            [(ngModel)]="studentDetails.student.user.firstName"
+            name="firstName"
+          ></app-input-control>
+        </div>
+        <div class="col-md-4">
+          <app-input-control
+            label="Last Name"
+            [required]="true"
+            [btnClicked]="isEnabled"
+            [(ngModel)]="studentDetails.student.user.lastName"
+            name="lastName"
+          ></app-input-control>
+        </div>
+        <div class="col-md-4">
+          <app-input-control
+            label="Email"
+            type="email"
+            [required]="true"
+            [btnClicked]="isEnabled"
+            [(ngModel)]="studentDetails.student.user.email"
+            name="email"
+          ></app-input-control>
+        </div>
+        <div class="col-md-4">
+          <app-input-control
+            label="Mobile Number"
+            type="tel"
+            [required]="true"
+            [btnClicked]="isEnabled"
+            [(ngModel)]="studentDetails.student.user.mobileNumber"
+            name="mobileNumber"
+          ></app-input-control>
+        </div>
+        <div class="col-md-4">
+          <app-input-control
+            label="Date Of Birth"
+            type="date"
+            [required]="true"
+            [btnClicked]="isEnabled"
+            [(ngModel)]="studentDetails.student.user.dateOfBirth"
+            name="dateOfBirth"
+          ></app-input-control>
+        </div>
+        <div class="col-md-4">
+          <app-input-control
+            label="Professions"
+            type="select"
+            [required]="true"
+            [btnClicked]="isEnabled"
+            [(ngModel)]="studentDetails.student.professionsLabel"
+            [items]="studentDetailsChoices.PROFESSIONS_CHOICES"
+            key="value"
+            keyName="label"
+            name="professions"
+          ></app-input-control>
+        </div>
       </div>
-      <div class="col-md-4">
-        <app-input-control
-          label="Last Name"
-          [required]="true"
-          [btnClicked]="isEnabled"
-          [(ngModel)]="lastName"
-          name="lastName"
-        ></app-input-control>
+      <div class="row mt-4">
+        <p class="fs-5 fw-bold">Language Details</p>
+        <div class="col-md-4">
+          <app-input-control
+            label="Language"
+            [required]="true"
+            [btnClicked]="isEnabled"
+          ></app-input-control>
+        </div>
+        <div class="col-md-4">
+          <app-input-control
+            label="Course Type"
+            [required]="true"
+            [btnClicked]="isEnabled"
+          ></app-input-control>
+        </div>
+        <div class="col-md-4">
+          <app-input-control
+            label="Mode Of Class"
+            [required]="true"
+            [btnClicked]="isEnabled"
+          ></app-input-control>
+        </div>
+        <div class="col-md-4">
+          <app-input-control
+            label="Name Of The Counselor"
+            [required]="true"
+            [btnClicked]="isEnabled"
+          ></app-input-control>
+        </div>
+        <div class="col-md-4">
+          <app-input-control
+            label="Batch Details"
+            [required]="true"
+            [btnClicked]="isEnabled"
+          ></app-input-control>
+        </div>
       </div>
-      <div class="col-md-4">
-        <app-input-control
-          label="Email"
-          [required]="true"
-          [btnClicked]="isEnabled"
-          [(ngModel)]="email"
-          name="email"
-        ></app-input-control>
+      <div class="row mt-4">
+        <p class="fs-5 fw-bold">Payment Details</p>
+        <div class="col-md-4">
+          <app-input-control
+            label="Amount Paid Type"
+            [required]="true"
+            [(ngModel)]="studentDetails.student.paymentTypeLabel"
+            name="amountPaidType"
+            [btnClicked]="true"
+          ></app-input-control>
+        </div>
+        <div class="col-md-4">
+          <app-input-control
+            label="Amount of paid"
+            [required]="true"
+            [(ngModel)]="studentDetails.student.amountPaide"
+            name="amountPaid"
+            [btnClicked]="true"
+          ></app-input-control>
+        </div>
+        <div class="col-md-4">
+          <app-input-control
+            label="Trsnsation ID"
+            [required]="true"
+            [(ngModel)]="studentDetails.student.transactionId"
+            name="transationId"
+            [btnClicked]="true"
+          ></app-input-control>
+        </div>
+        <div class="col-md-4">
+          <app-input-control
+            label="Account Holder Name"
+            [required]="true"
+            [(ngModel)]="studentDetails.student.accountHolderName"
+            name="accountHolderName"
+            [btnClicked]="true"
+          ></app-input-control>
+        </div>
       </div>
-      <div class="col-md-4">
-        <app-input-control
-          label="Mobile Number"
-          [required]="true"
-          [btnClicked]="isEnabled"
-          [(ngModel)]="mobileNumber"
-          name="mobileNumber"
-        ></app-input-control>
-      </div>
-      <div class="col-md-4">
-        <app-input-control
-          label="Date Of Birth"
-          [required]="true"
-          [btnClicked]="isEnabled"
-          [(ngModel)]="dateOfBirth"
-          name="dateOfBirth"
-        ></app-input-control>
-      </div>
-      <div class="col-md-4">
-        <app-input-control
-          label="Professions"
-          [required]="true"
-          [btnClicked]="isEnabled"
-          [(ngModel)]="professions"
-          name="professions"
-        ></app-input-control>
-      </div>
-    </div>
-    <div class="row mt-4">
-      <p class="fs-5 fw-bold">Language Details</p>
-      <div class="col-md-4">
-        <app-input-control
-          label="Language"
-          [required]="true"
-          [btnClicked]="isEnabled"
-        ></app-input-control>
-      </div>
-      <div class="col-md-4">
-        <app-input-control
-          label="Course Type"
-          [required]="true"
-          [btnClicked]="isEnabled"
-        ></app-input-control>
-      </div>
-      <div class="col-md-4">
-        <app-input-control
-          label="Mode Of Class"
-          [required]="true"
-          [btnClicked]="isEnabled"
-        ></app-input-control>
-      </div>
-      <div class="col-md-4">
-        <app-input-control
-          label="Name Of The Counselor"
-          [required]="true"
-          [btnClicked]="isEnabled"
-        ></app-input-control>
-      </div>
-      <div class="col-md-4">
-        <app-input-control
-          label="Batch Details"
-          [required]="true"
-          [btnClicked]="isEnabled"
-        ></app-input-control>
-      </div>
-    </div>
-    <div class="row mt-4">
-      <p class="fs-5 fw-bold">Payment Details</p>
-      <div class="col-md-4">
-        <app-input-control
-          label="Amount Paid Type"
-          [required]="true"
-          [btnClicked]="isEnabled"
-        ></app-input-control>
-      </div>
-      <div class="col-md-4">
-        <app-input-control
-          label="Amount of paid"
-          [required]="true"
-          [btnClicked]="isEnabled"
-        ></app-input-control>
-      </div>
-      <div class="col-md-4">
-        <app-input-control
-          label="Trsnsation ID"
-          [required]="true"
-          [btnClicked]="isEnabled"
-        ></app-input-control>
-      </div>
-      <div class="col-md-4">
-        <app-input-control
-          label="Account Holder Name"
-          [required]="true"
-          [btnClicked]="isEnabled"
-        ></app-input-control>
-      </div>
-    </div>
-  </form>
+    </form>
     <div class="row mt-4">
       <p class="fs-5 fw-bold">Proof Details</p>
       @if (studentDetails.student.aadhar.documentSize > 0) {
@@ -219,32 +253,31 @@
             alt="Aadhar Proof"
           />
           <div class="proof-actions">
-            <button >
-              <i class='bx bx-expand' style='color:#d2d2d2' ></i>
+            <button>
+              <i class="bx bx-expand" style="color: #d2d2d2"></i>
             </button>
             <a [href]="studentDetails.student.aadhar.documentContant" download>
-              <i class='bx bx-download' style='color:#d2d2d2' ></i>
+              <i class="bx bx-download" style="color: #d2d2d2"></i>
             </a>
           </div>
         </div>
-
+      </div>
+      } @if (studentDetails.student.paymentConformScreenshot.documentSize > 0) {
+      <div class="col-3">
+        <p>Payment Conformation</p>
+        <div class="aadhar-proof-container">
+          <img
+            src="{{
+              studentDetails.student.paymentConformScreenshot.documentContant
+            }}"
+            alt=""
+          />
+        </div>
       </div>
       }
-      @if (studentDetails.student.paymentConformScreenshot.documentSize > 0) {
-        <div class="col-3">
-          <p>Payment Conformation</p>
-          <div class="aadhar-proof-container">
-            <img
-              src="{{ studentDetails.student.paymentConformScreenshot.documentContant }}"
-              alt=""
-            />
-          </div>
-        </div>
-      }
-
     </div>
   </div>
 </div>
 } @else {
-<app-page-loding></app-page-loding>
+  <app-page-loding></app-page-loding>
 }

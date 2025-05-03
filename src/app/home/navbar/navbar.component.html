@@ -14,7 +14,12 @@
   </div>
   <div class="dropdown">
     <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-      <img [src]="appservice.user.photo.documentContant" [alt]="appservice.user.photo.documentName" width="32" height="32" class="rounded-circle me-2">
+      @if (appservice.user.photo) {
+        <img [src]="appservice.user.photo.documentContant" [alt]="appservice.user.photo.documentName" width="32" height="32" class="rounded-circle me-2">
+      }
+      @else {
+      <img src="https://png.pngtree.com/png-vector/20190710/ourmid/pngtree-user-vector-avatar-png-image_1541962.jpg"  width="32" height="32" class="rounded-circle me-2">
+      }
       <strong>{{appservice.user.firstName}} {{appservice.user.lastName}}</strong>
     </a>
     <ul class="dropdown-menu text-small d-md-none shadow" aria-labelledby="dropdownUser2">

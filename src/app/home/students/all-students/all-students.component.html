@@ -58,7 +58,7 @@
       </div>
     </div>
     <div class="table-responsive mt-2 mx-n1 px-1">
-      <table class="table mb-0 Students-table border-top border-translucent">
+      <table class="table table-hover mb-0 Students-table border-top border-translucent">
         <thead>
           <tr>
             <th
@@ -163,11 +163,9 @@
                   </div>
                 </a>
                 <div>
-                  <a
-                    class="small fw-bold text-decoration-none d-flex align-items-center gap-2"
-                    (click)="navigate(students.id)"
-                    >{{students.user.firstName}} {{students.user.lastName}}
-                  </a>
+                  <span class=" text-primary fw-bold text-truncate d-block">
+                    {{students.user.firstName}} {{students.user.lastName}}
+                  </span>
                   <div class="d-flex align-items-center">
                     <span
                       class="p-0 m-0 badge badge-primary small border bg-secondary p-1 d-flex gap-2"
@@ -190,7 +188,7 @@
             <td
               class="phone align-middle white-space-nowrap ps-4 border-end border-translucent"
             >
-              <span class="border px-3 py-1 rounded {{students.studentStatus.value}}">{{students.studentStatus.label}}</span>
+              <span class="border px-3 py-1 rounded {{students.studentStatusValue}}">{{students.studentStatusLabel}}</span>
             </td>
             <td class="name align-middle white-space-nowrap border-end">
               <div class="d-flex align-items-center small">
@@ -221,7 +219,5 @@
   </div>
 
 } @else {
-  <div class="d-flex justify-content-center align-items-center h-100">
-    <spinner [spinnerClass]="'custom-spinner'" width="30%" height="30%" />
-  </div>
+  <app-page-loding></app-page-loding>
 }

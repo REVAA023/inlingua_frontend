@@ -14,30 +14,4 @@ td {
   padding-bottom: 0 !important;
 }
 
-.NEW_STUDENT, .BATCH_ALLOCATED{
-  background-color: rgb(138, 165, 255);
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: rgb(1, 1, 163);
-}
 
-.VERIFYD, .COURSE_COMPLETED{
-  background-color: rgb(176, 255, 176);
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: green;
-}
-
-.WAITING_FOR_ASSESSMENT{
-  background-color: rgb(255, 247, 138);
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: rgb(163, 139, 1);
-}
-
-.table-row{
-  cursor: pointer;
-  &:hover {
-    background-color: #e0e0e0 !important;
-  }
-}
