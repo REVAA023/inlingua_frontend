@@ -76,6 +76,17 @@
           ></a>
           <span>Call</span>
         </div>
+        <div class="icon-box">
+          <a
+            [href]="'https://wa.me/91' + leadDetails.leadMobileNumber + '?text= Hi, please fill out the form: http://localhost:4200/register-form'"
+            class="text-dark text-decoration-none"
+            target="_blank"
+          >
+            <i class='bx bx-spreadsheet'></i>
+          </a>
+          <span>Send Form</span>
+        </div>
+
       </div>
       <div class="divider-line"></div>
     </div>
@@ -119,7 +130,7 @@
               [required]="true"
               [btnClicked]="true"
               [(ngModel)]="leadDetails.leadSource"
-              name="mobileNumber"
+              name="leadSource"
             ></app-input-control>
           </div>
         </div>

@@ -14,6 +14,12 @@ export const routes: Routes = [
       import('./home/students/students-register-form/students-register-form.component').then((m) => m.StudentsRegisterFormComponent),
   },
   {
+    path: 'reset-password',
+    data: { title: 'Inlingua | Set Password' },
+    loadComponent: () =>
+      import('./set-password/set-password.component').then((m) => m.SetPasswordComponent),
+  },
+  {
     path: 'student-account-verify',
     data: { title: 'Inlingua | Lead OTP Verification' },
     loadComponent: () =>

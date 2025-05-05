@@ -18,6 +18,9 @@ import { InputControlComponent } from '../../../app-core/form-input/input-contro
   styleUrl: './leads-profile.component.scss'
 })
 export class LeadsProfileComponent implements OnInit {
+encodeURIComponent(arg0: string) {
+throw new Error('Method not implemented.');
+}
   leadDetails: any = {};
   isLoading = false;
   isEnabled = true;
