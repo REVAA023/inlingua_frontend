@@ -54,7 +54,7 @@
 </div>
 }
 @case ('submitAlert') {
-<div class="v-flex h100 home-dialog-template">
+<div class="v-flex h100 home-dialog-template p-3">
     <div class="home-dialog-header between">
         <div class="home-submit-dialog-label">
             <ion-icon name="warning-outline"></ion-icon> Alert
@@ -70,9 +70,9 @@
     </div>
     <div class="home-dialog-footer hAuto">
         <div class="py-2 d-flex end">
-            <div class=" d-flex gap16">
-                <a class="clear-btn slot-center h36px mW100px" appButton="No" (click)="onNoClick()"></a>
-                <button class="btn-primary btn-cus-primary h36px mW100px" appButton="Yes"
+            <div class=" d-flex gap-3">
+                <a class="btn btn-danger bt-sm slot-center h36px mW100px" appButton="No" (click)="onNoClick()"></a>
+                <button class="btn btn-primary btn-sm px-3 rounded-5" appButton="Yes"
                     (click)="confirmDeletion()"></button>
             </div>
         </div>

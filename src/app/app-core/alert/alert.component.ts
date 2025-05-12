@@ -4,11 +4,11 @@ import { MAT_SNACK_BAR_DATA, MatSnackBar, MatSnackBarModule, MatSnackBarRef } fr
 import { AppSettingsService } from '../../common/services/app-settings/app-settings.service';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { AppButton } from '../core-component/core-directives.directive';
-import { AppSafePipe } from '../../common/pipes/app-safe/app-safe.pipe';
 import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { InputControlComponent } from "../form-input/input-control/input-control.component";
 import { FormsModule } from '@angular/forms';
+import { AppSafePipe } from '../../common/pipe/app-safe/app-safe.pipe';
 
 
 export interface DialogData {
@@ -76,7 +76,7 @@ export class AlertComponent implements OnInit, OnDestroy {
 
   dismiss(): void {
     if (this.dialogRef) {
-      this.dialogRef.close(false); 
+      this.dialogRef.close(false);
     } else {
       this.snackBar.dismiss();
     }
@@ -84,7 +84,7 @@ export class AlertComponent implements OnInit, OnDestroy {
 
   confirm(): void {
     if (this.dialogRef) {
-      this.dialogRef.close(true); 
+      this.dialogRef.close(true);
     }
   }
 
@@ -103,7 +103,7 @@ export class AlertComponent implements OnInit, OnDestroy {
   }
 
   private initializeSnackbar(): void {
-    const duration = this.appSettings.environment?.successDuration || 5000; 
+    const duration = this.appSettings.environment?.successDuration || 5000;
     this.snackBarRef.afterOpened().subscribe(() => {
       this.startProgress(duration);
     });

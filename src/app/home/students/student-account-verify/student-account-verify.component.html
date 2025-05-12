@@ -1,3 +1,4 @@
+@if (!formSuccess) {
 <div class="main-container">
   <div class="container">
     <div class="row">
@@ -23,22 +24,48 @@
                 <h4 class="m-0 p-0 text-center">OTP Verification</h4>
 
                 <!-- OTP Boxes -->
-                 <div class="mt-4">
-                  <app-pin-control [boxes]="6" label="Enter Mobile OTP Code" [required]="true" passwordTextType="text" [(ngModel)]="numberotp" name="numberotp"></app-pin-control>
-                 </div>
+                <div class="mt-4">
+                  <app-pin-control
+                    [boxes]="6"
+                    label="Enter {{ strNumber }} OTP "
+                    [required]="true"
+                    passwordTextType="text"
+                    [(ngModel)]="numberotp"
+                    name="numberotp"
+                  ></app-pin-control>
+                </div>
 
                 <!-- OTP Boxes -->
                 <div class="mt-4">
-                  <app-pin-control label="Enter Gmail OTP Code" [boxes]="6" [required]="true" passwordTextType="text" [(ngModel)]="gmailotp" name="gmailotp"></app-pin-control>
+                  <app-pin-control
+                    label="Enter {{ strEmail }} OTP "
+                    [boxes]="6"
+                    [required]="true"
+                    passwordTextType="text"
+                    [(ngModel)]="gmailotp"
+                    name="gmailotp"
+                  ></app-pin-control>
                 </div>
               </div>
             </div>
             <!-- Resend + Button -->
             <div class="text-center mt-3">
               <p class="small">
-                Didn't receive OTP code? <a href="#">Resend Code</a>
+                Didn't receive OTP code?
+                <a class="btn btn-secondary btn-sm" (click)="reSendOtp()"
+                  >Resend Code</a
+                >
+                or
+                <a
+                  [routerLink]="['/register-form']"
+                  class="btn btn-secondary btn-sm"
+                >
+                  Go back
+                </a>
               </p>
-              <button class="btn btn-c-primary px-4 rounded-5" type="submit">Verify & Proceed</button>
+              <button class="btn btn-c-primary px-4 rounded-5" type="submit">
+                Verify & Proceed
+              </button>
             </div>
           </div>
         </form>
@@ -46,3 +73,16 @@
     </div>
   </div>
 </div>
+} @else {
+  <div class="vh-100 vw-100 p-5">
+    <div class="d-flex flex-column align-items-center justify-content-center w-100 h-100">
+      <div class="w-25">
+        <img src="assets/svg/register-success.svg" alt="" class="w-100" />
+      </div>
+      <p class="fs-5 fw-bold">Form submitted successfully</p>
+      <p class="mx-5 text-center">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit...
+      </p>
+    </div>
+  </div>
+}

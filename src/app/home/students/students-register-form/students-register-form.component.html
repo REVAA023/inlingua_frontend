@@ -50,9 +50,10 @@
                 </p>
                 <div class="col-md-6">
                   <app-input-control
-                    [required]="true" [errorTrue]="errorTrue"
+                    [required]="true"
+                    [errorTrue]="errorTrue"
                     type="text"
-                    [(ngModel)]="leadSheet.FirstName"
+                    [(ngModel)]="registersheet.FirstName"
                     name="FirstName"
                   ></app-input-control>
                 </div>
@@ -62,7 +63,7 @@
                 <div class="col-md-6">
                   <app-input-control
                     type="text"
-                    [(ngModel)]="leadSheet.LastName"
+                    [(ngModel)]="registersheet.LastName"
                     name="LastName"
                   ></app-input-control>
                 </div>
@@ -74,7 +75,8 @@
                 <div class="col-md-6">
                   <app-input-control
                     [required]="true"
-                    [(ngModel)]="leadSheet.gmail"
+                    [(ngModel)]="registersheet.gmail"
+                    [errorTrue]="errorTrue"
                     name="gmail"
                     type="email"
                   ></app-input-control>
@@ -88,7 +90,8 @@
                   <app-input-control
                     type="number"
                     [required]="true"
-                    [(ngModel)]="leadSheet.MobileNumber"
+                    [(ngModel)]="registersheet.MobileNumber"
+                    [errorTrue]="errorTrue"
                     name="MobileNumber"
                   ></app-input-control>
                 </div>
@@ -101,7 +104,8 @@
                   <app-input-control
                     [required]="true"
                     type="date"
-                    [(ngModel)]="leadSheet.dob"
+                    [(ngModel)]="registersheet.dob"
+                    [errorTrue]="errorTrue"
                     name="dob"
                   ></app-input-control>
                 </div>
@@ -114,7 +118,8 @@
                   <app-input-control
                     type="select"
                     [required]="true"
-                    [(ngModel)]="leadSheet.professions"
+                    [(ngModel)]="registersheet.professions"
+                    [errorTrue]="errorTrue"
                     name="professions"
                     defaultOption="--Select Professions--"
                     [items]="studentDetailsChoices.PROFESSIONS_CHOICES"
@@ -127,7 +132,7 @@
                 <p class="fs-6 fw-semibold">7. Student Photo</p>
                 <div class="col-12">
                   <!-- Show file input if no image uploaded -->
-                  @if (!leadSheet.studentPhoto.documentName) {
+                  @if (!registersheet.studentPhoto.documentName) {
                   <app-file-selector
                     (onUpload)="getDocument($event, 'STUPD')"
                   ></app-file-selector>
@@ -136,12 +141,12 @@
                     <p
                       class="d-flex align-items-center m-0 p-0 gap-3 justify-content-between"
                     >
-                      <span> {{ leadSheet.studentPhoto.documentName }}</span>
+                      <span> {{ registersheet.studentPhoto.documentName }}</span>
                       <span
                         class="input-img-container d-flex align-items-center gap-2"
                       >
                         <img
-                          [src]="leadSheet.studentPhoto.documentContant"
+                          [src]="registersheet.studentPhoto.documentContant"
                           alt="Student Photo"
                           height="60"
                           class="rounded"
@@ -162,7 +167,7 @@
                 </p>
                 <div class="col-12">
                   <!-- Show file input if no image uploaded -->
-                  @if (!leadSheet.aadharCard.documentName) {
+                  @if (!registersheet.aadharCard.documentName) {
                   <app-file-selector
                     (onUpload)="getDocument($event, 'AADHAR')"
                   ></app-file-selector>
@@ -171,12 +176,12 @@
                     <p
                       class="d-flex align-items-center m-0 p-0 gap-3 justify-content-between"
                     >
-                      <span> {{ leadSheet.aadharCard.documentName }}</span>
+                      <span> {{ registersheet.aadharCard.documentName }}</span>
                       <span
                         class="input-img-container d-flex align-items-center gap-2"
                       >
                         <img
-                          [src]="leadSheet.aadharCard.documentContant"
+                          [src]="registersheet.aadharCard.documentContant"
                           alt="Student Photo"
                           height="60"
                           class="rounded"
@@ -203,27 +208,30 @@
               </div>
             </div>
             }
-            @case (2){
-            <div>
-              <div class="bg-white p-3 rounded mt-2">
-                <p class="fs-6 fw-semibold">
-                  1. Language <span class="text-danger">*</span>
-                </p>
-                <div class="col-md-6">
-                  <app-input-control
-                    [required]="true"
-                    [(ngModel)]="leadSheet.languageId"
-                    name="languageId"
-                    (onSelect)="getLevelAndHours(leadSheet.languageId)"
-                    defaultOption="--Select Language--"
-                    [items]="languages.languages"
-                    key="id"
-                    keyName="name"
-                    type="select"
-                  ></app-input-control>
-                </div>
-              </div>
+            @case (2) {
               <div>
+                <!-- Language -->
+                <div class="bg-white p-3 rounded mt-2">
+                  <p class="fs-6 fw-semibold">
+                    1. Language <span class="text-danger">*</span>
+                  </p>
+                  <div class="col-md-6">
+                    <app-input-control
+                      [required]="true"
+                      [errorTrue]="errorTrue"
+                      [(ngModel)]="registersheet.languageId"
+                      name="languageId"
+                      (onSelect)="getLevelAndHours(registersheet.languageId)"
+                      defaultOption="--Select Language--"
+                      [items]="languages.languages"
+                      key="id"
+                      keyName="name"
+                      type="select"
+                    ></app-input-control>
+                  </div>
+                </div>
+
+                <!-- Course Type -->
                 <div class="bg-white p-3 rounded mt-2">
                   <p class="fs-6 fw-semibold">
                     2. Course Type <span class="text-danger">*</span>
@@ -231,18 +239,19 @@
                   <div class="col-md-6">
                     <app-input-control
                       [required]="true"
-                      [(ngModel)]="leadSheet.courseTypeId"
+                      [errorTrue]="errorTrue"
+                      [(ngModel)]="registersheet.courseTypeId"
                       name="courseTypeId"
+                      defaultOption="--Select Course Type--"
                       [items]="levelAndHour.Levelandhours"
                       key="id"
                       keyName="level"
-                      defaultOption="--Select Course Type"
                       type="select"
                     ></app-input-control>
                   </div>
                 </div>
-              </div>
-              <div>
+
+                <!-- Mode of Class -->
                 <div class="bg-white p-3 rounded mt-2">
                   <p class="fs-6 fw-semibold">
                     3. Mode Of Class <span class="text-danger">*</span>
@@ -250,9 +259,10 @@
                   <div class="col-md-6">
                     <app-input-control
                       [required]="true"
-                      [(ngModel)]="leadSheet.modeOfClass"
+                      [errorTrue]="errorTrue"
+                      [(ngModel)]="registersheet.modeOfClass"
                       name="modeOfClass"
-                      defaultOption="--Select Class Mode"
+                      defaultOption="--Select Class Mode--"
                       [items]="studentDetailsChoices.BATCH_TYPE_CHOICES"
                       key="value"
                       keyName="label"
@@ -260,8 +270,8 @@
                     ></app-input-control>
                   </div>
                 </div>
-              </div>
-              <div>
+
+                <!-- Counselor -->
                 <div class="bg-white p-3 rounded mt-2">
                   <p class="fs-6 fw-semibold">
                     4. Name Of The Counselor <span class="text-danger">*</span>
@@ -269,35 +279,35 @@
                   <div class="col-md-6">
                     <app-input-control
                       [required]="true"
-                      [(ngModel)]="leadSheet.counselorId"
+                      [errorTrue]="errorTrue"
+                      [(ngModel)]="registersheet.counselorId"
                       name="counselorId"
                       [items]="StudentCounselors.counselors"
                       key="id"
                       keyName="fullName"
-                      defaultOption="--Select Counselor"
+                      defaultOption="--Select Counselor--"
                       type="select"
                     ></app-input-control>
                   </div>
                 </div>
+
+                <!-- Buttons -->
+                <div class="btgroup d-flex justify-content-between align-items-center mt-3">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-danger px-5 rounded-5"
+                    (click)="prevStep()"
+                  >
+                    Back
+                  </button>
+                  <button
+                    type="submit"
+                    class="btn btn-sm btn-primary px-5 rounded-5"
+                  >
+                    Next
+                  </button>
+                </div>
               </div>
-              <div
-                class="btgroup d-flex justify-content-between align-items-center mt-3"
-              >
-                <button
-                  type="button"
-                  class="btn btn-sm btn-danger px-5 rounded-5"
-                  (click)="prevStep()"
-                >
-                  Back
-                </button>
-                <button
-                  type="submit"
-                  class="btn btn-sm btn-primary px-5 rounded-5"
-                >
-                  Next
-                </button>
-              </div>
-            </div>
             }
             @case (3) {
             <div>
@@ -308,7 +318,8 @@
                 <div class="col-md-6">
                   <app-input-control
                     [required]="true"
-                    [(ngModel)]="leadSheet.amountPaid"
+                    [errorTrue]="errorTrue"
+                    [(ngModel)]="registersheet.amountPaid"
                     name="amountPaid"
                     defaultOption="--Select Payment"
                     [items]="studentDetailsChoices.PAYMENT_TYPE_CHOICES"
@@ -325,7 +336,9 @@
                 <div class="col-md-6">
                   <app-input-control
                     [required]="true"
-                    [(ngModel)]="leadSheet.amount"
+                    [errorTrue]="errorTrue"
+                    [(ngModel)]="registersheet.amount"
+                    valueType="int"
                     name="amount"
                     type="number"
                   ></app-input-control>
@@ -338,7 +351,8 @@
                 <div class="col-md-6">
                   <app-input-control
                     [required]="true"
-                    [(ngModel)]="leadSheet.TransactionId"
+                    [errorTrue]="errorTrue"
+                    [(ngModel)]="registersheet.TransactionId"
                     name="TransactionId"
                     type="text"
                   ></app-input-control>
@@ -351,7 +365,8 @@
                 <div class="col-md-6">
                   <app-input-control
                     [required]="true"
-                    [(ngModel)]="leadSheet.accountHolderName"
+                    [errorTrue]="errorTrue"
+                    [(ngModel)]="registersheet.accountHolderName"
                     name="accountHolderName"
                     type="text"
                   ></app-input-control>
@@ -363,7 +378,7 @@
                 </p>
                 <div class="col-12">
                   <!-- Show file input if no image uploaded -->
-                  @if (!leadSheet.paymentScreenShot.documentName) {
+                  @if (!registersheet.paymentScreenShot.documentName) {
                   <app-file-selector
                     (onUpload)="getDocument($event, 'payment-screenshot')"
                   ></app-file-selector>
@@ -372,12 +387,12 @@
                     <p
                       class="d-flex align-items-center m-0 p-0 gap-3 justify-content-between"
                     >
-                      <span> {{ leadSheet.paymentScreenShot.documentName }}</span>
+                      <span> {{ registersheet.paymentScreenShot.documentName }}</span>
                       <span
                         class="input-img-container d-flex align-items-center gap-2"
                       >
                         <img
-                          [src]="leadSheet.paymentScreenShot.documentContant"
+                          [src]="registersheet.paymentScreenShot.documentContant"
                           alt="Student Photo"
                           height="60"
                           class="rounded"
@@ -483,8 +498,9 @@
                 <p class="fs-6 fw-semibold mt-3">
                   <mat-checkbox
                     class=""
-                    [(ngModel)]="leadSheet.isaggery"
+                    [(ngModel)]="registersheet.isaggery"
                     [required]="true"
+                    name="isAggry"
                     >I agree to the above Terms and Conditions</mat-checkbox
                   >
                   <span class="text-danger">*</span>

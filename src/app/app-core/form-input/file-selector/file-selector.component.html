@@ -1,3 +1,4 @@
+<mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
 <div class="upload-container" #dropzone >
   <label
     class="d-flex align-items-center justify-content-evenly w-100 file-upload"
@@ -21,17 +22,6 @@
         Drag a file here or <span class="browse">browse</span> for a file to
         upload
       </p>
-      <!-- @if (tempFile.fileName != "") {
-      <small class="mt-2">{{ tempFile.fileName }}</small>
-      } -->
     </div>
-    <!-- <div class="preview-container">
-      @if (tempFile.content) {
-      <ng-container>
-        <i class="bx bx-x-circle text-danger rounded-5"></i>
-        <img [src]="tempFile.content" alt="Preview" />
-      </ng-container>
-      }
-    </div> -->
   </label>
 </div>

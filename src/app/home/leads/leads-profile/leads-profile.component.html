@@ -28,7 +28,7 @@
           alt="{{leadDetails.leadPhoto.documentName}}"
         />
         } @else {
-        <div class="initials fw-bold">
+        <div class="initials fw-bold text-uppercase">
           @if (leadDetails.leadName) {
           {{ leadDetails.leadName.charAt(0)
           }}{{ leadDetails.leadName.charAt(1)}}
@@ -133,19 +133,41 @@
               name="leadSource"
             ></app-input-control>
           </div>
+          <div class="col-md-4">
+            <app-input-control
+              label="CallBack Date"
+              type="date"
+              [btnClicked]="isEnabled"
+              [(ngModel)]="leadDetails.leadSource"
+              name="CallbackDate"
+            ></app-input-control>
+          </div>
         </div>
         <div class="row">
           <div class="col-6">
             <app-input-control
               label="Lead Remark"
               type="textarea"
-              [required]="true"
               [btnClicked]="isEnabled"
-              [(ngModel)]="leadDetails.leadName"
-              name="firstName"
+              [(ngModel)]="leadDetails.remark"
+              name="remark"
+            ></app-input-control>
+          </div>
+          <div class="col-6">
+            <app-input-control
+              label="Counselor Remark"
+              type="textarea"
+              [btnClicked]="isEnabled"
+              [(ngModel)]="leadDetails.remark"
+              name="remark"
             ></app-input-control>
           </div>
         </div>
+        @if (!isEnabled) {
+        <div class="d-flex justify-content-end mt-3">
+          <button type="submit" class="btn btn-sm btn-primary">Sumbit</button>
+        </div>
+      }
       </form>
     </div>
     <div class="history-container mt-4">

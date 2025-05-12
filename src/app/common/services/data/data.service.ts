@@ -1,10 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { HttpHeaders } from '@angular/common/http';
 import { StorageService } from '../storage/storage.service';
-
-import { AppSettingsService } from '../app-settings/app-settings.service';
 import { AppService } from '../../../app.service';
 
 @Injectable({
@@ -41,8 +37,6 @@ export class DataService implements OnDestroy {
   serviceCompleted() {
     this.isLoading = false;
   }
-
-
 
   clearMessageBox() {
     this.message = {};

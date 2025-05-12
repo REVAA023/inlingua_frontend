@@ -1,26 +1,87 @@
 <div class="import-main-container">
   <div class="import-header d-flex align-items-center gap-3">
-    <a href="" class="btn btn-sm btn-secondary rounded-5 px-3">Go Back</a>
+    <a
+      routerLink="../../leads"
+      class="d-flex align-items-center text-decoration-none border p-1 rounded-5"
+    >
+      <i class="bx bx-arrow-back"></i>
+    </a>
     <span class="fw-bold fs-5">Import Leads</span>
     <div class="download-sample text-center">
       Download Sample File:
-      <a href="assets/sample.csv"  class="small">CSV</a> |
+      <a href="assets/sample.csv" class="small">CSV</a> |
       <a href="assets/sample.xlsx" class="small" download>XLSX</a>
-      <span> Max 500 datas only</span>
+      <span> and Upload Max 1000 datas only</span>
     </div>
   </div>
 
-  <div class="import-body">
-    <div class="import-form p-3 mt-3 rounded-3"
-         (dragover)="onDragOver($event)"
-         (dragleave)="onDragLeave($event)"
-         (drop)="onDrop($event)">
-      <p class="text-center m-0">Drop your file here to upload.</p>
-      <p class="text-center m-0 small">- or -</p>
-      <label class="file-upload-btn btn btn-sm btn-secondary mt-1 rounded-5 px-3">
-        <input type="file" (change)="onFileSelect($event)" accept=".csv,.xlsx"/>
-        Select File
-      </label>
-    </div>
+  <div class="import-body mt-3">
+    @if (!leadForm) {
+      <app-file-selector
+        (onUpload)="getDocument($event, 'LFORM')"
+      ></app-file-selector>
+      } @else {
+      <div class="border p-2 rounded">
+        <p
+          class="d-flex align-items-center import-body m-0 p-0 gap-3 justify-content-between"
+        >
+          <span> {{ leadForm.documentName }}</span>
+          <span
+            class="input-img-container d-flex align-items-center gap-2"
+          >
+            <img
+              src="assets/svg/csv_icon.svg.png"
+              alt="Student Photo"
+              height="60"
+              class="rounded"
+            />
+            <i
+              class="bx bx-x rounded-circle cr-pointer"
+              (click)="removeImage('LFORM')"
+            ></i>
+          </span>
+        </p>
+      </div>
+      }
   </div>
+  @if (leadForm) {
+    <!-- Output -->
+  <div class="mt-3">
+    @if (tableHeaders.length > 0) {
+      <div class="table-responsive mt-3">
+        <table class="table table-bordered table-striped mt-3">
+          <thead>
+            <tr>
+              <th>#</th> <!-- Row number column header -->
+              @for (header of tableHeaders; track $index) {
+                <th>
+                  <select [(ngModel)]="tableHeaders[$index]">
+                    @for (opt of headerOptions; track $index) {
+                      <option [value]="opt">{{ opt }}</option>
+                    }
+                  </select>
+                </th>
+              }
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of tableData; track $index) {
+              <tr>
+                <td>{{ row.row_number }}</td> <!-- Row number displayed -->
+                @for (cell of row.values; track $index) {
+                  <td class="text-truncate" style="max-width: 250px; min-width: 150px;">{{ cell }}</td>
+                }
+              </tr>
+            }
+          </tbody>
+
+        </table>
+
+      </div>
+      <div class="d-flex align-items-center justify-content-end gap-3 mt-4">
+        <button class="btn btn-sm btn-primary" (click)="submitLeads()">Submit</button>
+      </div>
+    }
+  </div>
+}
 </div>

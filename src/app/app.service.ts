@@ -9,4 +9,6 @@ export class AppService {
   user = new entUser()
 
   constructor() { }
+
+  resultLeadForm: any ={};
 }

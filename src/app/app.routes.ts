@@ -20,7 +20,7 @@ export const routes: Routes = [
       import('./set-password/set-password.component').then((m) => m.SetPasswordComponent),
   },
   {
-    path: 'student-account-verify',
+    path: 'student-account-verification',
     data: { title: 'Inlingua | Lead OTP Verification' },
     loadComponent: () =>
       import('./home/students/student-account-verify/student-account-verify.component').then((m) => m.StudentAccountVerifyComponent),
@@ -46,6 +46,7 @@ export const routes: Routes = [
             (m) => m.ChatingComponent
           ),
       },
+      // Leads
       {
         path: '',
         data: { title: 'Inlingua | Leads' },
@@ -69,33 +70,42 @@ export const routes: Routes = [
               import('./home/leads/leads-profile/leads-profile.component').then(
                 (m) => m.LeadsProfileComponent
               ),
-          }
+          },
+          {
+            path: 'leads/addleads',
+            data: { title: 'Inlingua | Add Leads' },
+            loadComponent: () =>
+              import('./home/leads/add-leads/add-leads.component').then(
+                (m) => m.AddLeadsComponent
+              ),
+          },
+          {
+            path: 'leads/import',
+            data: { title: 'Inlingua | Import Leads' },
+            loadComponent: () =>
+              import('./home/leads/import-leads/import-leads.component').then(
+                (m) => m.ImportLeadsComponent
+              )
+          },
+          {
+            path: 'leads/import/:filename',
+            data: { title: 'Inlingua | Import Leads result' },
+            loadComponent: () =>
+              import('./home/leads/leads-result/leads-result.component').then(
+                (m) => m.LeadsResultComponent
+              ),
+          },
+          {
+            path: 'leads/export',
+            data: { title: 'Inlingua | Export Leads' },
+            loadComponent: () =>
+              import('./home/leads/export-leads/export-leads.component').then(
+                (m) => m.ExportLeadsComponent
+              ),
+          },
         ]
       },
-      {
-        path: 'leads/addleads',
-        data: { title: 'Inlingua | Add Leads' },
-        loadComponent: () =>
-          import('./home/leads/add-leads/add-leads.component').then(
-            (m) => m.AddLeadsComponent
-          ),
-      },
-      {
-        path: 'leads/import',
-        data: { title: 'Inlingua | Import Leads' },
-        loadComponent: () =>
-          import('./home/leads/import-leads/import-leads.component').then(
-            (m) => m.ImportLeadsComponent
-          ),
-      },
-      {
-        path: 'leads/export',
-        data: { title: 'Inlingua | Export Leads' },
-        loadComponent: () =>
-          import('./home/leads/export-leads/export-leads.component').then(
-            (m) => m.ExportLeadsComponent
-          ),
-      },
+      // Students
       {
         path: '',
         data: { title: 'Inlingua | Students' },
@@ -122,14 +132,7 @@ export const routes: Routes = [
           }
         ]
       },
-      {
-        path: 'batchs',
-        data: { title: 'Inlingua | Batch List' },
-        loadComponent: () =>
-          import('./home/batchs/batchs.component').then(
-            (m) => m.BatchsComponent
-          ),
-      },
+      // Trainer
       {
         path: '',
         data: { title: 'Inlingua | Trainers' },
@@ -142,9 +145,47 @@ export const routes: Routes = [
             path: 'trainers',
             data: { title: 'Inlingua | Trainer Details' },
             loadComponent: () => import('./home/trainers/all-trainers/all-trainers.component').then(m => m.AllTrainersComponent)
+          },
+          {
+            path: 'trainers/create',
+            data: { title: 'Inlingua | Create Trainer' },
+            loadComponent: () => import('./home/trainers/create-trainer/create-trainer.component').then(m => m.CreateTrainerComponent)
+          },
+          {
+            path: 'trainers/details/:trainerid',
+            data: { title: 'Inlingua | Trainer Details' },
+            loadComponent: () => import('./home/trainers/trainer-details/trainer-details.component').then(m => m.TrainerDetailsComponent)
+          },
+        ]
+      },
+      // Batchs
+      {
+        path: '',
+        data: { title: 'Inlingua | Batch List' },
+        loadComponent: () =>
+          import('./home/batchs/batchs.component').then(
+            (m) => m.BatchsComponent
+          ),
+        children: [
+          {
+            path: 'batchs',
+            data: { title: 'Inlingua | Batch List' },
+            loadComponent: () =>
+              import('./home/batchs/all-batchs/all-batchs.component').then(
+                (m) => m.AllBatchsComponent
+              ),
+          },
+          {
+            path: 'batchs/create-batchs',
+            data: { title: 'Inlingua | Create Batch' },
+            loadComponent: () =>
+              import('./home/batchs/create-batchs/create-batchs.component').then(
+                (m) => m.CreateBatchsComponent
+              ),
           }
         ]
       },
+
       {
         path: 'setting',
         data: { title: 'Inlingua | Setting' },

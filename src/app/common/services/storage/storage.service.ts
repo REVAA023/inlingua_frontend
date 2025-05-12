@@ -18,12 +18,6 @@ export class StorageService {
   }
 
   private init() {
-    // if (window.indexedDB) {
-    //   this.hasIndexedDB = true;
-    //   this.createDB();
-    // } else {
-    //   console.error("IndexedDB not supported in this browser.");
-    // }
 
     switch (this.type) {
       case 'indexDB':

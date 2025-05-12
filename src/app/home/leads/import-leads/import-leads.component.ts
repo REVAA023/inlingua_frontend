@@ -1,44 +1,114 @@
+import { AppService } from './../../../app.service';
+import { routes } from './../../../app.routes';
 import { Component } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { FileSelectorComponent } from './../../../app-core/form-input/file-selector/file-selector.component';
+import * as Papa from 'papaparse';
+import { FormsModule } from '@angular/forms';
+import { ApplicationApiService } from '../../../common/api-services/application-api/application-api.service';
+import { UrlService } from '../../../common/services/url/url.service';
 
 @Component({
   selector: 'app-import-leads',
-  imports: [],
+  standalone: true,
+  imports: [RouterModule, FileSelectorComponent, FormsModule],
   templateUrl: './import-leads.component.html',
   styleUrl: './import-leads.component.scss',
 })
 export class ImportLeadsComponent {
-  onDragOver(event: DragEvent) {
-    event.preventDefault();
-    const dropArea = event.currentTarget as HTMLElement;
-    dropArea.classList.add('drag-over');
-  }
+  constructor(
+    private apiService: ApplicationApiService,
+    private changerouter: Router,
+    private url: UrlService,
+    public appService : AppService
+  ) {}
 
-  onDragLeave(event: DragEvent) {
-    const dropArea = event.currentTarget as HTMLElement;
-    dropArea.classList.remove('drag-over');
-  }
+  leadForm: any = null;
+  tableHeaders: string[] = [];
+  tableData: { row_number: number; values: string[] }[] = [];
+  headerOptions: string[] = [
+    '',
+    'Name',
+    'Gmail',
+    'Mobile Number',
+    'Lead Source'
+  ];
 
-  onDrop(event: DragEvent) {
-    event.preventDefault();
-    const dropArea = event.currentTarget as HTMLElement;
-    dropArea.classList.remove('drag-over');
+  // File Upload Handler
+  getDocument(event: any, type?: string) {
+    const documentObj = {
+      documentName: event.fileName,
+      documentSize: event.fileSize,
+      documentContant: event.content,
+      documentsExtention: event.fileType,
+      createdDate: new Date().toISOString()
+    };
 
-    if (event.dataTransfer && event.dataTransfer.files.length > 0) {
-      const file = event.dataTransfer.files[0];
-      this.handleFile(file);
+    if (type === 'LFORM') {
+      this.leadForm = documentObj;
+      this.parseCSV(event.content);
     }
   }
 
-  onFileSelect(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      const file = input.files[0];
-      this.handleFile(file);
+  // Remove uploaded file
+  removeImage(type: string) {
+    if (type === 'LFORM') {
+      this.leadForm = null;
+      this.tableHeaders = [];
+      this.tableData = [];
     }
   }
 
-  handleFile(file: File) {
-    console.log('Selected file:', file.name);
-    // Handle file processing here (upload, validate, etc.)
+  // CSV Parser with Row Numbers
+  parseCSV(csvBase64: string) {
+    const decodedCSV = atob(csvBase64.split(',')[1]); // Decode base64
+    const parsed = Papa.parse(decodedCSV.trim(), {
+      skipEmptyLines: false // Don't skip lines automatically
+    });
+
+    if (parsed.data.length > 0) {
+      const headers = parsed.data[0] as string[];
+
+      const dataRows: any[] = [];
+      for (let i = 1; i < parsed.data.length; i++) {
+        const values = parsed.data[i] as string[];
+
+        const isEmptyRow = values.every(cell => cell.trim() === '');
+        if (!isEmptyRow) {
+          dataRows.push({
+            row_number: i + 1, // Preserve original row number (including header)
+            values
+          });
+        }
+      }
+      this.tableHeaders = headers;
+      this.tableData = dataRows;
+    }
+  }
+
+  // Submit to Backend
+  submitLeads() {
+    const mappedData = this.tableData.map((row) => {
+      const mappedRow: { [key: string]: string | number } = {
+        row_number: row.row_number
+      };
+      this.tableHeaders.forEach((header, index) => {
+        if (header && header.trim()) {
+          mappedRow[header] = row.values[index] || '';
+        }
+      });
+      return mappedRow;
+    });
+
+    const payload = {
+      leadSheet: mappedData
+    };
+
+    this.apiService.importLeads(payload).subscribe(async (response: any) => {
+      this.appService.resultLeadForm = response;
+      let filename = await this.url.encode(this.leadForm.documentName);
+      this.changerouter.navigateByUrl("leads/import/" + filename)
+
+    });
   }
 }

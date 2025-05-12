@@ -1,0 +1,307 @@
+@if (isLoading) {
+<div class="pb-3">
+  <div class="d-flex justify-content-between">
+    <div>
+      <i
+        class="bx bx-arrow-back fs-4"
+        style="cursor: pointer"
+        (click)="goBack()"
+      ></i>
+    </div>
+    <div class="d-flex gap-2 align-items-center">
+      <button
+        class="btn btn-primary px-3 rounded-5 btn-sm"
+        (click)="editDetails()"
+      >
+        Edit Details
+      </button>
+      <i class="bx bx-trash fs-4 cr-pointer" (click)="deliteDetails()"></i>
+      <i class="bx bx-dots-vertical fs-4 cr-pointer"></i>
+    </div>
+  </div>
+
+  <div class="d-flex gap-2 align-items-center mt-4">
+    <div class="student-img-container">
+      @if (trainers.trainer.user.photo != null) {
+      <img
+        src="{{ trainers.student.user.photo.documentContant }}"
+        alt="Student Avatar"
+      />
+      } @else {
+      <div class="initials fw-bold">
+        @if (trainers.student.user.lastName) {
+        {{ trainers.student.user.firstName.charAt(0)
+        }}{{ trainers.student.user.lastName.charAt(0) }}
+        } @else {
+        {{ trainers.student.user.firstName.charAt(0)
+        }}{{ trainers.student.user.firstName.charAt(1) }}
+        }
+      </div>
+      } @if (!isEnabled) {
+      <i class="bx bx-edit-alt edit-icon fs-4"></i>
+      }
+    </div>
+    <p class="fs-5 fw-bold m-0 p-0">
+      {{ trainers.student.user.firstName }}
+      {{ trainers.student.user.lastName }}
+      ( {{ trainers.student.studentId }} )
+    </p>
+    <!-- Example single danger button -->
+    <div class="btn-group">
+      <span
+        class="{{
+          trainers.student.studentStatusValue
+        }} px-2 py-1 rounded cr-pointer dropdown-toggle btn-sm small"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        {{ trainers.student.studentStatusLabel }}
+      </span>
+    </div>
+  </div>
+  <p class="fs-5 fw-bold">
+    @if (trainers.student.paymentComplited) {
+      <span class="text-success">Payment Complited</span>
+    }
+    @else {
+      <span class="text-danger">Payment Not Complited</span>
+    }
+
+  </p>
+  <div class="icon-row-container mt-4">
+    <div class="icon-row">
+      <div class="icon-box">
+        <a
+          href="{{ trainers.student.user.email }}"
+          class="text-dark text-decoration-none"
+          ><i class="bx bx-envelope"></i
+        ></a>
+        <span>Email</span>
+      </div>
+      <div class="icon-box">
+        <a href="" class="text-dark text-decoration-none"
+          ><i class="bx bx-calendar"></i
+        ></a>
+        <span>Schedule</span>
+      </div>
+      <div class="icon-box">
+        <a href="" class="text-dark text-decoration-none"
+          ><i class="bx bx-chat"></i
+        ></a>
+        <span>Chat</span>
+      </div>
+      <div class="icon-box">
+        <a
+          href="tel:+91 {{ trainers.student.user.mobileNumber }}"
+          class="text-dark text-decoration-none"
+          ><i class="bx bx-phone"></i
+        ></a>
+        <span>Call</span>
+      </div>
+    </div>
+    <div class="divider-line"></div>
+  </div>
+  <div>
+    <form>
+      <div class="row">
+        <p class="fs-5 fw-bold">Student Details</p>
+        <div class="col-md-4">
+          <app-input-control
+            label="First Name"
+            [required]="true"
+            [btnClicked]="isEnabled"
+            [(ngModel)]="trainers.student.user.firstName"
+            name="firstName"
+          ></app-input-control>
+        </div>
+        <div class="col-md-4">
+          <app-input-control
+            label="Last Name"
+            [required]="true"
+            [btnClicked]="isEnabled"
+            [(ngModel)]="trainers.student.user.lastName"
+            name="lastName"
+          ></app-input-control>
+        </div>
+        <div class="col-md-4">
+          <app-input-control
+            label="Email"
+            type="email"
+            [required]="true"
+            [btnClicked]="isEnabled"
+            [(ngModel)]="trainers.student.user.email"
+            name="email"
+          ></app-input-control>
+        </div>
+        <div class="col-md-4">
+          <app-input-control
+            label="Mobile Number"
+            type="tel"
+            [required]="true"
+            [btnClicked]="isEnabled"
+            [(ngModel)]="trainers.student.user.mobileNumber"
+            name="mobileNumber"
+          ></app-input-control>
+        </div>
+        <div class="col-md-4">
+          <app-input-control
+            label="Date Of Birth"
+            type="date"
+            [required]="true"
+            [btnClicked]="isEnabled"
+            [(ngModel)]="trainers.student.user.dateOfBirth"
+            name="dateOfBirth"
+          ></app-input-control>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <p class="fs-5 fw-bold">Language Details</p>
+        <div class="col-md-4">
+          <app-input-control
+            label="Language"
+            [required]="true"
+            [btnClicked]="true"
+            [(ngModel)]="trainers.student.language.name"
+            name="language"
+          ></app-input-control>
+        </div>
+
+        <div class="col-md-4">
+          <app-input-control
+            label="Name Of The Counselor"
+            [required]="true"
+            [btnClicked]="isEnabled"
+          ></app-input-control>
+        </div>
+        <div class="col-md-4">
+          <app-input-control
+            label="Batch Details"
+            [required]="true"
+            [btnClicked]="isEnabled"
+          ></app-input-control>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <p class="fs-5 fw-bold">Payment Details</p>
+        <div class="col-md-4">
+          <app-input-control
+            label="Amount Paid Type"
+            [required]="true"
+            [(ngModel)]="trainers.student.paymentTypeLabel"
+            name="amountPaidType"
+            [btnClicked]="true"
+          ></app-input-control>
+        </div>
+        <div class="col-md-4">
+          <app-input-control
+            label="Amount of paid"
+            [required]="true"
+            [(ngModel)]="trainers.student.amountPaide"
+            name="amountPaid"
+            [btnClicked]="true"
+          ></app-input-control>
+        </div>
+        <div class="col-md-4">
+          <app-input-control
+            label="Trsnsation ID"
+            [required]="true"
+            [(ngModel)]="trainers.student.transactionId"
+            name="transationId"
+            [btnClicked]="true"
+          ></app-input-control>
+        </div>
+        <div class="col-md-4">
+          <app-input-control
+            label="Account Holder Name"
+            [required]="true"
+            [(ngModel)]="trainers.student.accountHolderName"
+            name="accountHolderName"
+            [btnClicked]="true"
+          ></app-input-control>
+        </div>
+        @if (trainers.student.partPaymentDate) {
+          <div class="col-md-4">
+          <app-input-control
+            label="part Payment Date"
+            [required]="true"
+            [(ngModel)]="trainers.student.partPaymentDate"
+            name="partPaymentDate"
+            [btnClicked]="true"
+          ></app-input-control>
+        </div>
+        }
+
+        <!-- @if () {
+
+        } -->
+      </div>
+    </form>
+    <div class="row mt-4">
+      <p class="fs-5 fw-bold">Proof Details</p>
+      @if (trainers.student.aadhar.documentSize > 0) {
+      <div class="col-3">
+        <p>Aadhar Card</p>
+        <div class="student-detail-proof aadhar-proof-container">
+          <img
+            src="{{ trainers.student.aadhar.documentContant }}"
+            alt="Aadhar Proof"
+          />
+          <div class="proof-actions">
+            <button>
+              <i class="bx bx-expand" style="color: #d2d2d2"></i>
+            </button>
+            <a [href]="trainers.student.aadhar.documentContant" download>
+              <i class="bx bx-download" style="color: #d2d2d2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      } @if (trainers.student.paymentConformScreenshot.documentSize > 0) {
+      <div class="col-3">
+        <p>Payment Conformation</p>
+        <div class="aadhar-proof-container">
+          <img
+            src="{{
+              trainers.student.paymentConformScreenshot.documentContant
+            }}"
+            alt=""
+          />
+        </div>
+      </div>
+      }
+    </div>
+    <div class="history-container mt-4">
+      <p class="fs-5 fw-bold">Lead History</p>
+      <div class="timeline mt-3">
+        <div class="Next-timeline-item d-flex align-items-center gap-2 mb-2">
+          <div class="Next-timeline-dot"></div>
+          <div class="timeline-content bg-light py-1 px-2 rounded">
+            <p class="m-0 p-0 text-muted small">Next Changes ...</p>
+          </div>
+        </div>
+        <!--  -->
+        <div class="timeline-item d-flex align-items-end gap-2 mb-2">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content bg-light py-1 px-2 rounded">
+            <p class="mb-2">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum dignissimos, quisquam, quas nobis doloremque et id repellat inventore aliquam qui delectus distinctio quae ipsam molestiae voluptatum mollitia, recusandae quia! Pariatur!</p>
+            <p class="text-muted mb-0">
+              <small>Vignesh Muthaiyan | 03-05-2025 | 14:57 PM</small>
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item d-flex align-items-end gap-2 mb-2">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content bg-light py-1 px-2 rounded">
+            <p class="mb-2">Test</p>
+            <p class="text-muted mb-0">
+              <small>Vignesh Muthaiyan | 03-05-2025 | 14:57 PM</small>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+} @else {
+  <app-page-loding></app-page-loding>
+}

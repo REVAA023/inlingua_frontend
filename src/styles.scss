@@ -1,6 +1,7 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use "@angular/material" as mat;
+@import "../src/app/app-core/alert/alert.component.scss";
 
 :root {
   --primary: #ff751a !important;
@@ -220,4 +221,8 @@ spinner {
   border-radius: 50%;
   border: 2px solid #fff;
   box-shadow: 0 0 0 2px #0d6efd;
+}
+
+.mat-mdc-paginator{
+  background-color: transparent !important;
 }

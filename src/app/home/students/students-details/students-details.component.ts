@@ -21,9 +21,6 @@ export class StudentsDetailsComponent implements OnInit {
   isLoading = false;
   isEnabled = true;
 
-  professionsValue = "";
-  professionsDescription = "";
-
   studentDetailsChoices: any = {};
 
   constructor(

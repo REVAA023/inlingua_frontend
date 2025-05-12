@@ -22,7 +22,7 @@
 
   <div class="d-flex gap-2 align-items-center mt-4">
     <div class="student-img-container">
-      @if (studentDetails.student.user.photo.documentSize > 0) {
+      @if (studentDetails.student.user.photo != null) {
       <img
         src="{{ studentDetails.student.user.photo.documentContant }}"
         alt="Student Avatar"
@@ -44,6 +44,7 @@
     <p class="fs-5 fw-bold m-0 p-0">
       {{ studentDetails.student.user.firstName }}
       {{ studentDetails.student.user.lastName }}
+      ( {{ studentDetails.student.studentId }} )
     </p>
     <!-- Example single danger button -->
     <div class="btn-group">
@@ -64,7 +65,15 @@
       </div>
     </div>
   </div>
+  <p class="fs-5 fw-bold">
+    @if (studentDetails.student.paymentComplited) {
+      <span class="text-success">Payment Complited</span>
+    }
+    @else {
+      <span class="text-danger">Payment Not Complited</span>
+    }
 
+  </p>
   <div class="icon-row-container mt-4">
     <div class="icon-row">
       <div class="icon-box">
@@ -160,7 +169,7 @@
             [items]="studentDetailsChoices.PROFESSIONS_CHOICES"
             key="value"
             keyName="label"
-            name="professions"
+            name="professionsValue"
           ></app-input-control>
         </div>
       </div>
@@ -170,7 +179,9 @@
           <app-input-control
             label="Language"
             [required]="true"
-            [btnClicked]="isEnabled"
+            [btnClicked]="true"
+            [(ngModel)]="studentDetails.student.language.name"
+            name="language"
           ></app-input-control>
         </div>
         <div class="col-md-4">
@@ -178,6 +189,10 @@
             label="Course Type"
             [required]="true"
             [btnClicked]="isEnabled"
+            [items]="studentDetailsChoices.PROFESSIONS_CHOICES"
+            key="value"
+            keyName="label"
+            type="select"
           ></app-input-control>
         </div>
         <div class="col-md-4">
@@ -185,6 +200,12 @@
             label="Mode Of Class"
             [required]="true"
             [btnClicked]="isEnabled"
+            [(ngModel)]="studentDetails.student.modeOfClassLabel"
+            name="modeOfClassLabel"
+            [items]="studentDetailsChoices.BATCH_TYPE_CHOICES"
+            key="value"
+            keyName="label"
+            type="select"
           ></app-input-control>
         </div>
         <div class="col-md-4">
@@ -240,6 +261,21 @@
             [btnClicked]="true"
           ></app-input-control>
         </div>
+        @if (studentDetails.student.partPaymentDate) {
+          <div class="col-md-4">
+          <app-input-control
+            label="part Payment Date"
+            [required]="true"
+            [(ngModel)]="studentDetails.student.partPaymentDate"
+            name="partPaymentDate"
+            [btnClicked]="true"
+          ></app-input-control>
+        </div>
+        }
+
+        <!-- @if () {
+
+        } -->
       </div>
     </form>
     <div class="row mt-4">

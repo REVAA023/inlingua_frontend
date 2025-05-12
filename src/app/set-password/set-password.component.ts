@@ -24,12 +24,13 @@ export class SetPasswordComponent implements OnInit {
   errorTrue = true;
 
   constructor(
-    private route: ActivatedRoute,
+    private router: ActivatedRoute,
     private apiService: ApplicationApiService,
+    private changeRouter: Router,
   ) { }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
+    this.router.queryParams.subscribe((params) => {
       this.token = params['token'];
     });
     this.checkPassswordToken();
@@ -69,9 +70,9 @@ export class SetPasswordComponent implements OnInit {
       const option = { hideJwt: true };
       this.apiService.setPassword(payload, option).subscribe((response) => {
         if (response.flag) {
-          alert('Password updated successfully!');
           this.password = '';
           this.conformPassword = '';
+          this.changeRouter.navigateByUrl('login')
         } else {
           alert('Failed to update password. Please try again.');
         }

@@ -3,7 +3,7 @@ export class entRegisterForm {
   languageId = 0;
   courseTypeId = 0;
   counselorId = 0;
-  amount = 0;
+  amount: number | undefined;
   FirstName = "";
   LastName = "";
   gmail = "";

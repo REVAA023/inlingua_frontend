@@ -50,8 +50,12 @@ throw new Error('Method not implemented.');
     })
   }
 
-  goBack(){}
-  editDetails(){}
+  goBack(){
+    this.router.navigateByUrl('leads')
+  }
+  editDetails(){
+    this.isEnabled = false;
+  }
   deliteDetails(){}
 
 }

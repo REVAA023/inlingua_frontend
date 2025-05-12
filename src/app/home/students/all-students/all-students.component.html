@@ -6,23 +6,6 @@
         @if (allStudents.students.length
         > 1) {s}
       </p>
-      <div class="d-flex align-items-center gap-2">
-        <button
-          class="btn btn-secondary btn-sm rounded-5 px-3"
-          routerLink="addStudents"
-        >
-          Create Students
-        </button>
-        <div class="dropdown">
-          <button
-            class="btn btn-secondary btn-sm rounded-5 px-3"
-            routerLink="export-students"
-            type="button"
-          >
-            Export Students
-          </button>
-        </div>
-      </div>
     </div>
 
     @if (allStudents.students.length > 0) {
@@ -140,7 +123,7 @@
               <div class="d-flex align-items-center">
                 <a (click)="navigate(students.id)" class="text-decoration-none">
                   <div class="avatar avatar-xl me-3">
-                    @if (students.user.photo.documentSize > 0) {
+                    @if (students.user.photo != null) {
                     <img
                       class="rounded-circle border"
                       src="{{students.user.photo.documentContant}}"
@@ -192,7 +175,8 @@
             </td>
             <td class="name align-middle white-space-nowrap border-end">
               <div class="d-flex align-items-center small">
-                      {{students.nameOfCounselor.user}}
+                      {{students.nameOfCounselor.user.firstName}}
+                      {{students.nameOfCounselor.user.lastName}}
 
               </div>
             </td>

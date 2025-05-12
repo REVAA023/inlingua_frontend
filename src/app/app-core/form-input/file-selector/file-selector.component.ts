@@ -126,6 +126,9 @@ export class FileSelectorComponent {
   }
 
 
+
+
+
   public initializeTempFile(documentValue: any) {
     const documentFile = documentValue.ientDocumentFile;
     this.tempFile = {
@@ -211,31 +214,31 @@ export class FileSelectorComponent {
       // if (
       //   [this.accept].some((type) => file.type.match(type))
       // ) {
-        this.tempFile = {
-          fileName: file.name,
-          fileSize: file.size,
-          fileSizeKb: Math.round(file.size / 1024), // Calculate file size in KB
-          fileType: file.type,
-          uploading: false,
-          completed: false,
-          content: '',
-        };
-        this.fileName = file.name;
-        this.fileSize = file.size;
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        ;
-        reader.onload = () => {
-          const img: any = reader.result;
-          this.tempFile.content = img;
-          this.uploadDisabled = false;
-          if (this.tempFile.fileName !== '') {
-            this.fileInput.nativeElement.value = '';
-            this.onUpload.emit(this.tempFile);
-          }
+      this.tempFile = {
+        fileName: file.name,
+        fileSize: file.size,
+        fileSizeKb: Math.round(file.size / 1024), // Calculate file size in KB
+        fileType: file.type,
+        uploading: false,
+        completed: false,
+        content: '',
+      };
+      this.fileName = file.name;
+      this.fileSize = file.size;
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      ;
+      reader.onload = () => {
+        const img: any = reader.result;
+        this.tempFile.content = img;
+        this.uploadDisabled = false;
+        if (this.tempFile.fileName !== '') {
+          this.fileInput.nativeElement.value = '';
+          this.onUpload.emit(this.tempFile);
+        }
 
-        };
-        reader.onerror = (error) => { };
+      };
+      reader.onerror = (error) => { };
       // } else {
       //   this.fileInput.nativeElement.value = '';
 
