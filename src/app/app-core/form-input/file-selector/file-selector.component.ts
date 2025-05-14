@@ -125,10 +125,6 @@ export class FileSelectorComponent {
     this.setDropZone();
   }
 
-
-
-
-
   public initializeTempFile(documentValue: any) {
     const documentFile = documentValue.ientDocumentFile;
     this.tempFile = {

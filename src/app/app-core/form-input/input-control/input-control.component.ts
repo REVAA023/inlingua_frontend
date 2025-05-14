@@ -8,7 +8,7 @@ import { LimitDirective } from '../form-directive/limit/limit.directive';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { FilterAndSortPipe } from '../pipes/filter-and-sort/filter-and-sort.pipe';
 import { MatSelectModule } from '@angular/material/select';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
 import { CustomDateAdapter } from './custom-date-adapter';
 import { Platform } from '@angular/cdk/platform';
 import { MatDatepickerModule } from "@angular/material/datepicker";
@@ -19,6 +19,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { CharacterOnlyDirective } from '../form-directive/character-only/character-only.directive';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppDatePipe } from '../../../common/pipe/app-date/app-date.pipe';
+import { MAT_TIMEPICKER_CONFIG, MatTimepickerModule } from '@angular/material/timepicker';
 
 export const MY_FORMATS = {
   parse: {
@@ -38,7 +39,7 @@ export const MY_FORMATS = {
   styleUrls: ['./input-control.component.scss'],
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [NgClass, NgTemplateOutlet, FormsModule, NoEmojiDirective, UpperCaseDirective, LowerCaseDirective, LimitDirective, FilterAndSortPipe, MatSelectModule, MatDatepickerModule, NumberOnlyDirective, MatTooltipModule, AppDatePipe, CharacterOnlyDirective],
+  imports: [NgClass, NgTemplateOutlet, FormsModule, NoEmojiDirective, UpperCaseDirective, LowerCaseDirective, LimitDirective, FilterAndSortPipe, MatSelectModule, MatDatepickerModule, NumberOnlyDirective, MatTooltipModule, AppDatePipe, CharacterOnlyDirective, MatTimepickerModule],
   providers: [
     {
       provide: DateAdapter,
@@ -46,6 +47,11 @@ export const MY_FORMATS = {
       deps: [MAT_DATE_LOCALE, Platform],
     },
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    provideNativeDateAdapter(),
+    {
+      provide: MAT_TIMEPICKER_CONFIG,
+      useValue: { interval: '30 minutes' },
+    }
   ],
 })
 export class InputControlComponent extends FromInputControl implements OnInit {
@@ -151,7 +157,7 @@ export class InputControlComponent extends FromInputControl implements OnInit {
     return this.__addMaxYear;
   }
 
-  setAddMaxMonth(){
+  setAddMaxMonth() {
     let nextSixMonthDate = addMonths(this.__tempMinDate, this.__addMaxMonth);
     let minDate = subDays(nextSixMonthDate, -1);
     this.__minDate = minDate;
@@ -279,6 +285,12 @@ export class InputControlComponent extends FromInputControl implements OnInit {
   onDateChange() {
     if (!isValid(this.__xvalue)) return;
     this.value = format(this.__xvalue, this.appSetting.environment.serverDateFormat);
+    this.onAction('change');
+  }
+
+    onTimeChange() {
+    if (!isValid(this.__xvalue)) return;
+    this.value = format(this.__xvalue, this.appSetting.environment.serverTimeFormat);
     this.onAction('change');
   }
 

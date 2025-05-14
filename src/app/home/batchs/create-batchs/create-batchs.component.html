@@ -1,1 +1,223 @@
-<p>create-batchs works!</p>
+<div class="sheet-main-container">
+  <div class="container py-3">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="stepper">
+          <div [ngClass]="getStepClass(1)">
+            <div class="line"></div>
+            <div class="circle"></div>
+            <p class="m-0 mt-1">Personal Details</p>
+          </div>
+
+          <div [ngClass]="getStepClass(2)">
+            <div class="line"></div>
+            <div class="circle"></div>
+            <p class="m-0 mt-1">Language Details</p>
+          </div>
+        </div>
+        <form #l="ngForm" (ngSubmit)="onSubmit(l)">
+          @switch (currentStep) { @case (1){
+          <div>
+            <div class="bg-white p-3 rounded row">
+              <div class="col-5">
+                <app-input-control
+                  label="Language"
+                  [required]="true"
+                  [errorTrue]="errorTrue"
+                  [(ngModel)]="neBatchForm.language"
+                  name="language"
+                  (onSelect)="getLevelAndHours(neBatchForm.language)"
+                  defaultOption="--Select Language--"
+                  [items]="languages?.languages"
+                  key="id" keyName="name"
+                  type="select"
+                ></app-input-control>
+              </div>
+              <div class="col-7">
+                <app-input-control
+                  label="Course Levels"
+                  [required]="true"
+                  [errorTrue]="errorTrue"
+                  [(ngModel)]="neBatchForm.courseLevel"
+                  [items]="levelAndHour?.Levelandhours"
+                  defaultOption="--Select Level--"
+                  key="id" keyName="level"
+                  type="select"
+                  name="courseLevel"
+                ></app-input-control>
+              </div>
+            </div>
+            <div class="bg-white p-3 rounded row">
+              <div class="col-6">
+                <app-input-control
+                  label="Batch Preferences"
+                  [required]="true"
+                  [errorTrue]="errorTrue"
+                  [items]="batchPreferences"
+                  defaultOption="--Select Level--"
+                  key="id" keyName="name"
+                  type="select"
+                  [(ngModel)]="neBatchForm.batchPreferences"
+                  name="batchPreferences"
+                ></app-input-control>
+              </div>
+              <div class="col-6">
+                <app-input-control
+                  label="Batch Type"
+                  [required]="true"
+                  [errorTrue]="errorTrue"
+                  [items]="batchDetails?.BATCH_TYPE_CHOICES"
+                  defaultOption="--Select Level--"
+                  key="value" keyName="label"
+                  type="select"
+                  [(ngModel)]="neBatchForm.batchType"
+                  name="batchType"
+                ></app-input-control>
+              </div>
+            </div>
+            <div class="bg-white row p-3 rounded">
+              <div class="col-6">
+                <app-input-control
+                  label="Start Time"
+                  [required]="true"
+                  [errorTrue]="errorTrue"
+                  type="time"
+                  [(ngModel)]="neBatchForm.startTime"
+                  name="startTime"
+                ></app-input-control>
+              </div>
+              <div class="col-6">
+                <app-input-control
+                  label="End Time"
+                  [required]="true"
+                  [errorTrue]="errorTrue"
+                  type="time"
+                  [(ngModel)]="neBatchForm.endTime"
+                  name="endTime"
+                ></app-input-control>
+              </div>
+            </div>
+            <div class="bg-white row p-3 rounded">
+              <div class="col-6">
+                <app-input-control
+                  label="Start Date"
+                  [required]="true"
+                  [errorTrue]="errorTrue"
+                  type="date"
+                  [(ngModel)]="neBatchForm.startDate"
+                  name="startDate"
+                ></app-input-control>
+              </div>
+              <div class="col-6">
+                <app-input-control
+                  label="End Date"
+                  [required]="true"
+                  [errorTrue]="errorTrue"
+                  type="date"
+                  [(ngModel)]="neBatchForm.endDate"
+                  name="endDate"
+                ></app-input-control>
+              </div>
+            </div>
+            <div class="bg-white p-3 rounded mt-2">
+              <p class="m-o p-0 small text-muted">Batch Icon</p>
+              <div class="col-12">
+                <!-- Show file input if no image uploaded -->
+                @if (!neBatchForm.batchIcon.documentName) {
+                <app-file-selector
+                  (onUpload)="getDocument($event, 'BATCHICON')"
+                ></app-file-selector>
+                } @else {
+                <div class="border p-2 rounded">
+                  <p
+                    class="d-flex align-items-center m-0 p-0 gap-3 justify-content-between"
+                  >
+                    <span> {{ neBatchForm.batchIcon.documentName }}</span>
+                    <span
+                      class="input-img-container d-flex align-items-center gap-2"
+                    >
+                      <img
+                        [src]="neBatchForm.batchIcon.documentContant"
+                        alt="Batch icon"
+                        height="60"
+                        class="rounded"
+                      />
+                      <i
+                        class="bx bx-x rounded-circle cr-pointer"
+                        (click)="removeImage('BATCHICON')"
+                      ></i>
+                    </span>
+                  </p>
+                </div>
+                }
+              </div>
+            </div>
+            <div
+              class="btngroup mt-3 d-flex justify-content-end align-items-center"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm px-5 rounded-5 btn-primary"
+              >
+                Next
+              </button>
+            </div>
+          </div>
+          } @case (2) {
+          <div>
+            <div class="bg-white p-3 rounded mt-2">
+              <div class="col">
+                <app-input-control
+                  label="Add Students"
+                  [required]="true"
+                  [errorTrue]="errorTrue"
+                  [(ngModel)]="neBatchForm.studentList"
+                  name="studentList"
+                  defaultOption="--Select Language--"
+                  [items]="students"
+                  [multipleSelect]="true"
+                  key="id"
+                  keyName="studentId"
+                  type="select"
+                ></app-input-control>
+              </div>
+              <div class="col">
+                <app-input-control
+                  label="Add Trainer"
+                  [required]="true"
+                  [errorTrue]="errorTrue"
+                  [(ngModel)]="neBatchForm.trainerID"
+                  name="trainerID"
+                  defaultOption="--Select Language--"
+                  [items]="languages.languages"
+                  key="id"
+                  keyName="name"
+                  type="select"
+                ></app-input-control>
+              </div>
+            </div>
+            <!-- Buttons -->
+            <div
+              class="btgroup d-flex justify-content-between align-items-center mt-3"
+            >
+              <button
+                type="button"
+                class="btn btn-sm btn-danger px-5 rounded-5"
+                (click)="prevStep()"
+              >
+                Back
+              </button>
+              <button
+                type="submit"
+                class="btn btn-sm btn-primary px-5 rounded-5"
+              >
+                Next
+              </button>
+            </div>
+          </div>
+          } }
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
