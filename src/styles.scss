@@ -159,8 +159,14 @@ spinner {
   align-items: center;
   justify-content: center;
 }
+.NEW_STUDENT{
+  background-color: rgb(238, 238, 238);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgb(94, 94, 94);
+}
 
-.NEW_STUDENT, .BATCH_ALLOCATED, .NEW{
+ .BATCH_ALLOCATED, .NEW{
   background-color: rgb(138, 165, 255);
   font-size: 0.75rem;
   font-weight: 600;

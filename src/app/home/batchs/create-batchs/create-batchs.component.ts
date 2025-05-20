@@ -8,8 +8,6 @@ import { UrlService } from '../../../common/services/url/url.service';
 import { InputControlComponent } from '../../../app-core/form-input/input-control/input-control.component';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { AlertComponent, DialogData } from '../../../app-core/alert/alert.component';
-import { FileSelectorComponent } from '../../../app-core/form-input/file-selector/file-selector.component';
 
 @Component({
   selector: 'app-create-batchs',
@@ -17,7 +15,6 @@ import { FileSelectorComponent } from '../../../app-core/form-input/file-selecto
     InputControlComponent,
     FormsModule,
     NgClass,
-    FileSelectorComponent,
     MatCheckboxModule,
     MatDialogModule
   ],
@@ -28,36 +25,26 @@ export class CreateBatchsComponent {
   currentStep = 1;
   errorTrue = false;
 
-  neBatchForm = {
-  language: null as any,
-  courseLevel: null as any,
-  batchPreferences: null as any,
-  batchType: null as any,
-  startTime: null as any,
-  endTime: null as any,
-  startDate: null as any,
-  endDate: null as any,
-  batchIcon: {
-    documentName: '',
-    documentSize: '',
-    documentContant: '',
-    documentsExtention: ''
-  },
-  studentList: null as any,
-  trainerID: null as any
-};
+  newBatchForm = {
+    language: null as any,
+    courseLevel: null as any,
+    batchPreferences: null as any,
+    batchType: null as any,
+    startTime: null as any,
+    endTime: null as any,
+    startDate: null as any,
+    endDate: null as any,
+    studentList: null as any,
+    trainerID: null as any
+  };
 
 
-    languages: any;
-    levelAndHour: any;
-    batchPreferences = [
-      { id: 'WEND', name: 'Weekend' },
-      { id: "WDAY", name: 'Week Days' },
-    ];
-    batchDetails: any;
-
-    students : any;
-    trainers : any;
+  languages: any;
+  levelAndHour: any;
+  batchPreferences: any;
+  batchDetails: any;
+  students: any;
+  trainers: any;
 
 
   constructor(
@@ -70,6 +57,8 @@ export class CreateBatchsComponent {
   async ngOnInit(): Promise<void> {
     await this.getLanguage();
     await this.getStudentDetailsChoices();
+    console.log(this.batchPreferences);
+
   }
 
   prevStep() {
@@ -85,11 +74,9 @@ export class CreateBatchsComponent {
   }
 
   getLanguage() {
-    debugger
     const option = { hideJwt: true };
     this.apiService.getLanguage(option).subscribe((response: any) => {
       this.languages = response;
-      console.log('languages', this.languages.languages);
     });
   }
 
@@ -105,8 +92,7 @@ export class CreateBatchsComponent {
     const option = { hideJwt: true };
     this.apiService.getStudentDetailsChoices(option).subscribe((response: any) => {
       this.batchDetails = response;
-      console.log('batchDetails', this.batchDetails);
-
+      this.batchPreferences = response.STUDENT_STATUS_CHOICES
     });
   }
 
@@ -120,7 +106,7 @@ export class CreateBatchsComponent {
     };
 
     if (type === 'BATCHICON') {
-      this.neBatchForm.batchIcon = documentObj;
+      // this.newBatchForm.batchIcon = documentObj;
     }
   }
 
@@ -133,43 +119,54 @@ export class CreateBatchsComponent {
       createdDate: ''
     };
 
-    if (type === 'BATCHICON') this.neBatchForm.batchIcon = emptyDoc;
+    // if (type === 'BATCHICON') this.newBatchForm.batchIcon = emptyDoc;
   }
 
   onSubmit(form: any) {
-
-    console.log(this.neBatchForm);
 
     if (!form.valid) {
       this.errorTrue = true;
       return;
     }
-
-
-
     this.errorTrue = false;
 
     if (this.currentStep === 1) {
       const obj = {
-        language: this.neBatchForm.language,
-        courseLevels: this.neBatchForm.courseLevel,
-        batchPreferences: this.neBatchForm.batchPreferences,
-        BatchType : this.neBatchForm.batchType,
-        startTime : this.neBatchForm.startTime,
-        endTime : this.neBatchForm.endTime
+        language: this.newBatchForm.language,
+        courseLevels: this.newBatchForm.courseLevel,
+        batchPreferences: this.newBatchForm.batchPreferences,
+        BatchType: this.newBatchForm.batchType,
+        startTime: this.newBatchForm.startTime,
+        endTime: this.newBatchForm.endTime
 
       }
-      this.apiService.getStudentAndTrainer(obj).subscribe((response: any) =>{
+      this.apiService.getStudentAndTrainer(obj).subscribe((response: any) => {
         this.students = response.students;
-        console.log(this.students);
+        this.trainers = response.trainers;
 
       })
       this.currentStep++;
       return;
     }
     if (this.currentStep === 2) {
-      console.log(this.neBatchForm);
-
+      const obj = {
+        newBatchForm: this.newBatchForm
+      }
+      this.apiService.createBatch(obj).subscribe((response: any) => {
+        this.newBatchForm = {
+          language: null as any,
+          courseLevel: null as any,
+          batchPreferences: null as any,
+          batchType: null as any,
+          startTime: null as any,
+          endTime: null as any,
+          startDate: null as any,
+          endDate: null as any,
+          studentList: null as any,
+          trainerID: null as any
+        };
+        this.currentStep--;
+      })
     }
   }
 }

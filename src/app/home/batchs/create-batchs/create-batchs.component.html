@@ -1,5 +1,11 @@
 <div class="sheet-main-container">
   <div class="container py-3">
+    <div>
+      <p class="fs-5 fw-bold">Create Batch</p>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate minus temporibus optio quo rerum, natus
+        aliquam, minima necessitatibus atque incidunt animi saepe magnam soluta laudantium numquam quam dolores expedita
+        eveniet?</p>
+    </div>
     <div class="row">
       <div class="col-md-8 offset-md-2">
         <div class="stepper">
@@ -12,7 +18,7 @@
           <div [ngClass]="getStepClass(2)">
             <div class="line"></div>
             <div class="circle"></div>
-            <p class="m-0 mt-1">Language Details</p>
+            <p class="m-0 mt-1">Students & Trainers</p>
           </div>
         </div>
         <form #l="ngForm" (ngSubmit)="onSubmit(l)">
@@ -24,9 +30,9 @@
                   label="Language"
                   [required]="true"
                   [errorTrue]="errorTrue"
-                  [(ngModel)]="neBatchForm.language"
+                  [(ngModel)]="newBatchForm.language"
                   name="language"
-                  (onSelect)="getLevelAndHours(neBatchForm.language)"
+                  (onSelect)="getLevelAndHours(newBatchForm.language)"
                   defaultOption="--Select Language--"
                   [items]="languages?.languages"
                   key="id" keyName="name"
@@ -38,7 +44,7 @@
                   label="Course Levels"
                   [required]="true"
                   [errorTrue]="errorTrue"
-                  [(ngModel)]="neBatchForm.courseLevel"
+                  [(ngModel)]="newBatchForm.courseLevel"
                   [items]="levelAndHour?.Levelandhours"
                   defaultOption="--Select Level--"
                   key="id" keyName="level"
@@ -55,9 +61,9 @@
                   [errorTrue]="errorTrue"
                   [items]="batchPreferences"
                   defaultOption="--Select Level--"
-                  key="id" keyName="name"
+                  key="value" keyName="label"
                   type="select"
-                  [(ngModel)]="neBatchForm.batchPreferences"
+                  [(ngModel)]="newBatchForm.batchPreferences"
                   name="batchPreferences"
                 ></app-input-control>
               </div>
@@ -70,7 +76,7 @@
                   defaultOption="--Select Level--"
                   key="value" keyName="label"
                   type="select"
-                  [(ngModel)]="neBatchForm.batchType"
+                  [(ngModel)]="newBatchForm.batchType"
                   name="batchType"
                 ></app-input-control>
               </div>
@@ -82,7 +88,7 @@
                   [required]="true"
                   [errorTrue]="errorTrue"
                   type="time"
-                  [(ngModel)]="neBatchForm.startTime"
+                  [(ngModel)]="newBatchForm.startTime"
                   name="startTime"
                 ></app-input-control>
               </div>
@@ -92,7 +98,7 @@
                   [required]="true"
                   [errorTrue]="errorTrue"
                   type="time"
-                  [(ngModel)]="neBatchForm.endTime"
+                  [(ngModel)]="newBatchForm.endTime"
                   name="endTime"
                 ></app-input-control>
               </div>
@@ -104,7 +110,7 @@
                   [required]="true"
                   [errorTrue]="errorTrue"
                   type="date"
-                  [(ngModel)]="neBatchForm.startDate"
+                  [(ngModel)]="newBatchForm.startDate"
                   name="startDate"
                 ></app-input-control>
               </div>
@@ -114,44 +120,12 @@
                   [required]="true"
                   [errorTrue]="errorTrue"
                   type="date"
-                  [(ngModel)]="neBatchForm.endDate"
+                  [(ngModel)]="newBatchForm.endDate"
                   name="endDate"
                 ></app-input-control>
               </div>
             </div>
-            <div class="bg-white p-3 rounded mt-2">
-              <p class="m-o p-0 small text-muted">Batch Icon</p>
-              <div class="col-12">
-                <!-- Show file input if no image uploaded -->
-                @if (!neBatchForm.batchIcon.documentName) {
-                <app-file-selector
-                  (onUpload)="getDocument($event, 'BATCHICON')"
-                ></app-file-selector>
-                } @else {
-                <div class="border p-2 rounded">
-                  <p
-                    class="d-flex align-items-center m-0 p-0 gap-3 justify-content-between"
-                  >
-                    <span> {{ neBatchForm.batchIcon.documentName }}</span>
-                    <span
-                      class="input-img-container d-flex align-items-center gap-2"
-                    >
-                      <img
-                        [src]="neBatchForm.batchIcon.documentContant"
-                        alt="Batch icon"
-                        height="60"
-                        class="rounded"
-                      />
-                      <i
-                        class="bx bx-x rounded-circle cr-pointer"
-                        (click)="removeImage('BATCHICON')"
-                      ></i>
-                    </span>
-                  </p>
-                </div>
-                }
-              </div>
-            </div>
+
             <div
               class="btngroup mt-3 d-flex justify-content-end align-items-center"
             >
@@ -171,13 +145,13 @@
                   label="Add Students"
                   [required]="true"
                   [errorTrue]="errorTrue"
-                  [(ngModel)]="neBatchForm.studentList"
+                  [(ngModel)]="newBatchForm.studentList"
                   name="studentList"
                   defaultOption="--Select Language--"
                   [items]="students"
                   [multipleSelect]="true"
                   key="id"
-                  keyName="studentId"
+                  keyName="name"
                   type="select"
                 ></app-input-control>
               </div>
@@ -186,10 +160,10 @@
                   label="Add Trainer"
                   [required]="true"
                   [errorTrue]="errorTrue"
-                  [(ngModel)]="neBatchForm.trainerID"
+                  [(ngModel)]="newBatchForm.trainerID"
                   name="trainerID"
                   defaultOption="--Select Language--"
-                  [items]="languages.languages"
+                  [items]="trainers"
                   key="id"
                   keyName="name"
                   type="select"

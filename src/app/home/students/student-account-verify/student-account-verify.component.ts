@@ -59,7 +59,7 @@ export class StudentAccountVerifyComponent {
       "MobileNumber": this.strNumber
     }
     const option = { hideJwt: true };
-    this.apiService.studentRegister(obj, option).subscribe((response: any) => {
+    this.apiService.otpSender(obj, option).subscribe((response: any) => {
 
     });
   }

@@ -27,11 +27,10 @@ export class AuthComponent {
   ) { }
 
   async ngOnInit(): Promise<void> {
-
+    this.storage.clear();
   }
   onLogin() {
     if (this.emailOrPhone && this.password) {
-
 
       const obj = {
         identifier: this.emailOrPhone,

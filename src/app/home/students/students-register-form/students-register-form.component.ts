@@ -202,7 +202,7 @@ export class StudentsRegisterFormComponent {
         console.log('Submitting form:', this.registersheet);
 
         const option = { hideJwt: true };
-        this.apiService.studentRegister(obj, option).subscribe((response: any) => {
+        this.apiService.otpSender(obj, option).subscribe((response: any) => {
           this.urlService.encode(this.registersheet.gmail).then(email => {
             this.urlService.encode(this.registersheet.MobileNumber).then(number => {
               this.router.navigate(['student-account-verification'], {

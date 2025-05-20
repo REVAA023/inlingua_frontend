@@ -16,7 +16,7 @@
     <div class="filter-container row">
       <div class="col-md-3">
         <app-input-control
-        placeholder="Search Leads"
+        placeholder="Search batchs"
         type="text"
         [(ngModel)]="searchText"
         (ngModelChange)="onFilterChange()"
@@ -50,7 +50,7 @@
     </div>
     <div class="table-responsive mt-2 mx-n1 px-1">
       <table
-        class="table table-hover mb-0 leads-table border-top border-translucent"
+        class="table table-hover mb-0 batchs-table border-top border-translucent"
       >
         <thead>
           <tr>
@@ -65,7 +65,7 @@
               scope="col"
               data-sort="name"
             >
-            Batch Name
+            Students Count & Batch Name
             </th>
             <th
               class="sort text-nowrap align-middle ps-4 pe-5 text-uppercase small border-end border-translucent"
@@ -101,50 +101,63 @@
               scope="col"
               data-sort="date"
             >
-            Time Slot
+            Batch End date
             </th>
           </tr>
         </thead>
         <tbody class="list" id="leal-tables-body">
-          @for (lead of paginatedData; track $index) {
+          @for (batch of paginatedData; track $index) {
           <tr
             class="hover-actions-trigger cr-pointer btn-reveal-trigger position-static"
           >
           <td class="align-middle">
             <mat-checkbox
-              [checked]="isSelected(lead.id)"
-              (change)="toggleSelect(lead.id, $event.checked)"
+              [checked]="isSelected(batch.id)"
+              (change)="toggleSelect(batch.id, $event.checked)"
             ></mat-checkbox>
           </td>
             <td
               class="name align-middle white-space-nowrap"
-              (click)="navigate(lead.id)"
+              (click)="navigate(batch.id)"
             >
-              <div class="d-flex align-items-center">
-
+              <div class="d-flex align-items-center gap-2">
+                <div
+                    class="bg-secondary text-white fw-bold text-uppercase d-flex align-items-center justify-content-center rounded-circle"
+                    style="width: 30px; height: 30px"
+                  >
+                    {{batch.studentsList}}
+                  </div>
                 <div>
-                  <span class="">{{ lead.leadName }}</span>
+                  <span class="">{{ batch.name }} </span>
                 </div>
               </div>
             </td>
             <td
-              (click)="navigate(lead.id)"
+              (click)="navigate(batch.id)"
               class="email align-middle white-space-nowrap ps-4 border-end border-translucent"
             >
-              <span>{{ lead.leadEmail }}</span>
+              <span><mat-progress-bar mode="determinate" value="{{ batch.isComplited }}"></mat-progress-bar>
+                <div class="d-flex align-items-center justify-content-between">
+                  <span>{{ batch.startTime }} - {{ batch.endTime }} </span>
+                  <span>{{ batch.isComplited }} %</span>
+                </div>
+              </span>
             </td>
             <td
-              (click)="navigate(lead.id)"
+              (click)="navigate(batch.id)"
               class="phone align-middle white-space-nowrap ps-4 border-end border-translucent"
             >
-              <span>{{ lead.leadMobileNumber }}</span>
+            <span>@if (batch.trainer) {
+              {{ batch.trainer.user.firstName }} {{ batch.trainer.user.lastName }}
+            }@else {Not Assigned}
+              </span>
             </td>
 
             <td
-              (click)="navigate(lead.id)"
+              (click)="navigate(batch.id)"
               class="date small align-middle white-space-nowrap text-body-tertiary text-opacity-85 ps-4 text-body-tertiary"
             >
-              {{ lead.createdDate }}
+              {{ batch.endDate }}
             </td>
           </tr>
           }
@@ -161,10 +174,10 @@
 
     } @else {
     <div class="d-flex flex-column justify-content-center align-items-center">
-      <img src="allData.png" alt="No Leads" width="400" />
-      <p class="text-center fs-5 fw-bold">No leads found</p>
+      <img src="allData.png" alt="No batchs" width="400" />
+      <p class="text-center fs-5 fw-bold">No batchs found</p>
       <p class="text-center">
-        You can add or import leads by clicking the button above
+        You can add or import batchs by clicking the button above
       </p>
     </div>
     }

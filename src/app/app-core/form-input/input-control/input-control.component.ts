@@ -170,6 +170,15 @@ export class InputControlComponent extends FromInputControl implements OnInit {
     this.__maxDate = maxDate;
 
   }
+    onLocalAction(type: any) {
+    this.onAction(type);
+    if (this.__type === 'email') {
+      if (this.control && this.control.control && this.control.control.errors) {
+        let error: any = this.control.control.errors;
+        if (error.email) { this.__errorTrue = true }
+      }
+    }
+  }
 
   @Input()
   set maxCharacterLength(maxCharacterLength: boolean) {
@@ -234,17 +243,22 @@ export class InputControlComponent extends FromInputControl implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.__type === 'date') {
+
+    if (['date', 'time'].includes(this.__type)) {
+      debugger;
+
       this.dateChangesubscribe = this.viewValueChange().subscribe(async (xValue: any) => {
-        if (xValue) {
-          if (this.value && this.value !== '' && typeof this.value === 'string') {
-            this.__xvalue = await this.getParsedDate(this.value.toString());
-          } else {
-            this.__xvalue = '';
-          }
+        if (!xValue) return;
+
+        if (typeof this.value === 'string' && this.value.trim() !== '') {
+          const method = this.__type === 'date' ? this.getParsedDate : this.getParsedTime;
+          this.__xvalue = await method.call(this, this.value);
+        } else {
+          this.__xvalue = '';
         }
       });
     }
+
     // if (this.route.snapshot.data['title']) {
     //   let routeTitle = this.route!.snapshot.data['title'];
     //   if (routeTitle) {
@@ -282,13 +296,25 @@ export class InputControlComponent extends FromInputControl implements OnInit {
     })
   }
 
+  getParsedTime(date: string) {
+
+    return new Promise((resolve) => {
+      if (!date) resolve(null);
+      let parseFormat = "";
+      if (isMatch(date, this.appSetting.environment.serverTimeFormat)) parseFormat = this.appSetting.environment.serverTimeFormat;
+      if (parseFormat === "") resolve(null);
+      let parsedDate = parse(date, parseFormat, new Date());
+      resolve(parsedDate);
+    })
+  }
+
   onDateChange() {
     if (!isValid(this.__xvalue)) return;
     this.value = format(this.__xvalue, this.appSetting.environment.serverDateFormat);
     this.onAction('change');
   }
 
-    onTimeChange() {
+  onTimeChange() {
     if (!isValid(this.__xvalue)) return;
     this.value = format(this.__xvalue, this.appSetting.environment.serverTimeFormat);
     this.onAction('change');

@@ -1,1 +1,91 @@
-<p>create-trainer works!</p>
+<div class="sheet-main-container">
+  <div class="container py-3">
+    <div>
+      <p class="fs-5 fw-bold">Create Trainer</p>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate minus temporibus optio quo rerum, natus
+        aliquam, minima necessitatibus atque incidunt animi saepe magnam soluta laudantium numquam quam dolores expedita
+        eveniet?</p>
+    </div>
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="stepper">
+          <div [ngClass]="getStepClass(1)">
+            <div class="line"></div>
+            <div class="circle"></div>
+            <p class="m-0 mt-1">Personal Details</p>
+          </div>
+
+          <div [ngClass]="getStepClass(2)">
+            <div class="line"></div>
+            <div class="circle"></div>
+            <p class="m-0 mt-1">Verification</p>
+          </div>
+        </div>
+        <form #l="ngForm" (ngSubmit)="onSubmit(l)">
+          @switch (currentStep) { @case (1){
+          <div>
+            <div class="bg-white p-3 rounded row">
+              <div class="col-5">
+                <app-input-control label="Trainer Name" [required]="true" [errorTrue]="errorTrue"
+                  [(ngModel)]="trainerForm.trainerName" name="trainerName" type="text"></app-input-control>
+              </div>
+              <div class="col-7">
+                <app-input-control label="Trainer Email" [required]="true" [errorTrue]="errorTrue"
+                  [(ngModel)]="trainerForm.trainerEmail" name="trainerEmail" type="email"></app-input-control>
+              </div>
+            </div>
+            <div class="bg-white p-3 rounded row">
+              <div class="col-6">
+                <app-input-control label=" Phone Number" [required]="true" [errorTrue]="errorTrue" type="number"
+                  [(ngModel)]=" trainerForm.phoneNumber" name="phoneNumber"></app-input-control>
+              </div>
+              <div class="col-6">
+                <app-input-control label="Select Language" [required]="true" [errorTrue]="errorTrue"
+                  [(ngModel)]="trainerForm.selectLanguage" name="selectLanguage" defaultOption="--Select Language--"
+                  [multipleSelect]="true" [items]="languages" key="id" keyName="name"
+                  type="select"></app-input-control>
+              </div>
+            </div>
+            <div class="btngroup mt-3 d-flex justify-content-end align-items-center">
+              <button type="submit" class="btn btn-sm px-5 rounded-5 btn-primary">
+                Next
+              </button>
+            </div>
+          </div>
+          } @case (2) {
+            <div class="row">
+              <div class="col-12 mt-3">
+                <app-pin-control
+                    label="Enter {{ trainerForm.phoneNumber }} OTP "
+                    [boxes]="6"
+                    [required]="true"
+                    passwordTextType="text"
+                    [(ngModel)]="trainerForm.mobileOtp"
+                    name="mobileotp"
+                  ></app-pin-control>
+              </div>
+              <div class="col-12 mt-3">
+                <app-pin-control
+                    label="Enter {{ trainerForm.trainerEmail }} OTP "
+                    [boxes]="6"
+                    [required]="true"
+                    passwordTextType="text"
+                    [(ngModel)]="trainerForm.gmailOtp"
+                    name="gmailotp"
+                  ></app-pin-control>
+              </div>
+            </div>
+          <div class="btgroup d-flex justify-content-between align-items-center mt-3">
+            <button type="button" class="btn btn-sm btn-danger px-5 rounded-5" (click)="prevStep()">
+              Back
+            </button>
+            <button type="submit" class="btn btn-sm btn-primary px-5 rounded-5">
+              Next
+            </button>
+          </div>
+          } }
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

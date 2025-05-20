@@ -17,9 +17,9 @@
     <!-- {{control?.control?.invalid}} {{__errorTrue}} -->
     <div class="revaa-input-group {{ className }}" [ngClass]="{
         'input-error': control?.control?.invalid && __errorTrue,
-        bgRemove: removeBg,
-        focused: focused,
-        disabled: this.__btnClicked
+        'bgRemove': removeBg,
+        'focused': focused,
+        'disabled': this.__btnClicked
       }">
       @if(__assignIcon) {
       <ng-container *ngTemplateOutlet="reassignContainer"></ng-container>
@@ -38,6 +38,7 @@
     <div class="label-container bottom pt8">
       <div class="label-container-right">
         <ng-container *ngTemplateOutlet="errorTextContainer"></ng-container>
+        <ng-container *ngTemplateOutlet="errorInvalidContainer"></ng-container>
       </div>
     </div>
   </div>
@@ -101,9 +102,9 @@
     [appLimit]="__maxLength" [tabIndex]="__tabIndex"></textarea>
   }
   @case("email"){
-  <input type="text" class="revaa-input-control" autocomplete="none" [appNoEmoji]="true" [appLowerCase]="true"
+  <input type="email" class="revaa-input-control" autocomplete="none" [appNoEmoji]="true" [appLowerCase]="true"
     [appLimit]="__maxLength" [autofocus]="__autoFocus" [placeholder]="__placeholder" [(ngModel)]="value"
-    [name]="name + addOnID" [disabled]="__btnClicked" (blur)="onAction('blur')" (focus)="onAction('focus')"
+    [name]="name + addOnID" [disabled]="__btnClicked" (blur)="onLocalAction('blur')" (focus)="onAction('focus')"
     (keydown)="keyDownEvent($event)" (keyup)="keyUpEvent($event)" [id]="name" #formInput
     [ngClass]="{ disabled: this.__btnClicked }" [inputMode]="__inputMode" [tabIndex]="__tabIndex" />
   }
@@ -138,8 +139,27 @@
   </div>
 </ng-template>
 
+<ng-template #errorInvalidContainer>
+  @if(__isPassword) {
+  @if (value !== '' && control?.control?.invalid && __errorTrue) {
+  <div class="ms-auto text-danger d-flex align-items-center">
+    <div class="ml-2 lh15"><small>Invalid Pattern</small></div>
+  </div>
+  }
+  } @else if (__isEmail) {
+  @if (value !== '' && control?.control?.invalid && __errorTrue) {
+  <div class="ms-auto text-danger d-flex align-items-center">
+    <div class="ml-2 lh15"><small>Invalid email format.</small></div>
+  </div>
+  }
+  }
+
+
+
+</ng-template>
+
 <ng-template #errorTextContainer>
-  @if(control?.control?.invalid && __errorTrue){
+  @if((value === '' || value === 0) && control?.control?.invalid && __errorTrue){
   <div class="error-text">
     <span class="error-text-icon">
       <ion-icon name="alert-circle-outline"></ion-icon>
@@ -286,13 +306,14 @@
     [autofocus]="__autoFocus" [placeholder]="__placeholder" [(ngModel)]="__xvalue" [name]="name + addOnID"
     [disabled]="__btnClicked" (blur)="onAction('blur')" (focus)="onAction('focus')" (keydown)="keyDownEvent($event)"
     (keyup)="keyUpEvent($event)" [id]="name + addOnID" #formInput readonly [matTimepicker]="timePicker"
-    (click)="timePicker.open()" (ngModelChange)="onTimeChange()" [max]="__maxDate" [min]="__minDate" [tabIndex]="__tabIndex" />
+    (click)="timePicker.open()" (ngModelChange)="onTimeChange()" [max]="__maxDate" [min]="__minDate"
+    [tabIndex]="__tabIndex" />
 </ng-template>
 
 <mat-datepicker #picker [disabled]="__btnClicked" panelClass="revaa-calendar">
 </mat-datepicker>
 
-  <mat-timepicker #timePicker [disabled]="__btnClicked" panelClass="revaa-calendar" />
+<mat-timepicker #timePicker [disabled]="__btnClicked" panelClass="revaa-calendar" />
 
 <ng-template #calendarBtn>
   @if (__type === 'date') {

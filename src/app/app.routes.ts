@@ -182,6 +182,14 @@ export const routes: Routes = [
               import('./home/batchs/create-batchs/create-batchs.component').then(
                 (m) => m.CreateBatchsComponent
               ),
+          },
+          {
+            path: 'batchs/details/:id',
+            data: { title: 'Inlingua | Batch Details' },
+            loadComponent: () =>
+              import('./home/batchs/batch-details/batch-details.component').then(
+                (m) => m.BatchDetailsComponent
+              ),
           }
         ]
       },

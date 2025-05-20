@@ -8,6 +8,7 @@ import { DataService } from '../../../common/services/data/data.service';
 import { UrlService } from '../../../common/services/url/url.service';
 import { PageLodingComponent } from '../../../app-core/page-loding/page-loding.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-all-batchs',
@@ -17,7 +18,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatCheckboxModule,
     MatPaginatorModule,
     PageLodingComponent,
-    RouterModule
+    RouterModule,
+    MatProgressBarModule,
   ],
   templateUrl: './all-batchs.component.html',
   styleUrl: './all-batchs.component.scss'
@@ -45,14 +47,13 @@ export class AllBatchsComponent {
 
   async ngOnInit(): Promise<void> {
     await this.data.checkToken();
-    this.getLeads();
+    this.getBatches();
 
   }
 
-  selectedLeads: Set<number> = new Set(); // Store selected lead IDs
+  selectedLeads: Set<number> = new Set();
   selectAllOnPage: boolean = false;
 
-  // Called when "Select All" is toggled
   toggleSelectAll(checked: boolean) {
     this.selectAllOnPage = checked;
     this.paginatedData.forEach(lead => {
@@ -64,7 +65,6 @@ export class AllBatchsComponent {
     });
   }
 
-  // Called when single checkbox is toggled
   toggleSelect(leadId: number, checked: boolean) {
     if (checked) {
       this.selectedLeads.add(leadId);
@@ -74,7 +74,6 @@ export class AllBatchsComponent {
     }
   }
 
-  // Utility function to check if a lead is selected
   isSelected(leadId: number): boolean {
     return this.selectedLeads.has(leadId);
   }
@@ -83,9 +82,9 @@ export class AllBatchsComponent {
     console.log("Selecter Leads",this.selectedLeads)
   }
 
-  getLeads() {
-    this.apiService.getLeads().subscribe((response: any) => {
-      this.allData = response.Leads || [];
+  getBatches() {
+    this.apiService.getBatches().subscribe((response: any) => {
+      this.allData = response.class || [];
       this.updatePaginatedData();
       console.log(response);
       this.isLoading = true;
@@ -94,7 +93,7 @@ export class AllBatchsComponent {
 
   navigate(id: any) {
     this.url.encode(id).then((urlJson) => {
-      this.router.navigateByUrl('leads/details/' + urlJson);
+      this.router.navigateByUrl('batchs/details/' + urlJson);
     });
   }
 

@@ -23,7 +23,7 @@ export class ApplicationApiService {
     return this.apiData
       .postData(
         this.appSettings.environment.applicationPath +
-          'import-lead',
+        'import-lead',
         body,
         options
       )
@@ -232,7 +232,7 @@ export class ApplicationApiService {
       );
   }
 
-  studentRegister(body: any, options?: any): Observable<any> {
+  otpSender(body: any, options?: any): Observable<any> {
     this.data.serviceStarted();
     options === undefined
       ? (options = this.apiData.defaultOptions)
@@ -240,7 +240,7 @@ export class ApplicationApiService {
     return this.apiData
       .postData(
         this.appSettings.environment.applicationPath +
-        'student-register',
+        'otp-sender',
         body,
         options
       )
@@ -378,29 +378,6 @@ export class ApplicationApiService {
       );
   }
 
-  getTrainers(options?: any): Observable<any> {
-    this.data.serviceStarted();
-    options === undefined
-      ? (options = this.apiData.defaultOptions)
-      : (options = this.apiData.setOptions(options));
-    return this.apiData
-      .getData(
-        this.appSettings.environment.applicationPath + 'get-trainers',
-        options
-      )
-      .pipe(
-        finalize(() => this.data.serviceCompleted()),
-        catchError((err) => {
-          options
-            ? options.hideErrorMethod
-              ? ''
-              : this.data.errorMethod(err)
-            : '';
-          return throwError(() => new Error(err));
-        })
-      );
-  }
-
   getLeadDetails(body: any, options?: any): Observable<any> {
     this.data.serviceStarted();
     options === undefined
@@ -435,6 +412,105 @@ export class ApplicationApiService {
       .postData(
         this.appSettings.environment.applicationPath +
         'get-students-and-trainers',
+        body,
+        options
+      )
+      .pipe(
+        finalize(() => this.data.serviceCompleted()),
+        catchError((err) => {
+          options
+            ? options.hideErrorMethod
+              ? ''
+              : this.data.errorMethod(err)
+            : '';
+          return throwError(() => new Error(err));
+        })
+      );
+  }
+
+  // Trainers
+
+  getTrainers(options?: any): Observable<any> {
+    this.data.serviceStarted();
+    options === undefined
+      ? (options = this.apiData.defaultOptions)
+      : (options = this.apiData.setOptions(options));
+    return this.apiData
+      .getData(
+        this.appSettings.environment.applicationPath + 'get-trainers',
+        options
+      )
+      .pipe(
+        finalize(() => this.data.serviceCompleted()),
+        catchError((err) => {
+          options
+            ? options.hideErrorMethod
+              ? ''
+              : this.data.errorMethod(err)
+            : '';
+          return throwError(() => new Error(err));
+        })
+      );
+  }
+
+  createTrainer(body: any, options?: any): Observable<any> {
+    this.data.serviceStarted();
+    options === undefined
+      ? (options = this.apiData.defaultOptions)
+      : (options = this.apiData.setOptions(options));
+    return this.apiData
+      .postData(
+        this.appSettings.environment.applicationPath +
+        'create-trainer',
+        body,
+        options
+      )
+      .pipe(
+        finalize(() => this.data.serviceCompleted()),
+        catchError((err) => {
+          options
+            ? options.hideErrorMethod
+              ? ''
+              : this.data.errorMethod(err)
+            : '';
+          return throwError(() => new Error(err));
+        })
+      );
+  }
+
+  // Batches
+  getBatches(options?: any): Observable<any> {
+    this.data.serviceStarted();
+    options === undefined
+      ? (options = this.apiData.defaultOptions)
+      : (options = this.apiData.setOptions(options));
+    return this.apiData
+      .getData(
+        this.appSettings.environment.applicationPath + 'get-batch',
+        options
+      )
+      .pipe(
+        finalize(() => this.data.serviceCompleted()),
+        catchError((err) => {
+          options
+            ? options.hideErrorMethod
+              ? ''
+              : this.data.errorMethod(err)
+            : '';
+          return throwError(() => new Error(err));
+        })
+      );
+  }
+
+  createBatch(body: any, options?: any): Observable<any> {
+    this.data.serviceStarted();
+    options === undefined
+      ? (options = this.apiData.defaultOptions)
+      : (options = this.apiData.setOptions(options));
+    return this.apiData
+      .postData(
+        this.appSettings.environment.applicationPath +
+        'create-batch',
         body,
         options
       )
