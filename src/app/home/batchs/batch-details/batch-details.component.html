@@ -1,1 +1,9 @@
-<p>batch-details works!</p>
+@if (isLoading) {
+  <div>
+  <p class="fs-5 fw-bold">{{batchDetails?.name}}</p>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero voluptatum adipisci pariatur id laboriosam, placeat maiores rerum quasi distinctio nesciunt. Optio veritatis laudantium officiis dicta quos voluptatem itaque repellendus fuga.</p>
+</div>
+}
+@else {
+  <app-page-loding></app-page-loding>
+}
