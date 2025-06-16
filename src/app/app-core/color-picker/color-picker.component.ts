@@ -41,7 +41,6 @@ export class ColorPickerComponent extends FromInputControl implements OnInit, On
   }
 
   ngOnInit(): void {
-    debugger
     this.changesubscribe = this.viewValueChange().subscribe(
       async (xValue: any) => {
         if (xValue) {

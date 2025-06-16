@@ -92,7 +92,7 @@ export class CreateBatchsComponent {
     const option = { hideJwt: true };
     this.apiService.getStudentDetailsChoices(option).subscribe((response: any) => {
       this.batchDetails = response;
-      this.batchPreferences = response.STUDENT_STATUS_CHOICES
+      this.batchPreferences = response.BATCH_PREFERENCES_CHOICES
     });
   }
 

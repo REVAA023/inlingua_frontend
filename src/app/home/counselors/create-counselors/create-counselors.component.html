@@ -1,0 +1,56 @@
+<div class="py-3">
+  <div>
+    <h3 class="fw-bold fs-5">Create Counselor</h3>
+    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Totam officia maiores itaque, porro id illo corporis
+      nostrum ducimus provident autem sapiente ipsum repellendus similique voluptatibus voluptatum! Vero saepe ad odit?
+    </p>
+  </div>
+  <form #l="ngForm" (ngSubmit)="onSubmit(l)">
+    <div class="row">
+      <div class="col-md-6 offset-3">
+        <p class="m-0 p-0 small text-muted">Counselor Photo</p>
+        <div class="col-12">
+          <!-- Show file input if no image uploaded -->
+          @if (!counselorPhoto.documentName) {
+          <app-file-selector (onUpload)="getDocument($event, 'CUSIMG')"></app-file-selector>
+          } @else {
+          <div>
+            <p class="d-flex align-items-center m-0 p-0 gap-3 justify-content-between border p-2 rounded">
+              <span> {{ counselorPhoto.documentName }}</span>
+              <span class="input-img-container d-flex align-items-center gap-2">
+                <img [src]="counselorPhoto.documentContant" alt="Student Photo" height="60" class="rounded" />
+                <i class="bx bx-x rounded-circle cr-pointer" (click)="removeImage('CUSIMG')"></i>
+              </span>
+            </p>
+          </div>
+          }
+        </div>
+      </div>
+      <div class="col-md-6 offset-3">
+        <app-input-control label="First Name" type="text" name="firstName" [required]="true" [(ngModel)]="firstName"
+          [errorTrue]="errorTrue"></app-input-control>
+      </div>
+      <div class="col-md-6 offset-3">
+        <app-input-control label="Last Name" type="text" name="lastName" [(ngModel)]="lastName"
+          [errorTrue]="errorTrue"></app-input-control>
+      </div>
+      <div class="col-md-6 offset-3">
+        <app-input-control label="Email" type="email" name="email" [required]="true" [(ngModel)]="email"
+          [errorTrue]="errorTrue"></app-input-control>
+      </div>
+      <div class="col-md-6 offset-3">
+        <app-input-control label="Mobile Number" type="number" name="mobileNumber" [required]="true"
+          [(ngModel)]="mobileNumber" [errorTrue]="errorTrue"></app-input-control>
+      </div>
+      <div class="col-md-6 offset-3">
+        <app-input-control label="Date Of Birth" type="date" name="dateofbirth" [required]="true"
+          [(ngModel)]="dateofbirth" [errorTrue]="errorTrue"></app-input-control>
+      </div>
+      <div class="col-md-6 offset-3 d-flex justify-content-end">
+        <button class="btn btn-sm btn-primary">Create Counselor</button>
+      </div>
+    </div>
+
+  </form>
+
+</div>

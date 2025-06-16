@@ -1,32 +1,34 @@
-import { Component } from '@angular/core';
-import { InputControlComponent } from '../../../app-core/form-input/input-control/input-control.component';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+
+import { InputControlComponent } from '../../../app-core/form-input/input-control/input-control.component';
+import { PageLodingComponent } from '../../../app-core/page-loding/page-loding.component';
+
 import { ApplicationApiService } from '../../../common/api-services/application-api/application-api.service';
 import { DataService } from '../../../common/services/data/data.service';
 import { UrlService } from '../../../common/services/url/url.service';
-import { PageLodingComponent } from '../../../app-core/page-loding/page-loding.component';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
-  selector: 'app-all-batchs',
+  selector: 'app-all-counselors',
+  standalone: true,
   imports: [
-    InputControlComponent,
+    CommonModule,
     FormsModule,
-    MatCheckboxModule,
-    MatPaginatorModule,
-    PageLodingComponent,
     RouterModule,
-    MatProgressBarModule,
+    MatPaginatorModule,
+    InputControlComponent,
+    PageLodingComponent
   ],
-  templateUrl: './all-batchs.component.html',
-  styleUrl: './all-batchs.component.scss'
+  templateUrl: './all-counselors.component.html',
+  styleUrls: ['./all-counselors.component.scss']
 })
-export class AllBatchsComponent {
-
+export class AllCounselorsComponent implements OnInit {
   isLoading = false;
+  errorTrue = false;
+
   allData: any[] = [];
   paginatedData: any[] = [];
   pageSize = 10;
@@ -37,62 +39,28 @@ export class AllBatchsComponent {
   filterDate: string = '';
   filterStatus: string = '';
   filterSource: string = '';
+  counselor: any;
+
 
   constructor(
     private router: Router,
     private apiService: ApplicationApiService,
     public data: DataService,
     private url: UrlService
-  ) { }
+  ) {}
 
-  async ngOnInit() {
+  async ngOnInit(): Promise<void> {
     await this.data.checkToken();
-    this.getBatches();
+    this.getCounselors();
   }
 
-  selectedLeads: Set<number> = new Set();
-  selectAllOnPage: boolean = false;
-
-  toggleSelectAll(checked: boolean) {
-    this.selectAllOnPage = checked;
-    this.paginatedData.forEach(lead => {
-      if (checked) {
-        this.selectedLeads.add(lead.id);
-      } else {
-        this.selectedLeads.delete(lead.id);
-      }
-    });
-  }
-
-  toggleSelect(leadId: number, checked: boolean) {
-    if (checked) {
-      this.selectedLeads.add(leadId);
-    } else {
-      this.selectedLeads.delete(leadId);
-      this.selectAllOnPage = false;
-    }
-  }
-
-  isSelected(leadId: number): boolean {
-    return this.selectedLeads.has(leadId);
-  }
-
-  selectedDelete(){
-    console.log("Selecter Leads",this.selectedLeads)
-  }
-
-  getBatches() {
-    this.apiService.getBatches().subscribe((response: any) => {
-      this.allData = response.class || [];
+  getCounselors(): void {
+    this.apiService.getcounselor().subscribe((response: any) => {
+      this.allData = response.counselors || [];
       this.updatePaginatedData();
-      console.log(response);
-      this.isLoading = true;
-    });
-  }
+      console.log("Counselors", this.allData);
 
-  navigate(id: any) {
-    this.url.encode(id).then((urlJson) => {
-      this.router.navigateByUrl('batchs/details/' + urlJson);
+      this.isLoading = true;
     });
   }
 
@@ -118,22 +86,25 @@ export class AllBatchsComponent {
           lead.leadMobileNumber?.toLowerCase().includes(this.searchText.toLowerCase())
         )
         : true;
+
       const matchesDate = this.filterDate
         ? lead.createdDate?.includes(this.filterDate)
         : true;
+
       const matchesStatus = this.filterStatus
         ? lead.leadStatusLabel === this.filterStatus
         : true;
+
       const matchesSource = this.filterSource
         ? lead.source === this.filterSource
         : true;
+
       return matchesText && matchesDate && matchesStatus && matchesSource;
     });
   }
 
-  onFilterChange() {
+  onFilterChange(): void {
     this.pageIndex = 0;
     this.updatePaginatedData();
   }
-
 }

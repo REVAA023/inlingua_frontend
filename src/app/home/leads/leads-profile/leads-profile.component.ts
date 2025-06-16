@@ -18,44 +18,90 @@ import { InputControlComponent } from '../../../app-core/form-input/input-contro
   styleUrl: './leads-profile.component.scss'
 })
 export class LeadsProfileComponent implements OnInit {
-encodeURIComponent(arg0: string) {
-throw new Error('Method not implemented.');
-}
-  leadDetails: any = {};
+  encodeURIComponent(arg0: string) {
+    throw new Error('Method not implemented.');
+  }
+  leadDetail: any = {};
+  LeadStatus: any = [];
   isLoading = false;
   isEnabled = true;
 
   constructor(
     public data: DataService,
-    public router : Router,
+    public router: Router,
     public route: ActivatedRoute,
     public urlService: UrlService,
     private apiService: ApplicationApiService
-  ) {}
+  ) { }
 
   async ngOnInit(): Promise<void> {
     await this.data.checkToken();
     let paramsId = this.route.snapshot.paramMap.get('id');
     let obj: any = await this.urlService.decode(paramsId);
-    const payload ={
-      leadId:obj
+    const payload = {
+      leadId: obj
     }
     this.getLeadDetails(payload);
+    this.getLeadStatus();
     this.isLoading = true;
   }
 
   getLeadDetails(payload: any) {
     this.apiService.getLeadDetails(payload).subscribe((response: any) => {
-      this.leadDetails = response.Leads;
+      this.leadDetail = response.Leads;
+      console.log('Lead Details', this.leadDetail);
+
     })
   }
 
-  goBack(){
+  getLeadStatus() {
+    this.apiService.getLeadStatus().subscribe((response: any) => {
+      this.LeadStatus = response.lead_status_choices;
+      console.log('Lead Status', this.LeadStatus);
+
+    })
+  }
+
+  changeStatus(status: any) {
+    let payload = {
+      leadId: this.leadDetail.id,
+      status: status
+    }
+
+    this.apiService.changeLeadStatus(payload).subscribe((response: any) => {
+      window.location.reload();
+    })
+
+  }
+
+  goBack() {
     this.router.navigateByUrl('leads')
   }
-  editDetails(){
+  editDetails() {
     this.isEnabled = false;
   }
-  deliteDetails(){}
+
+  deliteDetails() { }
+
+  onSubmit(form: any) {
+    if (!form.valid) {
+      return;
+    }
+    else {
+      const payload = {
+        leadid: this.leadDetail.id,
+        leadName: this.leadDetail.leadName,
+        leadEmail: this.leadDetail.leadEmail,
+        leadMobileNumber: this.leadDetail.leadMobileNumber,
+        leadSource: this.leadDetail.leadSource,
+        callbackDate: this.leadDetail.callbackDate,
+        remark: this.leadDetail.remark,
+        counselorRemark: this.leadDetail.counselorRemark
+      }
+      this.apiService.updateLeadDetails(payload).subscribe((response: any) => {
+
+    })
+    }
+  }
 
 }

@@ -28,7 +28,7 @@
         alt="Student Avatar"
       />
       } @else {
-      <div class="initials fw-bold">
+      <div class="initials text-uppercase fw-bold">
         @if (studentDetails.student.user.lastName) {
         {{ studentDetails.student.user.firstName.charAt(0)
         }}{{ studentDetails.student.user.lastName.charAt(0) }}
@@ -65,15 +65,6 @@
       </div>
     </div>
   </div>
-  <p class="fs-5 fw-bold">
-    @if (studentDetails.student.paymentComplited) {
-      <span class="text-success">Payment Complited</span>
-    }
-    @else {
-      <span class="text-danger">Payment Not Complited</span>
-    }
-
-  </p>
   <div class="icon-row-container mt-4">
     <div class="icon-row">
       <div class="icon-box">
@@ -288,14 +279,6 @@
             src="{{ studentDetails.student.aadhar.documentContant }}"
             alt="Aadhar Proof"
           />
-          <div class="proof-actions">
-            <button>
-              <i class="bx bx-expand" style="color: #d2d2d2"></i>
-            </button>
-            <a [href]="studentDetails.student.aadhar.documentContant" download>
-              <i class="bx bx-download" style="color: #d2d2d2"></i>
-            </a>
-          </div>
         </div>
       </div>
       } @if (studentDetails.student.paymentConformScreenshot.documentSize > 0) {
@@ -312,7 +295,8 @@
       </div>
       }
     </div>
-    <div class="history-container mt-4">
+    @if (false) {
+      <div class="history-container mt-4">
       <p class="fs-5 fw-bold">Lead History</p>
       <div class="timeline mt-3">
         <div class="Next-timeline-item d-flex align-items-center gap-2 mb-2">
@@ -342,6 +326,7 @@
         </div>
       </div>
     </div>
+    }
   </div>
 </div>
 } @else {

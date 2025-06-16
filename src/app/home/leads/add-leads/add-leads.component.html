@@ -1,33 +1,32 @@
 <div>
   <p class="fs-5 fw-bold m-0">Add New Leads</p>
-  <!-- Share your leads sheet -->
-  <p class="fs-6 text-muted">Share your leads sheet with your team and get started.
-    <a href="" class=""> Share sheet</a>
-  </p>
-
-
+  <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita porro et, ipsa quidem rem voluptate commodi
+    neque saepe ex quam molestiae aperiam voluptatum at unde reiciendis repellendus laborum quaerat fugiat.</p>
 </div>
 
 <div>
   <form #l="ngForm" (ngSubmit)="onSubmit(l)">
-    <row>
-      <div class="col-md-4">
-        <app-input-control type="email" label="First Name" [required]="true" [(ngModel)]="firstName" name="firstName"
-           [errorTrue]="errorTrue"></app-input-control>
+    <div class="row">
+      <div class="col-4 offset-4">
+        <app-input-control label="Lead Name" type="text" name="leadName" [required]="true" [(ngModel)]="leadName"
+          [errorTrue]="errorTrue"></app-input-control>
       </div>
-      <div class="col-md-4">
-        <app-input-control type="text" label="Last Name" [required]="true"></app-input-control>
-      </div>
-      <div class="col-md-4">
-        <app-input-control
-          type="date"
-          label="Date"
-          [required]="true"
-          >
-        </app-input-control>
+      <div class="col-4 offset-4">
+        <app-input-control label="Lead mail" type="email" name="leadmail" [required]="true" [(ngModel)]="leadmail"
+          [errorTrue]="errorTrue"></app-input-control>
       </div>
 
-    </row>
-    <button type="submit" class="btn btn-primary">Submit</button>
+      <div class="col-4 offset-4">
+        <app-input-control label="Lead number" type="number" name="leadnumber" [required]="true" [(ngModel)]="leadnumber"
+          [errorTrue]="errorTrue"></app-input-control>
+      </div>
+      <div class="col-4 offset-4">
+        <app-input-control label="Lead Source" type="text" name="leadSouce" [(ngModel)]="leadSouce"
+          [errorTrue]="errorTrue"></app-input-control>
+      </div>
+      <div class="col-4 offset-4 d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary px-4">Sumbit</button>
+      </div>
+    </div>
   </form>
 </div>

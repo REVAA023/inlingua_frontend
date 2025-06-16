@@ -245,7 +245,7 @@ export class InputControlComponent extends FromInputControl implements OnInit {
   ngOnInit(): void {
 
     if (['date', 'time'].includes(this.__type)) {
-      debugger;
+
 
       this.dateChangesubscribe = this.viewValueChange().subscribe(async (xValue: any) => {
         if (!xValue) return;

@@ -85,7 +85,7 @@ export class CreateTrainerComponent {
     }
     if (this.currentStep === 2) {
       this.apiService.createTrainer(this.trainerForm).subscribe((response: any) => {
-        return;
+        this.router.navigate(['trainers']);
       });
     }
   }

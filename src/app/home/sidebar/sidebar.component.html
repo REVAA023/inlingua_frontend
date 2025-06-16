@@ -45,6 +45,12 @@
         </li>
         } @if (appservice.user.userRole === "SUSER") {
         <li class="nav-link">
+          <a routerLink="counselors" routerLinkActive="active">
+            <i class="bx bx-bell icon"></i>
+            <span class="text nav-text">Counselors</span>
+          </a>
+        </li>
+        <li class="nav-link">
           <a routerLink="trainers" routerLinkActive="active">
             <i class="bx bx-bell icon"></i>
             <span class="text nav-text">Trainers</span>
@@ -59,12 +65,14 @@
           </a>
         </li>
         }
-        <li class="nav-link">
+        @if (false) {
+          <li class="nav-link">
           <a routerLink="chating" routerLinkActive="active">
             <i class="bx bx-message-dots icon"></i>
             <span class="text nav-text">Chating</span>
           </a>
         </li>
+        }
         <li class="nav-link">
           <a routerLink="setting" routerLinkActive="active">
             <i class="bx bx-cog icon"></i>

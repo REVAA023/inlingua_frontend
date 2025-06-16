@@ -1,9 +1,329 @@
 @if (isLoading) {
-  <div>
-  <p class="fs-5 fw-bold">{{batchDetails?.name}}</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero voluptatum adipisci pariatur id laboriosam, placeat maiores rerum quasi distinctio nesciunt. Optio veritatis laudantium officiis dicta quos voluptatem itaque repellendus fuga.</p>
+<div class="pb-3">
+  <div class="d-flex align-items-center justify-content-between">
+    <p class="fs-5 fw-bold">{{batchDetails?.name}}</p>
+    <div class="d-flex align-items-center gap-2">
+      @if (appservice.user.userRole === "TRAINER") {
+      @if (!batchDetails?.isActive) {
+      <button class="btn btn-sm btn-primary" (click)="startClass()">Go Class Room</button>
+      }
+      @else{
+      <button class="btn btn-sm btn-primary" (click)="endClass()">End Class</button>
+      }
+      }
+      @else{
+      @if (batchDetails?.isActive) {
+      <a href="{{batchDetails?.googleMeetLink}}" class="btn btn-sm btn-primary" target="_blank">Go Class
+        Room</a>
+      }
+      @else {<a href="{{batchDetails?.googleMeetLink}}" class="btn btn-sm btn-primary disabled" target="_blank">Go Class
+        Room</a>}
+      }
+      @if (appservice.user.userRole === "SUSER" || appservice.user.userRole === "TRAINER") {
+      @if (isEnabled) {
+      <button class="btn btn-sm btn-outline-primary" (click)="edit_class_room()">Edit Class Room</button>
+      }
+      }
+    </div>
+
+  </div>
+
+  <p class="mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero voluptatum adipisci pariatur id
+    laboriosam, placeat
+    maiores rerum quasi distinctio nesciunt. Optio veritatis laudantium officiis dicta quos voluptatem itaque
+    repellendus fuga.</p>
+  <div class="d-flex align-items-center gap-5">
+    <div class="progress-circle mt-3">
+      <div class="circle" [style.background]="
+        'conic-gradient(#4caf50 ' + batchDetails?.isComplited + '%, #e0e0e0 ' + batchDetails?.isComplited + '%)'
+      ">
+        <div class="inner-circle">
+          <div class="inner-circle-content d-flex flex-column align-items-center justify-content-center">
+            <span class="fw-bold fs-5">{{ batchDetails?.isComplited }}%</span>
+            <span class="fw-bold fs-5">Completed</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span class="fs-5 fw-bold">{{batchDetails?.language.name}}</span>
+      <div class="row">
+        <div class="col-8">
+          <app-input-control type="text" label="Course Type" [btnClicked]="true"
+            [(ngModel)]="batchDetails?.courseType.level" name="coursetype"></app-input-control>
+        </div>
+        <div class="col-8">
+          <app-input-control type="text" label="Batch Preferenceer" [btnClicked]="true"
+            [(ngModel)]="batchDetails.batchPreferences" name="batchPreferences"></app-input-control>
+        </div>
+      </div>
+      @if (appservice.user.userRole === "SUSER") {
+      <form #l="ngForm" (ngSubmit)="onSubmit(l)">
+        <app-input-control type="text" [noEmoji]="true" label="Batch URL" [btnClicked]="isEnabled"
+          [(ngModel)]="batchDetails.googleMeetLink" name="googleMeetLink"></app-input-control>
+        @if (!isEnabled) {
+        <div class="d-flex gap-3">
+          <button class="btn btn-sm btn-outline-primary mt-2" type="submit">
+            Save Changes
+          </button>
+          <button class="btn btn-sm btn-outline-secondary mt-2" type="button" (click)="cancelChanges()">
+            Cancel
+          </button>
+        </div>
+        }
+      </form>
+      }
+      @else if (appservice.user.userRole === "TRAINER") {
+      <form #l="ngForm" (ngSubmit)="onSubmit(l)">
+        <app-input-control type="number" label="Class Complited in %" [btnClicked]="isEnabled"
+          [(ngModel)]="batchDetails.isComplited" name="classComplit"></app-input-control>
+        @if (!isEnabled) {
+        <div class="d-flex gap-3">
+          <button class="btn btn-sm btn-outline-primary mt-2" type="submit">
+            Save Changes
+          </button>
+          <button class="btn btn-sm btn-outline-secondary mt-2" type="button" (click)="cancelChanges()">
+            Cancel
+          </button>
+        </div>
+        }
+      </form>
+      }
+
+
+    </div>
+  </div>
+  <div class="mt-3">
+    <p class="fw-bold fs-5">Course Timings</p>
+    <div class="row">
+      <div class="col-3">
+        <app-input-control label="Start Date" type="date" [btnClicked]="true" [(ngModel)]="batchDetails.startDate"
+          name="startDate">
+        </app-input-control>
+      </div>
+      <div class="col-3">
+        <app-input-control label="End Date" type="date" [btnClicked]="true" [(ngModel)]="batchDetails.endDate"
+          name="endDate">
+        </app-input-control>
+      </div>
+      <div class="col-3">
+        <app-input-control label="Start Time" type="text" [btnClicked]="true" [(ngModel)]="batchDetails.startTime"
+          name="startTime">
+        </app-input-control>
+      </div>
+      <div class="col-3">
+        <app-input-control label="End Time" type="text" [btnClicked]="true" [(ngModel)]="batchDetails.endTime"
+          name="endTime">
+        </app-input-control>
+      </div>
+    </div>
+  </div>
+  <div class="mt-3">
+    <p class="fw-bold fs-5">Trainer</p>
+    <div>
+
+      <div class="d-flex align-items-center">
+        <div class="avatar avatar-xl me-3">
+          @if (batchDetails?.trainer.user.photo) {
+          <img class="rounded-circle" src="{{batchDetails?.trainer.user.photo}}" alt="" width="40" height="40" />
+          }@else {
+          <div
+            class="bg-secondary text-white fw-bold text-uppercase d-flex align-items-center justify-content-center rounded-circle"
+            style="width: 40px; height: 40px">
+            {{batchDetails?.trainer.user.firstName.charAt(0)}}{{batchDetails?.trainer.user.firstName.charAt(1)}}
+          </div>
+          }
+        </div>
+
+        <div class="d-flex gap-3">
+          <span class="">{{batchDetails?.trainer.user.firstName}} {{batchDetails?.trainer.user.lastName}}</span>
+          @if (appservice.user.userRole === "SUSER") {
+          <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop">Change Trainer</button>
+          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5 fw-bold small" id="staticBackdropLabel">Trainers</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  @for (trainer of related_trainers; track $index) {
+                  <div class="avatar d-flex align-items-center justify-content-between mt-1 bg-light p-2 rounded">
+                    <div class="avatar d-flex align-items-center gap-2 avatar-xl me-3">
+                      @if (trainer.user.photo) {
+                      <img class="rounded-circle" src="{{trainer.user.photo}}" alt="" width="40" height="40" />
+                      }@else {
+                      <div
+                        class="bg-secondary text-white fw-bold text-uppercase d-flex align-items-center justify-content-center rounded-circle"
+                        style="width: 40px; height: 40px">
+                        {{trainer.user.firstName.charAt(0)}}{{trainer.user.firstName.charAt(1)}}
+                      </div>
+                      }
+                      <div class="d-flex gap-3">
+                        <span class="">{{trainer.user.firstName}}
+                          {{trainer.user.lastName}}</span>
+                      </div>
+                    </div>
+
+                    <div>
+                      @if (trainer.id !== batchDetails?.trainer.id) {
+                      <button class="btn btn-sm btn-primary" (click)="updatetrainer(trainer.id)">Select</button>
+                      }
+                      @else {
+                      <button class="btn btn-sm btn-secondary disabled">Selected</button>
+                      }
+                    </div>
+                  </div>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+    <div class="mt-3">
+      <p class="fw-bold fs-5">Students</p>
+      <div class="table-responsive mt-2 mx-n1 px-1">
+        <table class="table table-hover mb-0 leads-table border-top border-translucent">
+          <thead>
+            <tr>
+              <th scope="col">
+              </th>
+              <th class="sort text-nowrap align-middle text-uppercase small" scope="col" data-sort="name">
+                Lead Name
+              </th>
+              <th class="sort text-nowrap align-middle ps-4 pe-5 text-uppercase small border-end border-translucent"
+                scope="col" data-sort="email">
+                <div class="d-inline-flex flex-center">
+                  <div class="d-flex align-items-center px-1 py-1 bg-success-subtle rounded me-2">
+                    <img src="assets/table_svg/gmail.svg" alt="" />
+                  </div>
+                  <span>Email</span>
+                </div>
+              </th>
+              <th class="sort small text-nowrap align-middle text-uppercase border-end border-translucent" scope="col"
+                data-sort="phone">
+                <div class="d-inline-flex flex-center">
+                  <div class="d-flex align-items-center px-1 py-1 bg-primary-subtle rounded me-2">
+                    <img src="assets/table_svg/phone.svg" alt="" />
+                  </div>
+                  <span>Phone</span>
+                </div>
+              </th>
+              <th class="sort small text-nowrap align-middle text-uppercase border-end border-translucent" scope="col"
+                data-sort="phone">
+                <div class="d-inline-flex flex-center">
+                  <div class="d-flex align-items-center px-1 py-1 bg-primary-subtle rounded me-2">
+                    <img src="assets/table_svg/phone.svg" alt="" />
+                  </div>
+                  <span>Create date</span>
+                </div>
+              </th>
+              @if (appservice.user.userRole === "SUSER") {
+              <th class="sort text-nowrap align-middle text-uppercase" scope="col" data-sort="date">
+                Action
+              </th>
+              }
+            </tr>
+          </thead>
+          <tbody class="list" id="leal-tables-body">
+            @for (student of studentsDetails; track $index) {
+            <tr class="hover-actions-trigger cr-pointer btn-reveal-trigger position-static">
+              <td class="align-middle">
+              </td>
+              <td class="name align-middle white-space-nowrap">
+                <div class="d-flex align-items-center">
+                  <a href="#!" class="text-decoration-none">
+                    <div class="avatar avatar-xl me-3">
+                      @if (student.user.photo) {
+                      <img class="rounded-circle" src="{{student.user.photo}}" alt="" width="40" height="40" />
+                      }@else {
+                      <div
+                        class="bg-secondary text-white fw-bold text-uppercase d-flex align-items-center justify-content-center rounded-circle"
+                        style="width: 40px; height: 40px">
+                        {{student.user.firstName.charAt(0)}}{{student.user.firstName.charAt(1)}}
+                      </div>
+                      }
+                    </div>
+                  </a>
+                  <div>
+                    <span class="">{{student.user.firstName}} {{student.user.lastName}}</span>
+                  </div>
+                </div>
+              </td>
+              <td class="email align-middle white-space-nowrap ps-4 border-end border-translucent">
+                <span>{{student.user.email}}</span>
+              </td>
+              <td class="phone align-middle white-space-nowrap ps-4 border-end border-translucent">
+                <span>{{student.user.mobileNumber}}</span>
+              </td>
+              <td
+                class="date small align-middle white-space-nowrap text-body-tertiary text-opacity-85 ps-4 text-body-tertiary">
+                {{student.createdDate}}
+              </td>
+              @if (appservice.user.userRole === "SUSER") {
+              <td
+                class="date small align-middle white-space-nowrap text-body-tertiary text-opacity-85 ps-4 text-body-tertiary">
+                <button class="btn btn-sm btn-secondary" (click)="removestudent(student.id)">Remove Student</button>
+              </td>
+              }
+            </tr>
+            }
+          </tbody>
+        </table>
+        {{related_students.lenth}}
+        @if (related_students?.length > 0) {
+        <div class="d-flex justify-content-end align-items-center mt-3">
+          <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addstudents">Add
+            Students</button>
+          <div class="modal fade" id="addstudents" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5 fw-bold small" id="staticBackdropLabel">Trainers</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  @for (student of related_students; track $index) {
+                  <div class="avatar d-flex align-items-center justify-content-between mt-1 bg-light p-2 rounded">
+                    <div class="avatar d-flex align-items-center gap-2 avatar-xl me-3">
+                      @if (student.user.photo) {
+                      <img class="rounded-circle" src="{{student.user.photo}}" alt="" width="40" height="40" />
+                      }@else {
+                      <div
+                        class="bg-secondary text-white fw-bold text-uppercase d-flex align-items-center justify-content-center rounded-circle"
+                        style="width: 40px; height: 40px">
+                        {{student.user.firstName.charAt(0)}}{{student.user.firstName.charAt(1)}}
+                      </div>
+                      }
+                      <div class="d-flex gap-3">
+                        <span class="">{{student.user.firstName}}
+                          {{student.user.lastName}}</span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <button class="btn btn-sm btn-primary" (click)="addStudent(student.id)">Select</button>
+                    </div>
+                  </div>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        }
+
+      </div>
+    </div>
+  </div>
 </div>
 }
 @else {
-  <app-page-loding></app-page-loding>
+<app-page-loding></app-page-loding>
 }

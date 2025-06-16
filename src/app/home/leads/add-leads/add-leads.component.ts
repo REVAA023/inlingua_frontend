@@ -1,41 +1,49 @@
 import { FormsModule } from '@angular/forms';
 import { InputControlComponent } from './../../../app-core/form-input/input-control/input-control.component';
 import { Component } from '@angular/core';
-import { Row } from "../../../app-core/core-component/core-component.component";
+import { ApplicationApiService } from '../../../common/api-services/application-api/application-api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-leads',
   imports: [
     InputControlComponent,
-    FormsModule,
-    Row
-],
+    FormsModule
+  ],
   templateUrl: './add-leads.component.html',
   styleUrl: './add-leads.component.scss'
 })
 export class AddLeadsComponent {
 
-  today: string;
+  constructor(
+    private apiService: ApplicationApiService,
+    private router: Router,
+  ) { }
 
-  constructor() {
-    const now = new Date();
-    this.today = now.toISOString().split('T')[0]; // Format: yyyy-mm-dd
-  }
-
-  firstName: string = '';
+  leadName = '';
+  leadmail = '';
+  leadnumber = '';
+  leadSouce = '';
 
   errorTrue = false;
 
 
-  onSubmit(l: any) {
-    if (l.valid) {
-      this.errorTrue = false;
-      console.log('Form is valid');
-      console.log('First Name:', this.firstName);
-    } else {
-      console.log('Form is invalid');
+   onSubmit(form: any) {
+    if (!form.valid) {
       this.errorTrue = true;
+      return;
+    }
+    else {
+      const payload = {
+        leadName: this.leadName,
+        leadmail: this.leadmail,
+        leadnumber: this.leadnumber,
+        leadSouce: this.leadSouce
+      }
+
+      this.apiService.createSingleLead(payload).subscribe((response: any) => {
+        this.router.navigate(['leads']);
+      })
     }
   }
-
 }

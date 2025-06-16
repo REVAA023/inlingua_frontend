@@ -1,0 +1,31 @@
+.progress-circle {
+  .circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .inner-circle {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .inner-circle-content {
+        text-align: center;
+        font-size: 20px;
+        color: #333;
+      }
+    }
+  }
+}

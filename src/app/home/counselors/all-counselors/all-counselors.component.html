@@ -1,0 +1,124 @@
+@if (isLoading) {
+<div class="main-container">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <p class="fw-bold fs-3 m-0 p-0">{{allData.length}} Counselor@if(allData.length>1){s}</p>
+    <div class="d-flex align-items-center gap-2">
+      <button
+          class="btn btn-secondary btn-sm rounded-5 px-3"
+          routerLink="create"
+        >
+          Create Counselor
+        </button>
+    </div>
+  </div>
+
+  @if (allData.length>0) {
+  <div class="filter-container row">
+    <div class="col-md-3">
+      <app-input-control placeholder="Search Leads" type="text" [(ngModel)]="searchText"
+        name="searchText"></app-input-control>
+    </div>
+    <div class="col-md-3">
+      <app-input-control placeholder="Filter Date" type="date" [(ngModel)]="filterDate"></app-input-control>
+    </div>
+    <div class="col-md-6 d-flex align-items-start justify-content-end">
+      <div class="col-md-6 d-flex align-items-start justify-content-end">
+        <button class="btn border px-2 rounded btn-sm" type="button" id="actiondropdownMenuButton"
+          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="bx bx-filter-alt"></i>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="filterdropdownMenuButton">
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive mt-2 mx-n1 px-1">
+    <table class="table table-hover mb-0 leads-table border-top border-translucent">
+      <thead>
+        <tr>
+          <th class="sort text-nowrap align-middle text-uppercase small" scope="col" data-sort="name">
+            Trainer Name
+          </th>
+          <th class="sort text-nowrap align-middle ps-4 pe-5 text-uppercase small border-end border-translucent"
+            scope="col" data-sort="email">
+            <div class="d-inline-flex flex-center">
+              <div class="d-flex align-items-center px-1 py-1 bg-success-subtle rounded me-2">
+                <img src="assets/table_svg/gmail.svg" alt="" />
+              </div>
+              <span>Email</span>
+            </div>
+          </th>
+          <th class="sort small text-nowrap align-middle text-uppercase border-end border-translucent" scope="col"
+            data-sort="phone">
+            <div class="d-inline-flex flex-center">
+              <div class="d-flex align-items-center px-1 py-1 bg-primary-subtle rounded me-2">
+                <img src="assets/table_svg/phone.svg" alt="" />
+              </div>
+              <span>Phone</span>
+            </div>
+          </th>
+          <th class="sort text-nowrap align-middle text-uppercase" scope="col" data-sort="date">
+            Create date
+          </th>
+        </tr>
+      </thead>
+      <tbody class="list" id="leal-tables-body">
+        @for (Counselor of paginatedData; track $index) {
+        <tr class="hover-actions-trigger cr-pointer btn-reveal-trigger position-static">
+          <td class="name align-middle white-space-nowrap">
+            <div class="d-flex align-items-center">
+              <a href="#!" class="text-decoration-none">
+                <div class="avatar avatar-xl me-3">
+                  @if (false) {
+                  <img class="rounded-circle"
+                    src="https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8" alt=""
+                    width="40" height="40" />
+                  }@else {
+                  <div
+                    class="bg-secondary text-white fw-bold text-uppercase d-flex align-items-center justify-content-center rounded-circle"
+                    style="width: 40px; height: 40px">
+                    {{ Counselor.user.firstName.charAt(0) }}{{ Counselor.user.firstName.charAt(1) }}
+
+                  </div>
+                  }
+                </div>
+              </a>
+              <div>
+                <span class="">{{Counselor.user.firstName}} {{Counselor.user.lastName}}</span>
+              </div>
+            </div>
+          </td>
+          <td class="email align-middle white-space-nowrap ps-4 border-end border-translucent">
+            <span>{{Counselor.user.email}}</span>
+          </td>
+          <td class="phone align-middle white-space-nowrap ps-4 border-end border-translucent">
+            <span>{{Counselor.user.mobileNumber}}</span>
+          </td>
+
+          <td
+            class="date small align-middle white-space-nowrap text-body-tertiary text-opacity-85 ps-4 text-body-tertiary">
+            {{Counselor.created_date}}
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    <mat-paginator [length]="allData.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50, 100]">
+    </mat-paginator>
+  </div>
+
+  } @else {
+  <div class="d-flex flex-column justify-content-center align-items-center">
+    <img src="assets/svg/nodata.svg" alt="No Trainers" width="400" />
+    <p class="text-center fs-5 fw-bold">No Counselors found</p>
+    <p class="text-center">
+      You can add or import Counselors by clicking the button above
+    </p>
+  </div>
+  }
+</div>
+}
+@else{
+<app-page-loding></app-page-loding>
+}

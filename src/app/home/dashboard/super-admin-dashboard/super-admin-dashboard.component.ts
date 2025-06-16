@@ -1,8 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import {
-  Chart,
-  registerables
-} from 'chart.js';
+import {Chart,registerables} from 'chart.js';
 import { AppService } from '../../../app.service';
 import { DataService } from '../../../common/services/data/data.service';
 

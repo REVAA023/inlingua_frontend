@@ -158,6 +158,30 @@ export const routes: Routes = [
           },
         ]
       },
+
+      // counselors
+      {
+        path: '',
+        data: { title: 'Inlingua | Trainers' },
+        loadComponent: () =>
+          import('./home/counselors/counselors.component').then(
+            (m) => m.CounselorsComponent
+          ),
+        children: [
+          {
+            path: 'counselors',
+            data: { title: 'Inlingua | Counselor Details' },
+            loadComponent: () => import('./home/counselors/all-counselors/all-counselors.component').then(m => m.AllCounselorsComponent)
+          },
+          {
+            path: 'counselors/create',
+            data: { title: 'Inlingua | Counselor Details' },
+            loadComponent: () => import('./home/counselors/create-counselors/create-counselors.component').then(m => m.CreateCounselorsComponent)
+          },
+        ]
+      },
+
+
       // Batchs
       {
         path: '',
