@@ -1,17 +1,17 @@
 @if (studentDetails?.classroom) {
-@if (false) {
+@if (true) {
 <div class="alert alert-success">
   <div class="">
     <div class="">
       <p class="fs-5 fw-bold">
-        Assessment - 01 June 2025 | 10:00 AM - 12:00 PM
+        Assessment - {{studentDetails?.classroom.assessmentDate}} | {{studentDetails?.classroom.startTime}} - {{studentDetails?.classroom.endTime}}
       </p>
       <p>
         Lorem ipsum dolor aliquid, a magnam ducimus natus nostrum? Autem,
         incidunt! Quae odio iure perferendis quia porro veritatis
         laudantium, labore distinctio nemo?
       </p>
-
+      <button class="btn btn-sm btn-success">Write assessment</button>
     </div>
   </div>
 </div>
@@ -73,9 +73,9 @@
               <svg viewBox="0 0 36 36" class="circular-chart w-100 h-100">
                 <circle class="circle-bg" cx="18" cy="18" r="15.9155" />
                 <circle class="circle" cx="18" cy="18" r="15.9155" [attr.stroke-dasharray]="'100, 100'"
-                  [attr.stroke-dashoffset]="100 - percentage" />
+                  [attr.stroke-dashoffset]="100 - studentDetails?.classroom.isComplited" />
               </svg>
-              <div class="percentage-text">{{percentage}}% Class Complited</div>
+              <div class="percentage-text text-center">{{studentDetails?.classroom.isComplited}}% Complited</div>
             </div>
             <div class="d-flex justify-content-between align-items-center w-100 mt-3">
               <div class="w-100">

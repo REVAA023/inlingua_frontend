@@ -65,8 +65,8 @@ export class StudentsDetailsComponent implements OnInit {
   changeStudentStatus(value: any){
     const obj = {status: value, student_id: this.studentDetails.student.id};
     this.apiService.changeStudentStatus(obj).subscribe((response: any) => {
-      console.log(response);
-      this.studentDetails.student.status = value;
+      this.data.successMessage('Status Updated Successfully');
+      this.getStudentDetails({studentId: this.studentDetails.student.id});
     })
   }
 

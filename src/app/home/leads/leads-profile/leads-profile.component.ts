@@ -34,14 +34,16 @@ export class LeadsProfileComponent implements OnInit {
     private apiService: ApplicationApiService
   ) { }
 
+  leadId: any;
+
   async ngOnInit(): Promise<void> {
     await this.data.checkToken();
     let paramsId = this.route.snapshot.paramMap.get('id');
     let obj: any = await this.urlService.decode(paramsId);
-    const payload = {
+    const leadpayload = {
       leadId: obj
     }
-    this.getLeadDetails(payload);
+    this.getLeadDetails(leadpayload);
     this.getLeadStatus();
     this.isLoading = true;
   }
@@ -69,7 +71,7 @@ export class LeadsProfileComponent implements OnInit {
     }
 
     this.apiService.changeLeadStatus(payload).subscribe((response: any) => {
-      window.location.reload();
+      this.getLeadDetails({leadId: this.leadDetail.id});
     })
 
   }
@@ -99,7 +101,8 @@ export class LeadsProfileComponent implements OnInit {
         counselorRemark: this.leadDetail.counselorRemark
       }
       this.apiService.updateLeadDetails(payload).subscribe((response: any) => {
-
+        this.isEnabled = true;
+        this.getLeadDetails({ leadId: this.leadDetail.id });
     })
     }
   }

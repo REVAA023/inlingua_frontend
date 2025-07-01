@@ -48,10 +48,6 @@ export class BatchDetailsComponent {
     this.isEnabled = !this.isEnabled;
   }
 
-  save_changes() {
-    this.isEnabled = !this.isEnabled;
-  }
-
   updatetrainer(id: any) {
     const payload = {
       trainerId: id,
@@ -103,6 +99,7 @@ export class BatchDetailsComponent {
       batchId: this.batchDetails.id,
     }
     this.apiService.startClass(payload).subscribe((response: any) => {
+      this.batchDetails.isActive = true;
       console.log('Batch updated successfully');
     });
     window.open(this.batchDetails.googleMeetLink, '_blank');
@@ -113,6 +110,8 @@ export class BatchDetailsComponent {
       batchId: this.batchDetails.id,
     }
     this.apiService.endClass(payload).subscribe((response: any) => {
+      this.batchDetails.isActive = false;
+      this.isEnabled = true;
       console.log('Batch updated successfully');
     });
   }
@@ -143,6 +142,7 @@ export class BatchDetailsComponent {
         }
         this.apiService.updatecomplitedclass(payload).subscribe((response: any) => {
           console.log('Batch updated successfully');
+          this.isEnabled = true;
         });
       }
     }

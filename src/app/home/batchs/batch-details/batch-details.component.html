@@ -5,25 +5,34 @@
     <div class="d-flex align-items-center gap-2">
       @if (appservice.user.userRole === "TRAINER") {
       @if (!batchDetails?.isActive) {
-      <button class="btn btn-sm btn-primary" (click)="startClass()">Go Class Room</button>
+      @if ( batchDetails?.isComplited >= 100) {
+      @if ( batchDetails?.assessmentComplited) {
+      <button class="btn btn-sm btn-danger">Batch Complited</button>
       }
-      @else{
-      <button class="btn btn-sm btn-primary" (click)="endClass()">End Class</button>
+      <button class="btn btn-sm btn-success">Assessment</button>
       }
-      }
-      @else{
-      @if (batchDetails?.isActive) {
-      <a href="{{batchDetails?.googleMeetLink}}" class="btn btn-sm btn-primary" target="_blank">Go Class
-        Room</a>
-      }
-      @else {<a href="{{batchDetails?.googleMeetLink}}" class="btn btn-sm btn-primary disabled" target="_blank">Go Class
-        Room</a>}
-      }
-      @if (appservice.user.userRole === "SUSER" || appservice.user.userRole === "TRAINER") {
-      @if (isEnabled) {
-      <button class="btn btn-sm btn-outline-primary" (click)="edit_class_room()">Edit Class Room</button>
-      }
-      }
+      @if ( batchDetails?.isComplited < 100) { <button class="btn btn-sm btn-primary" (click)="startClass()">Go Class
+        Room</button>
+        }
+        }
+        @else{
+        <button class="btn btn-sm btn-primary" (click)="endClass()">End Class</button>
+        }
+        }
+        @else{
+        @if (batchDetails?.isActive) {
+        <a href="{{batchDetails?.googleMeetLink}}" class="btn btn-sm btn-primary" target="_blank">Go Class
+          Room</a>
+        }
+        @else {<a href="{{batchDetails?.googleMeetLink}}" class="btn btn-sm btn-primary disabled" target="_blank">Go
+          Class
+          Room</a>}
+        }
+        @if (appservice.user.userRole === "SUSER" || appservice.user.userRole === "TRAINER") {
+        @if (isEnabled && batchDetails?.isComplited < 100) {
+          <button class="btn btn-sm btn-outline-primary" (click)="edit_class_room()">Edit Class Room</button>
+        }
+        }
     </div>
 
   </div>
