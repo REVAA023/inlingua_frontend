@@ -134,22 +134,26 @@ export class DataService implements OnDestroy {
   if (err.status === 401) {
     this.router.navigateByUrl('login');
     console.log('Unauthorized - redirecting to login');
-  } else if (err.status === 404) {
-    // Handle not found errors
-    this.errorMessage(err.error.message || 'Resource not found');
   }
+
+  else if (err.status === 404) {
+    this.errorMessage(err.error.message);
+  }
+
   else if (err.status === 0) {
-    // Handle network errors
-    this.errorMessage(err.error.message || 'Network error, please check your connection');
-  } else if (err.status === 400) {
-    // Handle bad request
-    this.errorMessage(err.error.message || 'Bad request, please check your input');
-  } else if (err.status === 500) {
-    // Handle server errors
-    this.errorMessage(err.error.message || 'Internal server error, please try again later');
-  } else {
-    // Handle other errors
-    this.errorMessage(err.error.message || 'An unexpected error occurred');
+    this.errorMessage(err.error.message );
+  }
+
+  else if (err.status === 400) {
+    this.errorMessage(err.error.message);
+  }
+
+  else if (err.status === 500) {
+    this.errorMessage(err.error.message);
+  }
+
+  else {
+    this.errorMessage(err.error.message);
   }
 }
 }

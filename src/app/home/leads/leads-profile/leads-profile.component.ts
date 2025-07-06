@@ -71,7 +71,7 @@ export class LeadsProfileComponent implements OnInit {
     }
 
     this.apiService.changeLeadStatus(payload).subscribe((response: any) => {
-      this.getLeadDetails({leadId: this.leadDetail.id});
+      this.getLeadDetails({ leadId: this.leadDetail.id });
     })
 
   }
@@ -84,6 +84,25 @@ export class LeadsProfileComponent implements OnInit {
   }
 
   deliteDetails() { }
+
+  getWhatsAppLink(): string {
+    const currentTime = new Date().getHours();
+    let greeting = '';
+
+    if (currentTime < 12) {
+      greeting = 'Good morning';
+    } else if (currentTime < 17) {
+      greeting = 'Good afternoon';
+    } else {
+      greeting = 'Good evening';
+    }
+
+    const message = `Hi ${this.leadDetail.leadName}, ${greeting} from Inlingua Language Center!
+You showed interest to learn another language. Congratulations!
+Please register using the Inlingua register form: ${window.location.origin}/register-form`;
+
+    return `https://wa.me/91${this.leadDetail.leadMobileNumber}?text=${encodeURIComponent(message)}`;
+  }
 
   onSubmit(form: any) {
     if (!form.valid) {
@@ -103,7 +122,7 @@ export class LeadsProfileComponent implements OnInit {
       this.apiService.updateLeadDetails(payload).subscribe((response: any) => {
         this.isEnabled = true;
         this.getLeadDetails({ leadId: this.leadDetail.id });
-    })
+      })
     }
   }
 

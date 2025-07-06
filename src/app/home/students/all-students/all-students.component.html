@@ -13,12 +13,16 @@
         <app-input-control
           placeholder="Search Students"
           type="text"
+          [(ngModel)]="searchText"
+          (ngModelChange)="onFilterChange()"
         ></app-input-control>
       </div>
       <div class="col-md-3">
         <app-input-control
           placeholder="Filter Date"
           type="date"
+          [(ngModel)]="filterDate"
+          (ngModelChange)="onFilterChange()"
         ></app-input-control>
       </div>
       <div class="col-md-6 d-flex align-items-start justify-content-end">
@@ -116,7 +120,7 @@
           </tr>
         </thead>
         <tbody class="list" id="leal-tables-body">
-          @for (students of allStudents.students; track $index) {
+          @for (students of paginatedStudents; track $index) {
           <tr class=" btn-reveal-trigger position-static table-row" (click)="navigate(students.id)">
             <td class="name align-middle white-space-nowrap">
               <div class="d-flex align-items-center">
@@ -176,7 +180,6 @@
               <div class="d-flex align-items-center small">
                       {{students.nameOfCounselor.user.firstName}}
                       {{students.nameOfCounselor.user.lastName}}
-
               </div>
             </td>
             <td
@@ -188,6 +191,13 @@
           }
         </tbody>
       </table>
+      <mat-paginator
+        [length]="getFilteredData().length"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 25, 50, 100]"
+        (page)="onPageChange($event)"
+      >
+      </mat-paginator>
     </div>
 
     } @else {

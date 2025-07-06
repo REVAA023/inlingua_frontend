@@ -33,8 +33,8 @@
     </p>
     <!-- Example single danger button -->
     <div class="btn-group">
-      <span class="NEW px-2 py-1 rounded cr-pointer dropdown-toggle btn-sm small"
-        data-bs-toggle="dropdown" aria-expanded="false">
+      <span class="NEW px-2 py-1 rounded cr-pointer dropdown-toggle btn-sm small" data-bs-toggle="dropdown"
+        aria-expanded="false">
         {{ leadDetail.leadStatusLabel}}
       </span>
       <ul class="dropdown-menu">
@@ -59,9 +59,9 @@
             class="bx bx-phone"></i></a>
         <span>Call</span>
       </div>
+
       <div class="icon-box">
-        <a [href]="'https://wa.me/91' + leadDetail.leadMobileNumber + '?text= Hi, please fill out the form: http://localhost:4200/register-form'"
-          class="text-dark text-decoration-none" target="_blank">
+        <a [href]="getWhatsAppLink()" class="text-dark text-decoration-none" target="_blank">
           <i class='bx bx-spreadsheet'></i>
         </a>
         <span>Send Form</span>
@@ -97,8 +97,8 @@
       </div>
       <div class="row">
         <div class="col-6">
-          <app-input-control label="Lead Remark" type="text" [btnClicked]="isEnabled"
-            [(ngModel)]="leadDetail.remark" name="remark"></app-input-control>
+          <app-input-control label="Lead Remark" type="text" [btnClicked]="isEnabled" [(ngModel)]="leadDetail.remark"
+            name="remark"></app-input-control>
         </div>
         <div class="col-6">
           <app-input-control label="Counselor Remark" type="text" [btnClicked]="isEnabled"
@@ -113,7 +113,7 @@
     </form>
   </div>
   @if (false) {
-    <div class="history-container mt-4">
+  <div class="history-container mt-4">
     <p class="fs-5 fw-bold">Lead History</p>
     <div class="timeline mt-3">
       <div class="Next-timeline-item d-flex align-items-center gap-2 mb-2">
