@@ -4,10 +4,9 @@
   <div class="d-flex align-items-center justify-content-between success-box">
     <div class="d-flex align-items-center">
       <div class="success-icon">
-        <ion-icon src="svg/success/success-info.svg" />
+        <ion-icon src="assets/svg/Success.svg" />
       </div>
       <div class="info-content">
-        <div class="head-1">Success Info</div>
         <div class="head-2">{{ safeSnackBarData.msg }}</div>
       </div>
     </div>
@@ -15,8 +14,6 @@
       <ion-icon name="close-outline"></ion-icon>
     </div>
   </div>
-  <mat-progress-bar id="progress-bar" mode="determinate" [value]="progress" color="warn" class="progress">
-  </mat-progress-bar>
 </div>
 }
 @case ('error') {

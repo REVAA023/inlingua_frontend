@@ -125,7 +125,8 @@
       }
     }
 
-    .Error-close {
+    .Error-close,
+    .success-close {
       cursor: pointer;
       padding: 4px;
       border-radius: 4px;
