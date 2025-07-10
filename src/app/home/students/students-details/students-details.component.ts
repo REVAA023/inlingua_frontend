@@ -20,24 +20,26 @@ import { PageLodingComponent } from '../../../app-core/page-loding/page-loding.c
 export class StudentsDetailsComponent implements OnInit {
   isLoading = false;
   isEnabled = true;
+  previewImageUrl: string = '';
+  previewTitle: string = '';
 
   studentDetailsChoices: any = {};
 
   constructor(
     public data: DataService,
-    public router : Router,
+    public router: Router,
     public route: ActivatedRoute,
     public urlService: UrlService,
     private apiService: ApplicationApiService
-  ) {}
+  ) { }
 
   async ngOnInit(): Promise<void> {
 
     let paramsId = this.route.snapshot.paramMap.get('id');
     let obj: any = await this.urlService.decode(paramsId);
     await this.data.checkToken();
-    const payload ={
-      studentId:obj
+    const payload = {
+      studentId: obj
     }
     this.getStudentDetails(payload);
     this.getStudentDetailsChoices();
@@ -45,11 +47,20 @@ export class StudentsDetailsComponent implements OnInit {
 
   studentDetails: any;
 
+  openImagePreview(imageUrl: string, title: string): void {
+    this.previewImageUrl = imageUrl;
+    this.previewTitle = title;
+
+    // Open Bootstrap modal
+    const modal = new (window as any).bootstrap.Modal(document.getElementById('imagePreviewModal'));
+    modal.show();
+  }
+
   getStudentDetails(id: any) {
     this.apiService.getStudentDetails(id).subscribe((response: any) => {
       this.studentDetails = response;
-      console.log("Student Details",this.studentDetails);
-      this.isEnabled =  true;
+      console.log("Student Details", this.studentDetails);
+      this.isEnabled = true;
       this.isLoading = true;
     })
   }
@@ -62,23 +73,23 @@ export class StudentsDetailsComponent implements OnInit {
     });
   }
 
-  changeStudentStatus(value: any){
-    const obj = {status: value, student_id: this.studentDetails.student.id};
+  changeStudentStatus(value: any) {
+    const obj = { status: value, student_id: this.studentDetails.student.id };
     this.apiService.changeStudentStatus(obj).subscribe((response: any) => {
       this.data.successMessage('Status Updated Successfully');
-      this.getStudentDetails({studentId: this.studentDetails.student.id});
+      this.getStudentDetails({ studentId: this.studentDetails.student.id });
     })
   }
 
-  editDetails(){
+  editDetails() {
     console.log(this.studentDetails);
     this.isEnabled = false;
   }
-  deliteDetails(){
+  deliteDetails() {
     console.log(this.studentDetails.student.user.id);
   }
 
-  goBack(){
+  goBack() {
     this.router.navigateByUrl('students')
   }
 }

@@ -22,7 +22,7 @@ export class TrainerDetailsComponent {
 
   isLoading = false
   isEnabled = false
-  trainers: any;
+  trainer: any;
 
   constructor(
     private apiService: ApplicationApiService,
@@ -35,17 +35,20 @@ export class TrainerDetailsComponent {
   async ngOnInit(): Promise<void> {
     let paramsId = this.route.snapshot.paramMap.get('trainerid');
     let obj: any = await this.urlService.decode(paramsId);
+    console.log("Decoded Trainer ID", obj);
+
     await this.data.checkToken();
     const payload ={
       trainerid:obj
     }
-    this.getTrainers(payload);
+    this.getTrainerDetails(payload);
   }
 
-  getTrainers(trainerid: any) {
-    this.apiService.getTrainers(trainerid).subscribe((response: any) => {
-      this.trainers = response;
-      console.log("Trainers",this.trainers);
+  getTrainerDetails(trainerid: any) {
+    this.apiService.getTrainerDetails(trainerid).subscribe((response: any) => {
+      this.trainer = response.trainer;
+      console.log("Trainer Details", this.trainer);
+
       this.isEnabled =  true;
       this.isLoading = true;
     })

@@ -95,26 +95,26 @@
 </div>
 }
 @case ('alertMsg') {
-<div class="v-flex h100 home-dialog-template">
+<div class="v-flex h100 home-dialog-template p-3">
   <div class="home-dialog-header between">
     <div class="home-submit-dialog-label">
-      <ion-icon name="warning-outline"></ion-icon> Alert
+      <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center gap-2">
+        <img src="assets/svg/Warning.svg" alt="" width="28"> <span class="fs-5 fw-bold">Alert</span>
+        </div>
+        <a class="p-0 slot-center h36px mW100px cr-pointer text-dark d-flex align-items-center justify-content-center bg-light" (click)="onNoClick()">
+          <ion-icon name="close-outline" class="fs-5"></ion-icon>
+        </a>
+      </div>
     </div>
   </div>
-  <div class="home-dialog-container">
+  <div class="home-dialog-container mt-3">
     <div class="p26"></div>
     <div class="slot-center">
       <div class="delete-dec div-center" [innerHTML]="safeDialogData.msg | appSafe: 'html'">
       </div>
     </div>
     <div class="p26"></div>
-  </div>
-  <div class="home-dialog-footer hAuto">
-    <div class="py-2 d-flex end">
-      <div class=" d-flex gap16">
-        <button class="btn-primary btn-cus-primary h36px mW100px" appButton="Ok" (click)="confirmDeletion()"></button>
-      </div>
-    </div>
   </div>
 </div>
 }

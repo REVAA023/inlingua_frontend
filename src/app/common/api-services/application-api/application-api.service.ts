@@ -578,6 +578,32 @@ export class ApplicationApiService {
       );
   }
 
+  getTrainerDetails(body: any, options?: any): Observable<any> {
+    debugger
+    this.data.serviceStarted();
+    options === undefined
+      ? (options = this.apiData.defaultOptions)
+      : (options = this.apiData.setOptions(options));
+    return this.apiData
+      .postData(
+        this.appSettings.environment.applicationPath +
+        'trainer-profile',
+        body,
+        options
+      )
+      .pipe(
+        finalize(() => this.data.serviceCompleted()),
+        catchError((err) => {
+          options
+            ? options.hideErrorMethod
+              ? ''
+              : this.data.errorMethod(err)
+            : '';
+          return throwError(() => new Error(err));
+        })
+      );
+  }
+
   createTrainer(body: any, options?: any): Observable<any> {
     this.data.serviceStarted();
     options === undefined
@@ -886,6 +912,56 @@ export class ApplicationApiService {
       .postData(
         this.appSettings.environment.applicationPath +
         'create-single-counselors',
+        body,
+        options
+      )
+      .pipe(
+        finalize(() => this.data.serviceCompleted()),
+        catchError((err) => {
+          options
+            ? options.hideErrorMethod
+              ? ''
+              : this.data.errorMethod(err)
+            : '';
+          return throwError(() => new Error(err));
+        })
+      );
+  }
+
+  // StudyMaterial
+
+  getStudyMaterial(options?: any): Observable<any> {
+    this.data.serviceStarted();
+    options === undefined
+      ? (options = this.apiData.defaultOptions)
+      : (options = this.apiData.setOptions(options));
+    return this.apiData
+      .getData(
+        this.appSettings.environment.applicationPath + 'get-study-material',
+        options
+      )
+      .pipe(
+        finalize(() => this.data.serviceCompleted()),
+        catchError((err) => {
+          options
+            ? options.hideErrorMethod
+              ? ''
+              : this.data.errorMethod(err)
+            : '';
+          return throwError(() => new Error(err));
+        })
+      );
+  }
+
+  createStudyMaterial(body: any, options?: any): Observable<any> {
+    this.data.serviceStarted();
+    options === undefined
+      ? (options = this.apiData.defaultOptions)
+      : (options = this.apiData.setOptions(options));
+    return this.apiData
+      .postData(
+        this.appSettings.environment.applicationPath +
+        'create-study-material',
         body,
         options
       )

@@ -2,17 +2,10 @@
 <div class="pb-3">
   <div class="d-flex justify-content-between">
     <div>
-      <i
-        class="bx bx-arrow-back fs-4"
-        style="cursor: pointer"
-        (click)="goBack()"
-      ></i>
+      <i class="bx bx-arrow-back fs-4" style="cursor: pointer" (click)="goBack()"></i>
     </div>
     <div class="d-flex gap-2 align-items-center">
-      <button
-        class="btn btn-primary px-3 rounded-5 btn-sm"
-        (click)="editDetails()"
-      >
+      <button class="btn btn-primary px-3 rounded-5 btn-sm" (click)="editDetails()">
         Edit Details
       </button>
       <i class="bx bx-trash fs-4 cr-pointer" (click)="deliteDetails()"></i>
@@ -23,10 +16,7 @@
   <div class="d-flex gap-2 align-items-center mt-4">
     <div class="student-img-container">
       @if (studentDetails.student.user.photo != null) {
-      <img
-        src="{{ studentDetails.student.user.photo.documentContant }}"
-        alt="Student Avatar"
-      />
+      <img src="{{ studentDetails.student.user.photo.documentContant }}" alt="Student Avatar" />
       } @else {
       <div class="initials text-uppercase fw-bold">
         @if (studentDetails.student.user.lastName) {
@@ -48,18 +38,14 @@
     </p>
     <!-- Example single danger button -->
     <div class="btn-group">
-      <span
-        class="{{
+      <span class="{{
           studentDetails.student.studentStatusValue
-        }} px-2 py-1 rounded cr-pointer dropdown-toggle btn-sm small"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-      >
+        }} px-2 py-1 rounded cr-pointer dropdown-toggle btn-sm small" data-bs-toggle="dropdown" aria-expanded="false">
         {{ studentDetails.student.studentStatusLabel }}
       </span>
       <div class="dropdown-menu">
         @for (status of studentDetailsChoices.STUDENT_STATUS_CHOICES; track $index) {
-          <a class="dropdown-item" (click)="changeStudentStatus(status.value)">{{status.label}}</a>
+        <a class="dropdown-item" (click)="changeStudentStatus(status.value)">{{status.label}}</a>
 
         }
       </div>
@@ -68,31 +54,21 @@
   <div class="icon-row-container mt-4">
     <div class="icon-row">
       <div class="icon-box">
-        <a
-          href="{{ studentDetails.student.user.email }}"
-          class="text-dark text-decoration-none"
-          ><i class="bx bx-envelope"></i
-        ></a>
+        <a href="{{ studentDetails.student.user.email }}" class="text-dark text-decoration-none"><i
+            class="bx bx-envelope"></i></a>
         <span>Email</span>
       </div>
       <div class="icon-box">
-        <a href="" class="text-dark text-decoration-none"
-          ><i class="bx bx-calendar"></i
-        ></a>
+        <a href="" class="text-dark text-decoration-none"><i class="bx bx-calendar"></i></a>
         <span>Schedule</span>
       </div>
       <div class="icon-box">
-        <a href="" class="text-dark text-decoration-none"
-          ><i class="bx bx-chat"></i
-        ></a>
+        <a href="" class="text-dark text-decoration-none"><i class="bx bx-chat"></i></a>
         <span>Chat</span>
       </div>
       <div class="icon-box">
-        <a
-          href="tel:+91 {{ studentDetails.student.user.mobileNumber }}"
-          class="text-dark text-decoration-none"
-          ><i class="bx bx-phone"></i
-        ></a>
+        <a href="tel:+91 {{ studentDetails.student.user.mobileNumber }}" class="text-dark text-decoration-none"><i
+            class="bx bx-phone"></i></a>
         <span>Call</span>
       </div>
     </div>
@@ -103,200 +79,148 @@
       <div class="row">
         <p class="fs-5 fw-bold">Student Details</p>
         <div class="col-md-4">
-          <app-input-control
-            label="First Name"
-            [required]="true"
-            [btnClicked]="isEnabled"
-            [(ngModel)]="studentDetails.student.user.firstName"
-            name="firstName"
-          ></app-input-control>
+          <app-input-control label="First Name" [required]="true" [btnClicked]="isEnabled"
+            [(ngModel)]="studentDetails.student.user.firstName" name="firstName"></app-input-control>
         </div>
         <div class="col-md-4">
-          <app-input-control
-            label="Last Name"
-            [required]="true"
-            [btnClicked]="isEnabled"
-            [(ngModel)]="studentDetails.student.user.lastName"
-            name="lastName"
-          ></app-input-control>
+          <app-input-control label="Last Name" [required]="true" [btnClicked]="isEnabled"
+            [(ngModel)]="studentDetails.student.user.lastName" name="lastName"></app-input-control>
         </div>
         <div class="col-md-4">
-          <app-input-control
-            label="Email"
-            type="email"
-            [required]="true"
-            [btnClicked]="isEnabled"
-            [(ngModel)]="studentDetails.student.user.email"
-            name="email"
-          ></app-input-control>
+          <app-input-control label="Email" type="email" [required]="true" [btnClicked]="isEnabled"
+            [(ngModel)]="studentDetails.student.user.email" name="email"></app-input-control>
         </div>
         <div class="col-md-4">
-          <app-input-control
-            label="Mobile Number"
-            type="tel"
-            [required]="true"
-            [btnClicked]="isEnabled"
-            [(ngModel)]="studentDetails.student.user.mobileNumber"
-            name="mobileNumber"
-          ></app-input-control>
+          <app-input-control label="Mobile Number" type="tel" [required]="true" [btnClicked]="isEnabled"
+            [(ngModel)]="studentDetails.student.user.mobileNumber" name="mobileNumber"></app-input-control>
         </div>
         <div class="col-md-4">
-          <app-input-control
-            label="Date Of Birth"
-            type="date"
-            [required]="true"
-            [btnClicked]="isEnabled"
-            [(ngModel)]="studentDetails.student.user.dateOfBirth"
-            name="dateOfBirth"
-          ></app-input-control>
+          <app-input-control label="Date Of Birth" type="date" [required]="true" [btnClicked]="isEnabled"
+            [(ngModel)]="studentDetails.student.user.dateOfBirth" name="dateOfBirth"></app-input-control>
         </div>
         <div class="col-md-4">
-          <app-input-control
-            label="Professions"
-            type="select"
-            [required]="true"
-            [btnClicked]="isEnabled"
-            [(ngModel)]="studentDetails.student.professionsLabel"
-            [items]="studentDetailsChoices.PROFESSIONS_CHOICES"
-            key="value"
-            keyName="label"
-            name="professionsValue"
-          ></app-input-control>
+          <app-input-control label="Professions" type="select" [required]="true" [btnClicked]="isEnabled"
+            [(ngModel)]="studentDetails.student.professionsLabel" [items]="studentDetailsChoices.PROFESSIONS_CHOICES"
+            key="value" keyName="label" name="professionsValue"></app-input-control>
         </div>
       </div>
       <div class="row mt-4">
         <p class="fs-5 fw-bold">Language Details</p>
         <div class="col-md-4">
-          <app-input-control
-            label="Language"
-            [required]="true"
-            [btnClicked]="true"
-            [(ngModel)]="studentDetails.student.language.name"
-            name="language"
-          ></app-input-control>
+          <app-input-control label="Language" [required]="true" [btnClicked]="true"
+            [(ngModel)]="studentDetails.student.language.name" name="language"></app-input-control>
         </div>
         <div class="col-md-4">
-          <app-input-control
-            label="Course Type"
-            [required]="true"
-            [btnClicked]="isEnabled"
-            [items]="studentDetailsChoices.PROFESSIONS_CHOICES"
-            key="value"
-            keyName="label"
-            type="select"
-          ></app-input-control>
+          <app-input-control label="Course Type" [required]="true" [btnClicked]="isEnabled"
+            [items]="studentDetailsChoices.PROFESSIONS_CHOICES" key="value" keyName="label"
+            type="select"></app-input-control>
         </div>
         <div class="col-md-4">
-          <app-input-control
-            label="Mode Of Class"
-            [required]="true"
-            [btnClicked]="isEnabled"
-            [(ngModel)]="studentDetails.student.modeOfClassLabel"
-            name="modeOfClassLabel"
-            [items]="studentDetailsChoices.BATCH_TYPE_CHOICES"
-            key="value"
-            keyName="label"
-            type="select"
-          ></app-input-control>
+          <app-input-control label="Mode Of Class" [required]="true" [btnClicked]="isEnabled"
+            [(ngModel)]="studentDetails.student.modeOfClassLabel" name="modeOfClassLabel"
+            [items]="studentDetailsChoices.BATCH_TYPE_CHOICES" key="value" keyName="label"
+            type="select"></app-input-control>
         </div>
         <div class="col-md-4">
-          <app-input-control
-            label="Name Of The Counselor"
-            [required]="true"
-            [btnClicked]="isEnabled"
-          ></app-input-control>
+          <app-input-control label="Name Of The Counselor" [required]="true"
+            [btnClicked]="isEnabled"></app-input-control>
         </div>
         <div class="col-md-4">
-          <app-input-control
-            label="Batch Details"
-            [required]="true"
-            [btnClicked]="isEnabled"
-          ></app-input-control>
+          <app-input-control label="Batch Details" [required]="true" [btnClicked]="isEnabled"></app-input-control>
         </div>
       </div>
       <div class="row mt-4">
         <p class="fs-5 fw-bold">Payment Details</p>
         <div class="col-md-4">
-          <app-input-control
-            label="Amount Paid Type"
-            [required]="true"
-            [(ngModel)]="studentDetails.student.paymentTypeLabel"
-            name="amountPaidType"
-            [btnClicked]="true"
-          ></app-input-control>
+          <app-input-control label="Amount Paid Type" [required]="true"
+            [(ngModel)]="studentDetails.student.paymentTypeLabel" name="amountPaidType"
+            [btnClicked]="true"></app-input-control>
         </div>
         <div class="col-md-4">
-          <app-input-control
-            label="Amount of paid"
-            [required]="true"
-            [(ngModel)]="studentDetails.student.amountPaide"
-            name="amountPaid"
-            [btnClicked]="true"
-          ></app-input-control>
+          <app-input-control label="Amount of paid" [required]="true" [(ngModel)]="studentDetails.student.amountPaide"
+            name="amountPaid" [btnClicked]="true"></app-input-control>
         </div>
         <div class="col-md-4">
-          <app-input-control
-            label="Trsnsation ID"
-            [required]="true"
-            [(ngModel)]="studentDetails.student.transactionId"
-            name="transationId"
-            [btnClicked]="true"
-          ></app-input-control>
+          <app-input-control label="Trsnsation ID" [required]="true" [(ngModel)]="studentDetails.student.transactionId"
+            name="transationId" [btnClicked]="true"></app-input-control>
         </div>
         <div class="col-md-4">
-          <app-input-control
-            label="Account Holder Name"
-            [required]="true"
-            [(ngModel)]="studentDetails.student.accountHolderName"
-            name="accountHolderName"
-            [btnClicked]="true"
-          ></app-input-control>
+          <app-input-control label="Account Holder Name" [required]="true"
+            [(ngModel)]="studentDetails.student.accountHolderName" name="accountHolderName"
+            [btnClicked]="true"></app-input-control>
         </div>
         @if (studentDetails.student.partPaymentDate) {
-          <div class="col-md-4">
-          <app-input-control
-            label="part Payment Date"
-            [required]="true"
-            [(ngModel)]="studentDetails.student.partPaymentDate"
-            name="partPaymentDate"
-            [btnClicked]="true"
-          ></app-input-control>
+        <div class="col-md-4">
+          <app-input-control label="part Payment Date" [required]="true"
+            [(ngModel)]="studentDetails.student.partPaymentDate" name="partPaymentDate"
+            [btnClicked]="true"></app-input-control>
         </div>
         }
-
-        <!-- @if () {
-
-        } -->
       </div>
     </form>
     <div class="row mt-4">
       <p class="fs-5 fw-bold">Proof Details</p>
+
       @if (studentDetails.student.aadhar.documentSize > 0) {
       <div class="col-3">
         <p>Aadhar Card</p>
-        <div class="student-detail-proof aadhar-proof-container">
-          <img
-            src="{{ studentDetails.student.aadhar.documentContant }}"
-            alt="Aadhar Proof"
-          />
+        <div class="student-detail-proof aadhar-proof-container position-relative">
+          <img src="{{ studentDetails.student.aadhar.documentContant }}" alt="Aadhar Proof"
+            class="img-fluid rounded cursor-pointer"
+            (click)="openImagePreview(studentDetails.student.aadhar.documentContant, 'Aadhar Card')" />
+          <!-- Preview Icon Overlay -->
+          <div class="preview-overlay d-flex align-items-center justify-content-center">
+            <i class="bx bx-expand-alt fs-4 text-white"></i>
+          </div>
         </div>
       </div>
-      } @if (studentDetails.student.paymentConformScreenshot.documentSize > 0) {
+      }
+
+      @if (studentDetails.student.paymentConformScreenshot.documentSize > 0) {
       <div class="col-3">
-        <p>Payment Conformation</p>
-        <div class="aadhar-proof-container">
-          <img
-            src="{{
-              studentDetails.student.paymentConformScreenshot.documentContant
-            }}"
-            alt=""
-          />
+        <p>Payment Confirmation</p>
+        <div class="aadhar-proof-container position-relative">
+          <img src="{{ studentDetails.student.paymentConformScreenshot.documentContant }}" alt="Payment Confirmation"
+            class="img-fluid rounded cursor-pointer"
+            (click)="openImagePreview(studentDetails.student.paymentConformScreenshot.documentContant, 'Payment Confirmation')" />
+          <!-- Preview Icon Overlay -->
+          <div class="preview-overlay d-flex align-items-center justify-content-center">
+            <i class="bx bx-expand-alt fs-4 text-white"></i>
+          </div>
+        </div>
+      </div>
+      }
+
+      <!-- Add more proof documents if needed -->
+      @if (studentDetails.student.otherProof?.documentSize > 0) {
+      <div class="col-3">
+        <p>Other Proof</p>
+        <div class="aadhar-proof-container position-relative">
+          <img src="{{ studentDetails.student.otherProof.documentContant }}" alt="Other Proof"
+            class="img-fluid rounded cursor-pointer"
+            (click)="openImagePreview(studentDetails.student.otherProof.documentContant, 'Other Proof')" />
+          <!-- Preview Icon Overlay -->
+          <div class="preview-overlay d-flex align-items-center justify-content-center">
+            <i class="bx bx-expand-alt fs-4 text-white"></i>
+          </div>
         </div>
       </div>
       }
     </div>
+
+    <!-- Image Preview Modal -->
+    <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-labelledby="imagePreviewModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body text-center m-0 p-0">
+            <img [src]="previewImageUrl" alt="{{ previewTitle }}" class="img-fluid rounded">
+          </div>
+        </div>
+      </div>
+    </div>
     @if (false) {
-      <div class="history-container mt-4">
+    <div class="history-container mt-4">
       <p class="fs-5 fw-bold">Lead History</p>
       <div class="timeline mt-3">
         <div class="Next-timeline-item d-flex align-items-center gap-2 mb-2">
@@ -309,7 +233,9 @@
         <div class="timeline-item d-flex align-items-end gap-2 mb-2">
           <div class="timeline-dot"></div>
           <div class="timeline-content bg-light py-1 px-2 rounded">
-            <p class="mb-2">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum dignissimos, quisquam, quas nobis doloremque et id repellat inventore aliquam qui delectus distinctio quae ipsam molestiae voluptatum mollitia, recusandae quia! Pariatur!</p>
+            <p class="mb-2">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum dignissimos, quisquam, quas
+              nobis doloremque et id repellat inventore aliquam qui delectus distinctio quae ipsam molestiae voluptatum
+              mollitia, recusandae quia! Pariatur!</p>
             <p class="text-muted mb-0">
               <small>Vignesh Muthaiyan | 03-05-2025 | 14:57 PM</small>
             </p>
@@ -330,5 +256,5 @@
   </div>
 </div>
 } @else {
-  <app-page-loding></app-page-loding>
+<app-page-loding></app-page-loding>
 }
