@@ -12,15 +12,13 @@ import { InputControlComponent } from '../../../app-core/form-input/input-contro
   imports: [
     FormsModule,
     PageLodingComponent,
-    InputControlComponent
+    InputControlComponent,
   ],
   templateUrl: './leads-profile.component.html',
   styleUrl: './leads-profile.component.scss'
 })
 export class LeadsProfileComponent implements OnInit {
-  encodeURIComponent(arg0: string) {
-    throw new Error('Method not implemented.');
-  }
+
   leadDetail: any = {};
   LeadStatus: any = [];
   isLoading = false;
@@ -31,7 +29,7 @@ export class LeadsProfileComponent implements OnInit {
     public router: Router,
     public route: ActivatedRoute,
     public urlService: UrlService,
-    private apiService: ApplicationApiService
+    private apiService: ApplicationApiService,
   ) { }
 
   leadId: any;
@@ -52,15 +50,12 @@ export class LeadsProfileComponent implements OnInit {
     this.apiService.getLeadDetails(payload).subscribe((response: any) => {
       this.leadDetail = response.Leads;
       console.log('Lead Details', this.leadDetail);
-
     })
   }
 
   getLeadStatus() {
     this.apiService.getLeadStatus().subscribe((response: any) => {
       this.LeadStatus = response.lead_status_choices;
-      console.log('Lead Status', this.LeadStatus);
-
     })
   }
 
@@ -72,18 +67,21 @@ export class LeadsProfileComponent implements OnInit {
 
     this.apiService.changeLeadStatus(payload).subscribe((response: any) => {
       this.getLeadDetails({ leadId: this.leadDetail.id });
+      this.data.successMessage('Lead Status Updated Successfully');
     })
-
   }
 
   goBack() {
     this.router.navigateByUrl('leads')
   }
+
   editDetails() {
     this.isEnabled = false;
   }
 
-  deliteDetails() { }
+  deliteDetails() {
+    // Add delete functionality here
+  }
 
   getWhatsAppLink(): string {
     const currentTime = new Date().getHours();
@@ -98,8 +96,8 @@ export class LeadsProfileComponent implements OnInit {
     }
 
     const message = `Hi ${this.leadDetail.leadName}, ${greeting} from Inlingua Language Center!
-You showed interest to learn another language. Congratulations!
-Please register using the Inlingua register form: ${window.location.origin}/register-form`;
+    You showed interest to learn another language. Congratulations!
+    Please register using the Inlingua register form: ${window.location.origin}/register-form`;
 
     return `https://wa.me/91${this.leadDetail.leadMobileNumber}?text=${encodeURIComponent(message)}`;
   }
@@ -107,8 +105,7 @@ Please register using the Inlingua register form: ${window.location.origin}/regi
   onSubmit(form: any) {
     if (!form.valid) {
       return;
-    }
-    else {
+    } else {
       const payload = {
         leadid: this.leadDetail.id,
         leadName: this.leadDetail.leadName,
@@ -116,14 +113,15 @@ Please register using the Inlingua register form: ${window.location.origin}/regi
         leadMobileNumber: this.leadDetail.leadMobileNumber,
         leadSource: this.leadDetail.leadSource,
         callbackDate: this.leadDetail.callbackDate,
-        remark: this.leadDetail.remark,
+        remark: this.leadDetail.leadRemark,
         counselorRemark: this.leadDetail.counselorRemark
       }
       this.apiService.updateLeadDetails(payload).subscribe((response: any) => {
         this.isEnabled = true;
+
         this.getLeadDetails({ leadId: this.leadDetail.id });
+        this.data.successMessage('Lead Updated Successfully');
       })
     }
   }
-
 }

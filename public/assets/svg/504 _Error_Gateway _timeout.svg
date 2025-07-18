@@ -1,0 +1,16 @@
+<svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <!-- <rect width="600" height="400" fill="#f8f9fa"/> -->
+
+  <!-- Error icon circle -->
+  <circle cx="300" cy="140" r="80" fill="#dc3545" opacity="0.1"/>
+  <circle cx="300" cy="140" r="60" fill="#dc3545" opacity="0.2"/>
+
+  <!-- Clock/timeout icon -->
+  <circle cx="300" cy="140" r="40" fill="none" stroke="#dc3545" stroke-width="6"/>
+  <line x1="300" y1="140" x2="300" y2="110" stroke="#dc3545" stroke-width="6" stroke-linecap="round"/>
+  <line x1="300" y1="140" x2="320" y2="160" stroke="#dc3545" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- 504 text -->
+  <text x="300" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="#dc3545">504</text>
+</svg>

@@ -1,0 +1,153 @@
+.attendance-calendar-container {
+  .calendar-wrapper {
+    .attendance-grid {
+      min-width: 800px;
+      border-radius: 6px;
+      overflow: hidden;
+
+      .grid-header {
+        display: flex;
+
+        .time-header {
+          width: 105px;
+          padding: 12px 8px;
+          color: #495057;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .date-header {
+          flex: 1;
+          min-width: 25px;
+          padding: 12px 4px;
+          text-align: center;
+          font-weight: 600;
+          color: #495057;
+          gap: 5px;
+          padding: 2px;
+          height: 30px;
+          font-size: 0.85rem;
+        }
+      }
+
+      .grid-row {
+        display: flex;
+        gap: 5px;
+        padding: 2px;
+        height: 30px;
+
+        .time-label {
+          font-weight: 500;
+          color: #495057;
+          display: flex;
+          align-items: center;
+          border: 1px solid #FFF;
+          justify-content: center;
+          height: 95%;
+        }
+
+        .attendance-cell {
+          flex: 1;
+          min-width: 25px;
+          height: 100%;
+          border: 1.5px solid #ced1d3;
+          height: 25px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          position: relative;
+
+          &:hover {
+            z-index: 1;
+          }
+
+          // Attendance levels
+          &.level-0 {
+            background-color: #f8f9fa;
+            border-color: #e9ecef;
+          }
+
+          &.level-1 {
+            background-color: #c3e6cb;
+            border-color: #a3d9a4;
+          }
+
+          &.level-2 {
+            background-color: #9fdf9f;
+            border-color: #7ed37e;
+          }
+
+          &.level-3 {
+            background-color: #7bc87b;
+            border-color: #5cb85c;
+          }
+
+          &.level-4 {
+            background-color: #5cb85c;
+            border-color: #4cae4c;
+          }
+        }
+      }
+    }
+  }
+
+  .calendar-legend {
+    padding: 15px 20px;
+
+    .legend-container {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+
+      .legend-text {
+        font-size: 0.85rem;
+        color: #6c757d;
+        font-weight: 500;
+      }
+
+      .legend-item {
+        width: 15px;
+        height: 14px;
+        border-radius: 2px;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+
+        &.level-0 {
+          background-color: #f8f9fa;
+          border: 1px solid #e9ecef;
+        }
+
+        &.level-1 {
+          background-color: #c3e6cb;
+          border: 1px solid #a3d9a4;
+        }
+
+        &.level-2 {
+          background-color: #9fdf9f;
+          border: 1px solid #7ed37e;
+        }
+
+        &.level-3 {
+          background-color: #7bc87b;
+          border: 1px solid #5cb85c;
+        }
+
+        &.level-4 {
+          background-color: #5cb85c;
+          border: 1px solid #4cae4c;
+        }
+      }
+    }
+  }
+}
+
+.loading-overlay {
+  display: flex;
+  justify-content: center;
+  min-height: 315px;
+}

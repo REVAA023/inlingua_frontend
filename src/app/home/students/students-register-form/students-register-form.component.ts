@@ -26,7 +26,7 @@ import { UrlService } from '../../../common/services/url/url.service';
   styleUrl: './students-register-form.component.scss'
 })
 export class StudentsRegisterFormComponent {
-  currentStep = 1;
+  currentStep = 2;
   errorTrue = false;
 
   registersheet = new entRegisterForm();
@@ -155,7 +155,7 @@ export class StudentsRegisterFormComponent {
       this.dialog.open(AlertComponent, {
         data: <DialogData>{
           msg: 'Please upload Aadhar card',
-          type: 'submitAlert',
+          type: 'alertMsg',
           flag: true,
           header: 'Missing Document',
           confirmationText: '',
@@ -179,7 +179,7 @@ export class StudentsRegisterFormComponent {
       this.dialog.open(AlertComponent, {
         data: <DialogData>{
           msg: 'Please upload payment screenshot',
-          type: 'submitAlert',
+          type: 'alertMsg',
 
           flag: true,
           header: 'Missing Document',

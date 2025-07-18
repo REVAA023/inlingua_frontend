@@ -5,11 +5,13 @@
       <i class="bx bx-arrow-back fs-4" style="cursor: pointer" (click)="goBack()"></i>
     </div>
     <div class="d-flex gap-2 align-items-center">
+      @if (isEnabled) {
       <button class="btn btn-primary px-3 rounded-5 btn-sm" (click)="editDetails()">
         Edit Details
       </button>
       <i class="bx bx-trash fs-4 cr-pointer" (click)="deliteDetails()"></i>
       <i class="bx bx-dots-vertical fs-4 cr-pointer"></i>
+    }
     </div>
   </div>
 
@@ -20,8 +22,7 @@
       } @else {
       <div class="initials fw-bold text-uppercase">
         @if (leadDetail.leadName) {
-        {{ leadDetail.leadName.charAt(0)
-        }}{{ leadDetail.leadName.charAt(1)}}
+        {{ leadDetail.leadName.charAt(0) }}{{ leadDetail.leadName.charAt(1) }}
         }
       </div>
       } @if (!isEnabled) {
@@ -31,11 +32,11 @@
     <p class="fs-5 fw-bold m-0 p-0">
       {{ leadDetail.leadName }}
     </p>
-    <!-- Example single danger button -->
+    <!-- Status dropdown -->
     <div class="btn-group">
       <span class="NEW px-2 py-1 rounded cr-pointer dropdown-toggle btn-sm small" data-bs-toggle="dropdown"
         aria-expanded="false">
-        {{ leadDetail.leadStatusLabel}}
+        {{ leadDetail.leadStatusLabel }}
       </span>
       <ul class="dropdown-menu">
         @for (status of LeadStatus; track $index) {
@@ -44,10 +45,11 @@
       </ul>
     </div>
   </div>
+
   <div class="icon-row-container mt-4">
     <div class="icon-row">
       <div class="icon-box">
-        <a href="{{ leadDetail.leadEmail }}" class="text-dark text-decoration-none"><i class="bx bx-envelope"></i></a>
+        <a href="mailto:{{ leadDetail.leadEmail }}" class="text-dark text-decoration-none"><i class="bx bx-envelope"></i></a>
         <span>Email</span>
       </div>
       <div class="icon-box">
@@ -55,21 +57,20 @@
         <span>Schedule</span>
       </div>
       <div class="icon-box">
-        <a href="tel:+91 {{ leadDetail.leadMobileNumber }}" class="text-dark text-decoration-none"><i
+        <a href="tel:+91{{ leadDetail.leadMobileNumber }}" class="text-dark text-decoration-none"><i
             class="bx bx-phone"></i></a>
         <span>Call</span>
       </div>
-
       <div class="icon-box">
         <a [href]="getWhatsAppLink()" class="text-dark text-decoration-none" target="_blank">
           <i class='bx bx-spreadsheet'></i>
         </a>
         <span>Send Form</span>
       </div>
-
     </div>
     <div class="divider-line"></div>
   </div>
+
   <div>
     <form #l="ngForm" (ngSubmit)="onSubmit(l)">
       <div class="row">
@@ -87,7 +88,7 @@
             [(ngModel)]="leadDetail.leadMobileNumber" name="mobileNumber"></app-input-control>
         </div>
         <div class="col-md-4">
-          <app-input-control label="Lead Source" type="number" [required]="true" [btnClicked]="true"
+          <app-input-control label="Lead Source" [required]="true" [btnClicked]="true"
             [(ngModel)]="leadDetail.leadSource" name="leadSource"></app-input-control>
         </div>
         <div class="col-md-4">
@@ -97,21 +98,22 @@
       </div>
       <div class="row">
         <div class="col-6">
-          <app-input-control label="Lead Remark" type="text" [btnClicked]="isEnabled" [(ngModel)]="leadDetail.remark"
-            name="remark"></app-input-control>
+          <app-input-control label="Lead Remark" type="textarea" className="textarea" [btnClicked]="isEnabled"
+            [(ngModel)]="leadDetail.leadRemark" name="leadRemark"></app-input-control>
         </div>
         <div class="col-6">
-          <app-input-control label="Counselor Remark" type="text" [btnClicked]="isEnabled"
-            [(ngModel)]="leadDetail.counselorRemark" name="remark"></app-input-control>
+          <app-input-control label="Counselor Remark" type="textarea" className="textarea" [btnClicked]="isEnabled"
+            [(ngModel)]="leadDetail.counselorRemark" name="counselorRemark"></app-input-control>
         </div>
       </div>
       @if (!isEnabled) {
       <div class="d-flex justify-content-end mt-3">
-        <button type="submit" class="btn btn-sm btn-primary">Sumbit</button>
+        <button type="submit" class="btn btn-sm btn-primary">Submit</button>
       </div>
       }
     </form>
   </div>
+
   @if (false) {
   <div class="history-container mt-4">
     <p class="fs-5 fw-bold">Lead History</p>
@@ -122,7 +124,6 @@
           <p class="m-0 p-0 text-muted small">Next Changes ...</p>
         </div>
       </div>
-      <!--  -->
       <div class="timeline-item d-flex align-items-end gap-2 mb-2">
         <div class="timeline-dot"></div>
         <div class="timeline-content bg-light py-1 px-2 rounded">

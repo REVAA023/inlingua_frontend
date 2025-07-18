@@ -22,7 +22,6 @@ import { PageLodingComponent } from '../../../app-core/page-loding/page-loding.c
   styleUrl: './all-trainers.component.scss'
 })
 export class AllTrainersComponent {
-  isLoading = false;
   trainers: any[] = [];
   paginatedData: any[] = [];
   pageSize = 10;
@@ -31,6 +30,8 @@ export class AllTrainersComponent {
   // Filters
   searchText: string = '';
   filterDate: string = '';
+
+  isLoading = false;
 
   constructor(
     private apiService: ApplicationApiService,
@@ -46,6 +47,7 @@ export class AllTrainersComponent {
   }
 
   getTrainers() {
+    this.isLoading = false;
     this.apiService.getTrainers().subscribe((response: any) => {
       this.trainers = response.trainers || [];
       this.updatePaginatedData();
@@ -54,10 +56,9 @@ export class AllTrainersComponent {
     });
   }
 
-  navigate(id: any) {
-    this.url.encode(id).then((urlJson) => {
-      this.router.navigateByUrl('trainers/details/' + urlJson);
-    });
+  async navigate(id: any) {
+    let urlJson = await this.url.encode(id);
+    this.router.navigateByUrl('trainers/details/' + urlJson);
   }
 
   onPageChange(event: PageEvent): void {
@@ -74,11 +75,13 @@ export class AllTrainersComponent {
   }
 
   getFilteredData(): any[] {
-    return this.trainers.filter(trainer => {
+    return this.trainers.filter((trainer: any) => {
       const matchesText = this.searchText
         ? (
-          trainer.user?.fullName?.toLowerCase().includes(this.searchText.toLowerCase()) ||
-          trainer.user?.email?.toLowerCase().includes(this.searchText.toLowerCase())
+          trainer.user?.firstName?.toLowerCase().includes(this.searchText.toLowerCase()) ||
+          trainer.user?.lastName?.toLowerCase().includes(this.searchText.toLowerCase()) ||
+          trainer.user?.email?.toLowerCase().includes(this.searchText.toLowerCase()) ||
+          trainer.user?.mobileNumber?.toLowerCase().includes(this.searchText.toLowerCase())
         )
         : true;
 

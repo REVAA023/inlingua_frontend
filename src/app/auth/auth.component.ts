@@ -42,7 +42,6 @@ export class AuthComponent {
       }
 
       this.apiService.login(obj, option).subscribe((response) => {
-        console.log(response);
         this.storage.set('token', response.token);
         this.storage.set('userData', response.userData);
         this.router.navigateByUrl('/dashboard')

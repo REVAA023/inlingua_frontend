@@ -3,8 +3,9 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { StorageService } from '../storage/storage.service';
 import { AppService } from '../../../app.service';
-import { AlertComponent } from '../../../app-core/alert/alert.component';
+import { AlertComponent, DialogData } from '../../../app-core/alert/alert.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,8 @@ export class DataService implements OnDestroy {
     private router: Router,
     private storage: StorageService,
     public appService: AppService,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private dialog: MatDialog,
   ) {
     this.router.events.subscribe((val) => {
       if (val instanceof NavigationStart) {
@@ -66,9 +68,19 @@ export class DataService implements OnDestroy {
     return new Promise(async (resolve, reject) => {
       try {
         const token = await this.storage.get('token');
-
         if (!token) {
-          console.log("token is missing");
+          this.dialog.open(AlertComponent, {
+            data: <DialogData>{
+              msg: 'Please upload Class Record Video',
+              type: 'sessionAlert',
+              flag: true,
+              header: 'Missing Document',
+              confirmationText: '',
+              closeIconHidden: false,
+            },
+            disableClose: true,
+            hasBackdrop: true
+          });
           this.router.navigateByUrl('login');
         } else {
           this.token = token;
@@ -85,13 +97,11 @@ export class DataService implements OnDestroy {
     const userData = await this.storage.get('userData');
     if (userData !== null && userData !== undefined) {
       this.appService.user = userData;
-      console.log(this.appService.user);
     }
   }
 
   // Fixed success message method
   successMessage(msg: string, successType: 'success' | 'error' | 'warning' | 'info' = 'success') {
-    console.log('Showing success message:', msg, successType);
 
     const snackBarRef = this.snackBar.openFromComponent(AlertComponent, {
       duration: 10000,
@@ -128,32 +138,29 @@ export class DataService implements OnDestroy {
   }
 
   errorMethod(err: any) {
-    debugger
-  console.log(err, 'errorMethod');
 
-  if (err.status === 401) {
-    this.router.navigateByUrl('login');
-    console.log('Unauthorized - redirecting to login');
-  }
+    if (err.status === 401) {
+      this.router.navigateByUrl('login');
+    }
 
-  else if (err.status === 404) {
-    this.errorMessage(err.error.message);
-  }
+    else if (err.status === 404) {
+      this.errorMessage(err.error.message);
+    }
 
-  else if (err.status === 0) {
-    this.errorMessage(err.error.message );
-  }
+    else if (err.status === 0) {
+      this.errorMessage(err.error.message);
+    }
 
-  else if (err.status === 400) {
-    this.errorMessage(err.error.message);
-  }
+    else if (err.status === 400) {
+      this.errorMessage(err.error.message);
+    }
 
-  else if (err.status === 500) {
-    this.errorMessage(err.error.message);
-  }
+    else if (err.status === 500) {
+      this.errorMessage(err.error.message);
+    }
 
-  else {
-    this.errorMessage(err.error.message);
+    else {
+      this.errorMessage(err.error.message);
+    }
   }
-}
 }

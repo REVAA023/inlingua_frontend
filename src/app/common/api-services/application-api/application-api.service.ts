@@ -978,4 +978,53 @@ export class ApplicationApiService {
       );
   }
 
+  saveVideoRecord(body: any, options?: any): Observable<any> {
+    this.data.serviceStarted();
+    options === undefined
+      ? (options = this.apiData.defaultOptions)
+      : (options = this.apiData.setOptions(options));
+    return this.apiData
+      .postData(
+        this.appSettings.environment.applicationPath +
+        'create-class-record',
+        body,
+        options
+      )
+      .pipe(
+        finalize(() => this.data.serviceCompleted()),
+        catchError((err) => {
+          options
+            ? options.hideErrorMethod
+              ? ''
+              : this.data.errorMethod(err)
+            : '';
+          return throwError(() => new Error(err));
+        })
+      );
+  }
+
+  sendRecordVideo(body: any, options?: any): Observable<any> {
+    this.data.serviceStarted();
+    options === undefined
+      ? (options = this.apiData.defaultOptions)
+      : (options = this.apiData.setOptions(options));
+    return this.apiData
+      .postData(
+        this.appSettings.environment.applicationPath +
+        'send-video',
+        body,
+        options
+      )
+      .pipe(
+        finalize(() => this.data.serviceCompleted()),
+        catchError((err) => {
+          options
+            ? options.hideErrorMethod
+              ? ''
+              : this.data.errorMethod(err)
+            : '';
+          return throwError(() => new Error(err));
+        })
+      );
+  }
 }

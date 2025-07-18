@@ -1,89 +1,3 @@
-// /* alert.component.scss */
-
-// // Success Toast Styles
-// .success {
-//   width: 100%;
-//   min-width: 300px;
-//   max-width: 500px;
-//   border-radius: 8px;
-//   background: white;
-//   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-//   border-left: 4px solid #4caf50;
-//   overflow: hidden;
-
-//   .success-box {
-//     padding: 16px 20px;
-//     background: white;
-//     color: #333;
-//     position: relative;
-
-//     .success-icon {
-//       margin-right: 12px;
-//       width: 24px;
-//       height: 24px;
-//       background: #4caf50;
-//       border-radius: 50%;
-//       display: flex;
-//       align-items: center;
-//       justify-content: center;
-//       flex-shrink: 0;
-
-//       ion-icon {
-//         font-size: 16px;
-//         color: white;
-//       }
-//     }
-
-//     .info-content {
-//       flex: 1;
-
-//       .head-1 {
-//         font-weight: 600;
-//         font-size: 16px;
-//         margin-bottom: 4px;
-//         color: #333;
-//       }
-
-//       .head-2 {
-//         font-size: 14px;
-//         color: #333;
-//         line-height: 1.4;
-//         margin: 0;
-//       }
-//     }
-
-//     .success-close {
-//       cursor: pointer;
-//       padding: 4px;
-//       border-radius: 4px;
-//       transition: background-color 0.2s;
-//       margin-left: 8px;
-
-//       &:hover {
-//         background-color: #f5f5f5;
-//       }
-
-//       ion-icon {
-//         font-size: 20px;
-//         color: #999;
-//       }
-//     }
-//   }
-
-//   .progress {
-//     height: 4px;
-//     background: #f0f0f0;
-
-//     ::ng-deep .mat-progress-bar-fill::after {
-//       background-color: #4caf50;
-//     }
-
-//     ::ng-deep .mat-progress-bar-buffer {
-//       background-color: #f0f0f0;
-//     }
-//   }
-// }
-
 .success, .error {
   border-radius: 8px;
 
@@ -161,399 +75,400 @@
   }
 }
 
-// // Info/Warning Toast Styles (additional variant)
-// .info {
-//   width: 100%;
-//   min-width: 300px;
-//   max-width: 500px;
-//   border-radius: 8px;
-//   background: white;
-//   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-//   border-left: 4px solid #2196f3;
-//   overflow: hidden;
+// Info/Warning Toast Styles (additional variant)
+.info {
+  width: 100%;
+  min-width: 300px;
+  max-width: 500px;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #2196f3;
+  overflow: hidden;
 
-//   .info-box {
-//     padding: 16px 20px;
-//     background: white;
-//     color: #333;
-//     position: relative;
+  .info-box {
+    padding: 16px 20px;
+    background: white;
+    color: #333;
+    position: relative;
 
-//     .info-icon {
-//       margin-right: 12px;
-//       width: 24px;
-//       height: 24px;
-//       background: #2196f3;
-//       border-radius: 50%;
-//       display: flex;
-//       align-items: center;
-//       justify-content: center;
-//       flex-shrink: 0;
+    .info-icon {
+      margin-right: 12px;
+      width: 24px;
+      height: 24px;
+      background: #2196f3;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
 
-//       ion-icon {
-//         font-size: 16px;
-//         color: white;
-//       }
-//     }
+      ion-icon {
+        font-size: 16px;
+        color: white;
+      }
+    }
 
-//     .info-content {
-//       flex: 1;
+    .info-content {
+      flex: 1;
 
-//       .head-1 {
-//         font-weight: 600;
-//         font-size: 16px;
-//         margin-bottom: 4px;
-//         color: #333;
-//       }
+      .head-1 {
+        font-weight: 600;
+        font-size: 16px;
+        margin-bottom: 4px;
+        color: #333;
+      }
 
-//       .head-2 {
-//         font-size: 14px;
-//         color: #666;
-//         line-height: 1.4;
-//         margin: 0;
-//       }
-//     }
+      .head-2 {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.4;
+        margin: 0;
+      }
+    }
 
-//     .info-close {
-//       cursor: pointer;
-//       padding: 4px;
-//       border-radius: 4px;
-//       transition: background-color 0.2s;
-//       margin-left: 8px;
+    .info-close {
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+      margin-left: 8px;
 
-//       &:hover {
-//         background-color: #f5f5f5;
-//       }
+      &:hover {
+        background-color: #f5f5f5;
+      }
 
-//       ion-icon {
-//         font-size: 20px;
-//         color: #999;
-//       }
-//     }
-//   }
+      ion-icon {
+        font-size: 20px;
+        color: #999;
+      }
+    }
+  }
 
-//   .progress {
-//     height: 4px;
-//     background: #f0f0f0;
+  .progress {
+    height: 4px;
+    background: #f0f0f0;
 
-//     ::ng-deep .mat-progress-bar-fill::after {
-//       background-color: #2196f3;
-//     }
+    ::ng-deep .mat-progress-bar-fill::after {
+      background-color: #2196f3;
+    }
 
-//     ::ng-deep .mat-progress-bar-buffer {
-//       background-color: #f0f0f0;
-//     }
-//   }
-// }
+    ::ng-deep .mat-progress-bar-buffer {
+      background-color: #f0f0f0;
+    }
+  }
+}
 
-// // Dialog Styles (keeping existing styles with minor improvements)
-// .delete-alert-container {
-//   background: white;
-//   border-radius: 12px;
-//   padding: 24px;
-//   max-width: 450px;
-//   width: 100%;
-//   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-// }
+// Dialog Styles (keeping existing styles with minor improvements)
+.delete-alert-container {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 450px;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
 
-// .delete-alert-header {
-//   text-align: center;
-//   margin-bottom: 20px;
+.delete-alert-header {
+  text-align: center;
+  margin-bottom: 20px;
 
-//   .delete-alert-header-icon {
-//     width: 60px;
-//     height: 60px;
-//     background: #ff5252;
-//     border-radius: 50%;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     margin: 0 auto;
+  .delete-alert-header-icon {
+    width: 60px;
+    height: 60px;
+    background: #ff5252;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
 
-//     ion-icon {
-//       font-size: 28px;
-//       color: white;
-//     }
-//   }
-// }
+    ion-icon {
+      font-size: 28px;
+      color: white;
+    }
+  }
+}
 
-// .delete-alert-body {
-//   text-align: center;
-//   margin-bottom: 24px;
+.delete-alert-body {
+  text-align: center;
+  margin-bottom: 24px;
 
-//   .delete-alert-label {
-//     font-size: 20px;
-//     font-weight: 600;
-//     color: #333;
-//     margin-bottom: 12px;
-//   }
+  .delete-alert-label {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 12px;
+  }
 
-//   .delete-alert-msg {
-//     color: #666;
-//     line-height: 1.5;
-//     margin-bottom: 20px;
-//   }
+  .delete-alert-msg {
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
 
-//   .confirmation-input {
-//     text-align: left;
-//     margin-top: 16px;
+  .confirmation-input {
+    text-align: left;
+    margin-top: 16px;
 
-//     label {
-//       display: block;
-//       margin-bottom: 8px;
-//       font-size: 14px;
-//       color: #333;
-//     }
-//   }
-// }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: #333;
+    }
+  }
+}
 
-// .delete-alert-footer {
-//   display: flex;
-//   gap: 12px;
-//   justify-content: center;
+.delete-alert-footer {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
 
-//   .clear-delete-btn {
-//     padding: 12px 24px;
-//     border: 2px solid #ddd;
-//     background: white;
-//     color: #666;
-//     border-radius: 6px;
-//     text-decoration: none;
-//     font-weight: 500;
-//     transition: all 0.2s;
+  .clear-delete-btn {
+    padding: 12px 24px;
+    border: 2px solid #ddd;
+    background: white;
+    color: #666;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
 
-//     &:hover {
-//       border-color: #bbb;
-//       background: #f5f5f5;
-//     }
-//   }
+    &:hover {
+      border-color: #bbb;
+      background: #f5f5f5;
+    }
+  }
 
-//   .btn-delete-primary {
-//     padding: 12px 24px;
-//     background: #ff5252;
-//     color: white;
-//     border: none;
-//     border-radius: 6px;
-//     font-weight: 500;
-//     cursor: pointer;
-//     transition: background-color 0.2s;
+  .btn-delete-primary {
+    padding: 12px 24px;
+    background: #ff5252;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
 
-//     &:hover {
-//       background: #f44336;
-//     }
-//   }
-// }
+    &:hover {
+      background: #f44336;
+    }
+  }
+}
 
-// // Session timeout styles
-// .session-timeout-container {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   min-height: 400px;
-//   background: white;
-//   border-radius: 12px;
+// Session timeout styles
+.session-timeout-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  background: white;
+  border-radius: 12px;
 
-//   .timeout-content {
-//     text-align: center;
-//     padding: 40px;
-//     max-width: 400px;
+  .timeout-content {
+    text-align: center;
+    padding: 40px;
+    max-width: 400px;
 
-//     .timeout-title {
-//       font-size: 24px;
-//       font-weight: 600;
-//       margin-bottom: 20px;
-//       color: #333;
+    .timeout-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #333;
 
-//       .text-effect {
-//         color: #ff5252;
-//         text-shadow: 2px 2px 4px rgba(255, 82, 82, 0.3);
-//       }
-//     }
+      .text-effect {
+        color: #ff5252;
+        text-shadow: 2px 2px 4px rgba(255, 82, 82, 0.3);
+      }
+    }
 
-//     .timeout-icon-container {
-//       margin: 20px 0;
+    .timeout-icon-container {
+      // margin: 20px 0;
+      height: 150px;
 
-//       .timeout-icon {
-//         font-size: 80px;
-//         color: #ff5252;
-//       }
-//     }
+      .timeout-icon {
+        font-size: 80px;
+        color: #ff5252;
+      }
+    }
 
-//     .timeout-message {
-//       color: #666;
-//       line-height: 1.5;
-//       margin-bottom: 24px;
-//     }
+    .timeout-message {
+      color: #666;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
 
-//     .btn-primary {
-//       background: #2196f3;
-//       color: white;
-//       border: none;
-//       padding: 12px 24px;
-//       border-radius: 6px;
-//       font-weight: 500;
-//       cursor: pointer;
-//       transition: background-color 0.2s;
+    .btn-primary {
+      background: #2196f3;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
 
-//       &:hover {
-//         background: #1976d2;
-//       }
-//     }
-//   }
-// }
+      &:hover {
+        background: #1976d2;
+      }
+    }
+  }
+}
 
-// // Home dialog styles
-// .home-dialog-template {
-//   background: white;
-//   border-radius: 12px;
-//   min-width: 350px;
-//   max-width: 500px;
+// Home dialog styles
+.home-dialog-template {
+  background: white;
+  border-radius: 12px;
+  min-width: 350px;
+  max-width: 500px;
 
-//   .home-dialog-header {
-//     padding: 20px 24px 0;
-//     border-bottom: 1px solid #eee;
-//     margin-bottom: 20px;
+  .home-dialog-header {
+    padding: 20px 24px 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
 
-//     .home-submit-dialog-label {
-//       font-size: 18px;
-//       font-weight: 600;
-//       color: #333;
-//       display: flex;
-//       align-items: center;
-//       gap: 8px;
+    .home-submit-dialog-label {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 8px;
 
-//       ion-icon {
-//         color: #ff9800;
-//         font-size: 20px;
-//       }
-//     }
-//   }
+      ion-icon {
+        color: #ff9800;
+        font-size: 20px;
+      }
+    }
+  }
 
-//   .home-dialog-container {
-//     padding: 0 24px;
+  .home-dialog-container {
+    padding: 0 24px;
 
-//     .delete-dec {
-//       color: #666;
-//       line-height: 1.5;
-//     }
-//   }
+    .delete-dec {
+      color: #666;
+      line-height: 1.5;
+    }
+  }
 
-//   .home-dialog-footer {
-//     padding: 20px 24px;
-//     border-top: 1px solid #eee;
+  .home-dialog-footer {
+    padding: 20px 24px;
+    border-top: 1px solid #eee;
 
-//     .btn {
-//       padding: 10px 20px;
-//       border-radius: 6px;
-//       font-weight: 500;
-//       cursor: pointer;
-//       transition: all 0.2s;
-//       text-decoration: none;
-//       display: inline-flex;
-//       align-items: center;
-//       justify-content: center;
+    .btn {
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
 
-//       &.btn-danger {
-//         background: white;
-//         color: #f44336;
-//         border: 2px solid #f44336;
+      &.btn-danger {
+        background: white;
+        color: #f44336;
+        border: 2px solid #f44336;
 
-//         &:hover {
-//           background: #f44336;
-//           color: white;
-//         }
-//       }
+        &:hover {
+          background: #f44336;
+          color: white;
+        }
+      }
 
-//       &.btn-primary {
-//         background: #2196f3;
-//         color: white;
-//         border: 2px solid #2196f3;
+      &.btn-primary {
+        background: #2196f3;
+        color: white;
+        border: 2px solid #2196f3;
 
-//         &:hover {
-//           background: #1976d2;
-//           border-color: #1976d2;
-//         }
-//       }
-//     }
+        &:hover {
+          background: #1976d2;
+          border-color: #1976d2;
+        }
+      }
+    }
 
-//     .btn-cus-primary {
-//       background: #2196f3;
-//       color: white;
-//       border: none;
-//       padding: 10px 20px;
-//       border-radius: 6px;
-//       font-weight: 500;
-//       cursor: pointer;
+    .btn-cus-primary {
+      background: #2196f3;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
 
-//       &:hover {
-//         background: #1976d2;
-//       }
-//     }
-//   }
-// }
+      &:hover {
+        background: #1976d2;
+      }
+    }
+  }
+}
 
-// // Utility classes
-// .p18 { padding: 18px; }
-// .p26 { padding: 26px; }
-// .pt-2 { padding-top: 8px; }
-// .py-2 { padding: 8px 0; }
-// .d-flex { display: flex; }
-// .align-items-center { align-items: center; }
-// .justify-content-between { justify-content: space-between; }
-// .slot-center { display: flex; justify-content: center; align-items: center; }
-// .div-center { text-align: center; }
-// .between { justify-content: space-between; }
-// .end { justify-content: flex-end; }
-// .gap-3 { gap: 12px; }
-// .gap16 { gap: 16px; }
-// .v-flex { display: flex; flex-direction: column; }
-// .h100 { height: 100%; }
-// .hAuto { height: auto; }
-// .w-100 { width: 100%; }
-// .h36px { height: 36px; }
-// .mW100px { min-width: 100px; }
-// .rounded-5 { border-radius: 5px; }
-// .bt-sm, .btn-sm { font-size: 14px; }
+// Utility classes
+.p18 { padding: 18px; }
+.p26 { padding: 26px; }
+.pt-2 { padding-top: 8px; }
+.py-2 { padding: 8px 0; }
+.d-flex { display: flex; }
+.align-items-center { align-items: center; }
+.justify-content-between { justify-content: space-between; }
+.slot-center { display: flex; justify-content: center; align-items: center; }
+.div-center { text-align: center; }
+.between { justify-content: space-between; }
+.end { justify-content: flex-end; }
+.gap-3 { gap: 12px; }
+.gap16 { gap: 16px; }
+.v-flex { display: flex; flex-direction: column; }
+.h100 { height: 100%; }
+.hAuto { height: auto; }
+.w-100 { width: 100%; }
+.h36px { height: 36px; }
+.mW100px { min-width: 100px; }
+.rounded-5 { border-radius: 5px; }
+.bt-sm, .btn-sm { font-size: 14px; }
 
-// /* Global Snackbar Container Styles */
-// :host-context(.custom-snackbar-container) {
-//   .mat-mdc-snack-bar-container {
-//     --mdc-snackbar-container-color: transparent;
-//     --mat-snack-bar-button-color: #fff;
-//     --mdc-snackbar-supporting-text-color: #fff;
+/* Global Snackbar Container Styles */
+:host-context(.custom-snackbar-container) {
+  .mat-mdc-snack-bar-container {
+    --mdc-snackbar-container-color: transparent;
+    --mat-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #fff;
 
-//     .mat-mdc-simple-snack-bar {
-//       display: none; // Hide default snackbar content
-//     }
-//   }
-// }
+    .mat-mdc-simple-snack-bar {
+      display: none; // Hide default snackbar content
+    }
+  }
+}
 
-// // Animation for toast notifications
-// @keyframes slideInRight {
-//   from {
-//     transform: translateX(100%);
-//     opacity: 0;
-//   }
-//   to {
-//     transform: translateX(0);
-//     opacity: 1;
-//   }
-// }
+// Animation for toast notifications
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
 
-// @keyframes slideOutRight {
-//   from {
-//     transform: translateX(0);
-//     opacity: 1;
-//   }
-//   to {
-//     transform: translateX(100%);
-//     opacity: 0;
-//   }
-// }
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
 
-// .success, .error, .info {
-//   animation: slideInRight 0.3s ease-out;
-// }
+.success, .error, .info {
+  animation: slideInRight 0.3s ease-out;
+}
 
-// .success.ng-leave, .error.ng-leave, .info.ng-leave {
-//   animation: slideOutRight 0.3s ease-in;
-// }
+.success.ng-leave, .error.ng-leave, .info.ng-leave {
+  animation: slideOutRight 0.3s ease-in;
+}

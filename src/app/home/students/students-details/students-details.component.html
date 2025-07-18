@@ -5,9 +5,6 @@
       <i class="bx bx-arrow-back fs-4" style="cursor: pointer" (click)="goBack()"></i>
     </div>
     <div class="d-flex gap-2 align-items-center">
-      <button class="btn btn-primary px-3 rounded-5 btn-sm" (click)="editDetails()">
-        Edit Details
-      </button>
       <i class="bx bx-trash fs-4 cr-pointer" (click)="deliteDetails()"></i>
       <i class="bx bx-dots-vertical fs-4 cr-pointer"></i>
     </div>
@@ -20,11 +17,9 @@
       } @else {
       <div class="initials text-uppercase fw-bold">
         @if (studentDetails.student.user.lastName) {
-        {{ studentDetails.student.user.firstName.charAt(0)
-        }}{{ studentDetails.student.user.lastName.charAt(0) }}
+        {{ studentDetails.student.user.firstName.charAt(0) }}{{ studentDetails.student.user.lastName.charAt(0) }}
         } @else {
-        {{ studentDetails.student.user.firstName.charAt(0)
-        }}{{ studentDetails.student.user.firstName.charAt(1) }}
+        {{ studentDetails.student.user.firstName.charAt(0) }}{{ studentDetails.student.user.firstName.charAt(1) }}
         }
       </div>
       } @if (!isEnabled) {
@@ -36,7 +31,7 @@
       {{ studentDetails.student.user.lastName }}
       ( {{ studentDetails.student.studentId }} )
     </p>
-    <!-- Example single danger button -->
+    <!-- Status dropdown -->
     <div class="btn-group">
       <span class="{{
           studentDetails.student.studentStatusValue
@@ -46,15 +41,15 @@
       <div class="dropdown-menu">
         @for (status of studentDetailsChoices.STUDENT_STATUS_CHOICES; track $index) {
         <a class="dropdown-item" (click)="changeStudentStatus(status.value)">{{status.label}}</a>
-
         }
       </div>
     </div>
   </div>
+
   <div class="icon-row-container mt-4">
     <div class="icon-row">
       <div class="icon-box">
-        <a href="{{ studentDetails.student.user.email }}" class="text-dark text-decoration-none"><i
+        <a href="mailto:{{ studentDetails.student.user.email }}" class="text-dark text-decoration-none"><i
             class="bx bx-envelope"></i></a>
         <span>Email</span>
       </div>
@@ -67,41 +62,41 @@
         <span>Chat</span>
       </div>
       <div class="icon-box">
-        <a href="tel:+91 {{ studentDetails.student.user.mobileNumber }}" class="text-dark text-decoration-none"><i
+        <a href="tel:+91{{ studentDetails.student.user.mobileNumber }}" class="text-dark text-decoration-none"><i
             class="bx bx-phone"></i></a>
         <span>Call</span>
       </div>
     </div>
     <div class="divider-line"></div>
   </div>
+
   <div>
     <form>
       <div class="row">
         <p class="fs-5 fw-bold">Student Details</p>
         <div class="col-md-4">
-          <app-input-control label="First Name" [required]="true" [btnClicked]="isEnabled"
+          <app-input-control label="First Name" [required]="true" [btnClicked]="true"
             [(ngModel)]="studentDetails.student.user.firstName" name="firstName"></app-input-control>
         </div>
         <div class="col-md-4">
-          <app-input-control label="Last Name" [required]="true" [btnClicked]="isEnabled"
+          <app-input-control label="Last Name" [required]="true" [btnClicked]="true"
             [(ngModel)]="studentDetails.student.user.lastName" name="lastName"></app-input-control>
         </div>
         <div class="col-md-4">
-          <app-input-control label="Email" type="email" [required]="true" [btnClicked]="isEnabled"
+          <app-input-control label="Email" type="email" [required]="true" [btnClicked]="true"
             [(ngModel)]="studentDetails.student.user.email" name="email"></app-input-control>
         </div>
         <div class="col-md-4">
-          <app-input-control label="Mobile Number" type="tel" [required]="true" [btnClicked]="isEnabled"
+          <app-input-control label="Mobile Number" type="tel" [required]="true" [btnClicked]="true"
             [(ngModel)]="studentDetails.student.user.mobileNumber" name="mobileNumber"></app-input-control>
         </div>
         <div class="col-md-4">
-          <app-input-control label="Date Of Birth" type="date" [required]="true" [btnClicked]="isEnabled"
+          <app-input-control label="Date Of Birth" type="date" [required]="true" [btnClicked]="true"
             [(ngModel)]="studentDetails.student.user.dateOfBirth" name="dateOfBirth"></app-input-control>
         </div>
         <div class="col-md-4">
-          <app-input-control label="Professions" type="select" [required]="true" [btnClicked]="isEnabled"
-            [(ngModel)]="studentDetails.student.professionsLabel" [items]="studentDetailsChoices.PROFESSIONS_CHOICES"
-            key="value" keyName="label" name="professionsValue"></app-input-control>
+          <app-input-control label="Professions" type="text" [required]="true" [btnClicked]="true"
+            [(ngModel)]="studentDetails.student.professionsLabel" name="professionsValue"></app-input-control>
         </div>
       </div>
       <div class="row mt-4">
@@ -111,23 +106,24 @@
             [(ngModel)]="studentDetails.student.language.name" name="language"></app-input-control>
         </div>
         <div class="col-md-4">
-          <app-input-control label="Course Type" [required]="true" [btnClicked]="isEnabled"
-            [items]="studentDetailsChoices.PROFESSIONS_CHOICES" key="value" keyName="label"
-            type="select"></app-input-control>
+          <app-input-control label="Language Type" [required]="true" [btnClicked]="isEnabled" type="text"
+            [(ngModel)]="studentDetails.student.courseType.level" name="level"></app-input-control>
         </div>
         <div class="col-md-4">
           <app-input-control label="Mode Of Class" [required]="true" [btnClicked]="isEnabled"
             [(ngModel)]="studentDetails.student.modeOfClassLabel" name="modeOfClassLabel"
-            [items]="studentDetailsChoices.BATCH_TYPE_CHOICES" key="value" keyName="label"
-            type="select"></app-input-control>
+            type="text"></app-input-control>
         </div>
         <div class="col-md-4">
-          <app-input-control label="Name Of The Counselor" [required]="true"
-            [btnClicked]="isEnabled"></app-input-control>
+          <app-input-control label="Name Of The Counselor" [required]="true" [btnClicked]="isEnabled"
+            [(ngModel)]="counselorFullName" name="counselorFullName"></app-input-control>
         </div>
+        @if (studentDetails?.student.classroom) {
         <div class="col-md-4">
-          <app-input-control label="Batch Details" [required]="true" [btnClicked]="isEnabled"></app-input-control>
+          <app-input-control label="Batch Details" [required]="true" [btnClicked]="isEnabled"
+            [(ngModel)]="studentDetails?.student.classroom.name" name="batchDetails"></app-input-control>
         </div>
+        }
       </div>
       <div class="row mt-4">
         <p class="fs-5 fw-bold">Payment Details</p>
@@ -141,8 +137,8 @@
             name="amountPaid" [btnClicked]="true"></app-input-control>
         </div>
         <div class="col-md-4">
-          <app-input-control label="Trsnsation ID" [required]="true" [(ngModel)]="studentDetails.student.transactionId"
-            name="transationId" [btnClicked]="true"></app-input-control>
+          <app-input-control label="Transaction ID" [required]="true" [(ngModel)]="studentDetails.student.transactionId"
+            name="transactionId" [btnClicked]="true"></app-input-control>
         </div>
         <div class="col-md-4">
           <app-input-control label="Account Holder Name" [required]="true"
@@ -151,17 +147,18 @@
         </div>
         @if (studentDetails.student.partPaymentDate) {
         <div class="col-md-4">
-          <app-input-control label="part Payment Date" [required]="true"
+          <app-input-control label="Part Payment Date" type="date" [required]="true"
             [(ngModel)]="studentDetails.student.partPaymentDate" name="partPaymentDate"
             [btnClicked]="true"></app-input-control>
         </div>
         }
       </div>
     </form>
+
     <div class="row mt-4">
       <p class="fs-5 fw-bold">Proof Details</p>
 
-      @if (studentDetails.student.aadhar.documentSize > 0) {
+      @if (studentDetails.student.aadhar?.documentSize > 0) {
       <div class="col-3">
         <p>Aadhar Card</p>
         <div class="student-detail-proof aadhar-proof-container position-relative">
@@ -176,7 +173,7 @@
       </div>
       }
 
-      @if (studentDetails.student.paymentConformScreenshot.documentSize > 0) {
+      @if (studentDetails.student.paymentConformScreenshot?.documentSize > 0) {
       <div class="col-3">
         <p>Payment Confirmation</p>
         <div class="aadhar-proof-container position-relative">
@@ -211,7 +208,7 @@
     <!-- Image Preview Modal -->
     <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-labelledby="imagePreviewModalLabel"
       aria-hidden="true">
-      <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-body text-center m-0 p-0">
             <img [src]="previewImageUrl" alt="{{ previewTitle }}" class="img-fluid rounded">
@@ -219,6 +216,7 @@
         </div>
       </div>
     </div>
+
     @if (false) {
     <div class="history-container mt-4">
       <p class="fs-5 fw-bold">Lead History</p>
@@ -229,7 +227,6 @@
             <p class="m-0 p-0 text-muted small">Next Changes ...</p>
           </div>
         </div>
-        <!--  -->
         <div class="timeline-item d-flex align-items-end gap-2 mb-2">
           <div class="timeline-dot"></div>
           <div class="timeline-content bg-light py-1 px-2 rounded">
@@ -254,6 +251,97 @@
     </div>
     }
   </div>
+
+  @if (videoRecords.length > 0) {
+  <div class="mt-4">
+    <p class="fs-5 fw-bold">Class video Record</p>
+    <div class="table-responsive mt-2 mx-n1 px-1">
+      <table class="table table-hover mb-0 Students-table border-top border-translucent">
+        <thead>
+          <tr>
+            <th class="sort text-nowrap align-middle text-uppercase small" scope="col" data-sort="name">
+              Class Record video & Name
+            </th>
+            <th class="sort text-nowrap align-middle ps-4 pe-5 text-uppercase small border-translucent" scope="col"
+              data-sort="email">
+              <div class="d-inline-flex flex-center">
+                <div class="d-flex align-items-center px-1 py-1 bg-success-subtle rounded me-2">
+                  <img src="assets/table_svg/gmail.svg" alt="" />
+                </div>
+                <span>Notes</span>
+              </div>
+            </th>
+            <th class="sort small text-nowrap align-middle text-uppercase border-translucent" scope="col"
+              data-sort="phone">
+              <div class="d-inline-flex flex-center">
+                <div class="d-flex align-items-center px-1 py-1 bg-primary-subtle rounded me-2">
+                  <img src="assets/table_svg/phone.svg" alt="" />
+                </div>
+                <span>Created Date</span>
+              </div>
+            </th>
+            <th class="sort small text-nowrap align-middle text-uppercase border-translucent" scope="col"
+              data-sort="phone">
+              <div class="d-inline-flex flex-center">
+                <div class="d-flex align-items-center px-1 py-1 bg-primary-subtle rounded me-2">
+                  <img src="assets/table_svg/phone.svg" alt="" />
+                </div>
+                <span>Action</span>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody class="list" id="leal-tables-body">
+          @for (videoRecord of videoRecords; track $index) {
+          <tr class=" btn-reveal-trigger position-static table-row">
+            <td class="name align-middle white-space-nowrap">
+              <div class="d-flex align-items-center">
+                <a class="text-decoration-none">
+                  <div class="avatar avatar-xl me-3">
+                    <video [src]="videoRecord.document.documentContant" width="100"></video>
+                  </div>
+                </a>
+                <div>
+                  <span class="text-truncate d-block">
+                    {{videoRecord.document.documentName}}
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td class="email align-middle white-space-nowrap ps-4  border-translucent">{{videoRecord.notes}}
+            </td>
+            <td
+              class="date small align-middle white-space-nowrap text-body-tertiary text-opacity-85 ps-4 text-body-tertiary">
+              {{videoRecord.createdDate}}
+            </td>
+            <td
+              class="date small align-middle white-space-nowrap text-body-tertiary text-opacity-85 ps-4 text-body-tertiary">
+              @if (videoRecord.id != studentDetails.student.classVideoRecord.id) {
+              <button class="btn btn-sm btn-primary" (click)="sendRecordVideo(videoRecord.id)">
+                Send video
+              </button>
+              }
+              @else {
+                <button class="btn btn-sm btn-outline-danger" disabled (click)="removeRecordVideo(videoRecord.id)">
+                Remove video
+              </button>
+              }
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+      <!-- <mat-paginator
+        [length]="getFilteredData().length"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 25, 50, 100]"
+        (page)="onPageChange($event)"
+      >
+      </mat-paginator> -->
+    </div>
+  </div>
+  }
+
 </div>
 } @else {
 <app-page-loding></app-page-loding>

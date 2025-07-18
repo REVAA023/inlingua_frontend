@@ -1,0 +1,60 @@
+<!-- trainer-attendance.component.html -->
+<div class="attendance-calendar-container">
+  <!-- Header with Month Navigation -->
+  <div class="calendar-header">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="mb-0 fs-5 fw-bold">Trainer Attendance - {{ monthName }} {{ selectedYear }}</h5>
+      <div class="month-navigation">
+        <button class="btn btn-outline-secondary btn-sm me-2" (click)="changeMonth(-1)" [disabled]="isLoading">
+          <i class="bx bx-chevron-left"></i>
+        </button>
+        <button class="btn btn-outline-secondary btn-sm" (click)="changeMonth(1)" [disabled]="isLoading">
+          <i class="bx bx-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-overlay">
+    @if (isLoading) {
+    <div class="loading-container">
+      <app-page-loding></app-page-loding>
+    </div>
+    } @else {
+    <!-- Calendar Grid -->
+    <div class="calendar-wrapper">
+      <div class="attendance-grid">
+        <!-- Header Row with Dates -->
+        <div class="grid-header">
+          <div class="time-header"></div>
+          <div class="date-header" *ngFor="let day of daysInMonth; trackBy: trackByDay">
+            {{ day.toString().padStart(2, '0') }}
+          </div>
+        </div>
+
+        <!-- Time Slot Rows -->
+        <div class="grid-row" *ngFor="let row of calendarRows; trackBy: trackByTimeSlot">
+          <div class="time-label">{{ row.timeSlot }}</div>
+          <div class="attendance-cell" *ngFor="let cell of row.cells; trackBy: trackByCell" [class]="cell.cssClass"
+            [title]="cell.title" (click)="onCellClick(cell)">
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+
+  <!-- Legend -->
+  <div class="calendar-legend">
+    <div class="legend-container">
+      <span class="legend-text">Less</span>
+      <div class="legend-item level-0" title="No attendance"></div>
+      <div class="legend-item level-1" title="Low attendance"></div>
+      <div class="legend-item level-2" title="Normal attendance"></div>
+      <div class="legend-item level-3" title="High attendance"></div>
+      <div class="legend-item level-4" title="Full attendance"></div>
+      <span class="legend-text">More</span>
+    </div>
+  </div>
+</div>

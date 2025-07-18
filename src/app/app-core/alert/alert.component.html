@@ -46,7 +46,6 @@
     <div class="delete-alert-label">
       Confirm Delete
     </div>
-    <div class="p18"></div>
     @if(safeDialogData.msg !== '') {
     <div class="slot-center">
       <div class="delete-alert-msg" [innerHTML]="safeDialogData.msg | appSafe: 'html'">
@@ -71,51 +70,53 @@
 }
 @case ('submitAlert') {
 <div class="v-flex h100 home-dialog-template p-3">
-  <div class="home-dialog-header between">
-    <div class="home-submit-dialog-label">
-      <ion-icon name="warning-outline"></ion-icon> Alert
+    <div class="home-dialog-header between">
+        <div class="home-submit-dialog-label">
+            <ion-icon name="warning-outline"></ion-icon> Alert
+        </div>
     </div>
-  </div>
-  <div class="home-dialog-container">
-    <div class="p26"></div>
-    <div class="slot-center">
-      <div class="delete-dec div-center" [innerHTML]="safeDialogData.msg | appSafe: 'html'">
-      </div>
+    <div class="home-dialog-container">
+        <div class="p26"></div>
+        <div class="slot-center">
+            <div class="delete-dec div-center" [innerHTML]="safeDialogData.msg | appSafe: 'html'">
+            </div>
+        </div>
+        <div class="p26"></div>
     </div>
-    <div class="p26"></div>
-  </div>
-  <div class="home-dialog-footer hAuto">
-    <div class="py-2 d-flex end">
-      <div class=" d-flex gap-3">
-        <a class="btn btn-danger bt-sm slot-center h36px mW100px" appButton="No" (click)="onNoClick()"></a>
-        <button class="btn btn-primary btn-sm px-3 rounded-5" appButton="Yes" (click)="confirmDeletion()"></button>
-      </div>
+    <div class="home-dialog-footer hAuto">
+        <div class="py-2 d-flex end">
+            <div class=" d-flex gap-3">
+                <a class="btn btn-danger bt-sm slot-center h36px mW100px" appButton="No" (click)="onNoClick()"></a>
+                <button class="btn btn-primary btn-sm px-3 rounded-5" appButton="Yes"
+                    (click)="confirmDeletion()"></button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 }
 @case ('alertMsg') {
-<div class="v-flex h100 home-dialog-template p-3">
-  <div class="home-dialog-header between">
-    <div class="home-submit-dialog-label">
-      <div class="d-flex align-items-center justify-content-between">
-        <div class="d-flex align-items-center gap-2">
-        <img src="assets/svg/Warning.svg" alt="" width="28"> <span class="fs-5 fw-bold">Alert</span>
+<div class="v-flex h100 home-dialog-template">
+    <div class="home-dialog-header between">
+        <div class="home-submit-dialog-label fs-5 fw-bold">
+            <ion-icon name="warning-outline"></ion-icon> Alert
         </div>
-        <a class="p-0 slot-center h36px mW100px cr-pointer text-dark d-flex align-items-center justify-content-center bg-light" (click)="onNoClick()">
-          <ion-icon name="close-outline" class="fs-5"></ion-icon>
-        </a>
-      </div>
     </div>
-  </div>
-  <div class="home-dialog-container mt-3">
-    <div class="p26"></div>
-    <div class="slot-center">
-      <div class="delete-dec div-center" [innerHTML]="safeDialogData.msg | appSafe: 'html'">
-      </div>
+    <div class="home-dialog-container d-flex flex-column align-items-center justify-content-center pb-3">
+      <img src="assets/svg/upload_missing.svg" alt="" width="150">
+        <div class="slot-center">
+            <div class="delete-dec div-center" [innerHTML]="safeDialogData.msg | appSafe: 'html'">
+            </div>
+        </div>
+        <!-- <div class="p26"></div> -->
     </div>
-    <div class="p26"></div>
-  </div>
+    <div class="p-3 border-top">
+        <div class="d-flex justify-content-end">
+            <div class="">
+                <button class="btn btn-primary" appButton="Ok"
+                    (click)="confirmDeletion()"></button>
+            </div>
+        </div>
+    </div>
 </div>
 }
 @case ('sessionAlert') {
@@ -124,7 +125,7 @@
     <div class="timeout-title">Session <div class="text-effect" data-text="Timeout">Timeout</div>
     </div>
     <div class="timeout-icon-container">
-      <ion-icon src="svg/504 _Error_Gateway _timeout.svg" class="timeout-icon" />
+      <ion-icon src="assets/svg/Session_timeout.svg" class="timeout-icon w-100 h-100" />
     </div>
     <div class="timeout-message" [innerHTML]="safeDialogData.msg | appSafe: 'html'"></div>
     <button class="btn-primary w-100" (click)="confirm()">Go to Login</button>
