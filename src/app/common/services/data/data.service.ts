@@ -69,18 +69,6 @@ export class DataService implements OnDestroy {
       try {
         const token = await this.storage.get('token');
         if (!token) {
-          this.dialog.open(AlertComponent, {
-            data: <DialogData>{
-              msg: 'Please upload Class Record Video',
-              type: 'sessionAlert',
-              flag: true,
-              header: 'Missing Document',
-              confirmationText: '',
-              closeIconHidden: false,
-            },
-            disableClose: true,
-            hasBackdrop: true
-          });
           this.router.navigateByUrl('login');
         } else {
           this.token = token;
@@ -94,9 +82,24 @@ export class DataService implements OnDestroy {
   }
 
   async init() {
+    debugger
     const userData = await this.storage.get('userData');
     if (userData !== null && userData !== undefined) {
       this.appService.user = userData;
+    }
+    else {
+      this.dialog.open(AlertComponent, {
+        data: <DialogData>{
+          msg: 'Your session has expired. Please login again.',
+          type: 'sessionAlert',
+          flag: true,
+          header: 'Missing Document',
+          confirmationText: '',
+          closeIconHidden: false,
+        },
+        disableClose: true,
+        hasBackdrop: true
+      });
     }
   }
 

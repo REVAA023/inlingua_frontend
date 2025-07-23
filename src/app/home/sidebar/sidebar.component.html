@@ -22,7 +22,10 @@
       <ul class="menu-links">
         <li class="nav-link">
           <a routerLink="dashboard" routerLinkActive="active">
-            <i class="bx bxs-dashboard icon"></i>
+            <ion-icon
+              src="assets/svg/dashboard.svg"
+              class="icon icon-img"
+            ></ion-icon>
             <span class="text nav-text">Dashboard</span>
           </a>
         </li>
@@ -39,7 +42,10 @@
         } @if (appservice.user.userRole === "SUSER") {
         <li class="nav-link">
           <a routerLink="students" routerLinkActive="active">
-            <i class="bx bx-user icon"></i>
+            <ion-icon
+              src="assets/svg/Students-icon.svg"
+              class="icon icon-img"
+            ></ion-icon>
             <span class="text nav-text">Students</span>
           </a>
         </li>
@@ -55,7 +61,10 @@
         </li>
         <li class="nav-link">
           <a routerLink="trainers" routerLinkActive="active">
-            <i class="bx bx-bell icon"></i>
+            <ion-icon
+              src="assets/svg/trainer.svg"
+              class="icon icon-img"
+            ></ion-icon>
             <span class="text nav-text">Trainers</span>
           </a>
         </li>
@@ -63,7 +72,10 @@
         === "TRAINER") {
         <li class="nav-link">
           <a routerLink="batchs" routerLinkActive="active">
-            <i class="bx bx-video icon"></i>
+            <ion-icon
+              src="assets/svg/classroom.svg"
+              class="icon icon-img"
+            ></ion-icon>
             <span class="text nav-text">Batchs</span>
           </a>
         </li>

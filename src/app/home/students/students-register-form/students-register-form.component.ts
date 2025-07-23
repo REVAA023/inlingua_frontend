@@ -26,10 +26,13 @@ import { UrlService } from '../../../common/services/url/url.service';
   styleUrl: './students-register-form.component.scss'
 })
 export class StudentsRegisterFormComponent {
-  currentStep = 2;
+  currentStep = 1;
   errorTrue = false;
 
   registersheet = new entRegisterForm();
+
+  formLanguageId: any;
+
   languages: any = {};
   levelAndHour: any = {};
   studentDetailsChoices: any = {};
@@ -149,6 +152,7 @@ export class StudentsRegisterFormComponent {
     if (this.currentStep === 1) {
       if (this.registersheet.aadharCard.documentSize) {
         this.currentStep++;
+        console.log(this.registersheet.aadharCard)
         return;
       }
 

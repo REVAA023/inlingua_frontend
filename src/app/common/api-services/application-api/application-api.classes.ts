@@ -1,8 +1,8 @@
 export class entRegisterForm {
   MobileNumber = "";
-  languageId = 0;
-  courseTypeId = 0;
-  counselorId = 0;
+  languageId = "";
+  courseTypeId = "";
+  counselorId = "";
   amount: number | undefined;
   FirstName = "";
   LastName = "";
