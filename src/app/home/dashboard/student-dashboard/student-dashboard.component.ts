@@ -1,11 +1,13 @@
 // student-dashboard.component.ts
-import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Chart, DoughnutController, ArcElement, Tooltip, Legend } from 'chart.js';
 import { AppService } from '../../../app.service';
 import { DataService } from '../../../common/services/data/data.service';
 import { ApplicationApiService } from '../../../common/api-services/application-api/application-api.service';
 import { PageLodingComponent } from '../../../app-core/page-loding/page-loding.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { WebSocketService } from '../../../common/WebSocketService/web-socket-service';
+import { Subscription } from 'rxjs';
 
 Chart.register(DoughnutController, ArcElement, Tooltip, Legend);
 
@@ -18,7 +20,8 @@ Chart.register(DoughnutController, ArcElement, Tooltip, Legend);
   templateUrl: './student-dashboard.component.html',
   styleUrl: './student-dashboard.component.scss',
 })
-export class StudentDashboardComponent implements OnInit {
+export class StudentDashboardComponent implements OnInit, OnDestroy {
+  private wsSub!: Subscription;
   @ViewChild('videoPlayer') videoPlayer!: ElementRef<HTMLVideoElement>;
   @ViewChild('videoContainer') videoContainer!: ElementRef<HTMLDivElement>;
   @ViewChild('videoRange') videoRange!: ElementRef<HTMLInputElement>;
@@ -27,8 +30,8 @@ export class StudentDashboardComponent implements OnInit {
   // Component state properties
   isLoading = false;
   percentage = 75;
-  studentDetails: any;
-  StudyMaterial: any;
+  studentDetails: any = null;
+  StudyMaterial: any = null;
   today!: string;
 
   // Video player properties
@@ -47,14 +50,31 @@ export class StudentDashboardComponent implements OnInit {
   constructor(
     public data: DataService,
     public appService: AppService,
-    private apiService: ApplicationApiService
+    private apiService: ApplicationApiService,
+    private webSocketService: WebSocketService
   ) { }
 
   async ngOnInit(): Promise<void> {
     await this.data.checkToken();
     this.setToday();
-    this.getStudentDetails();
+
+    // First load student details, then setup WebSocket
+    await this.getStudentDetails();
+    this.setupWebSocket();
     this.setupFullscreenListener();
+  }
+
+  private setupWebSocket(): void {
+    this.webSocketService.connectClassroomUpdates();
+    this.wsSub = this.webSocketService.getMessages().subscribe(data => {
+      console.log('WebSocket message received:', data);
+      // Safe check before accessing nested properties
+      if (this.studentDetails && this.studentDetails.classroom) {
+        this.studentDetails.classroom.isActive = data.is_active;
+      } else {
+        console.warn('Student details or classroom not available when WebSocket message received');
+      }
+    });
   }
 
   setToday(): void {
@@ -70,20 +90,38 @@ export class StudentDashboardComponent implements OnInit {
     this.today = `${formattedDate} | ${dayName}`;
   }
 
-  getStudentDetails(): void {
-    const payload = {
-      studentId: this.appService.user
-    };
-    this.apiService.getStudent(payload).subscribe((response: any) => {
-      this.studentDetails = response.student;
-      this.StudyMaterial = response.study_material;
-      this.isLoading = true;
-      console.log('Student Details:', this.studentDetails);
+  async getStudentDetails(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const payload = {
+        studentId: this.appService.user
+      };
+
+      this.apiService.getStudent(payload).subscribe({
+        next: (response: any) => {
+          this.studentDetails = response.student || null;
+          this.StudyMaterial = response.study_material || null;
+          this.isLoading = true;
+          console.log('Student Details:', this.studentDetails);
+          resolve();
+        },
+        error: (error) => {
+          console.error('Error loading student details:', error);
+          this.isLoading = true;
+          reject(error);
+        }
+      });
     });
   }
 
   // Video Player Methods
   playVideo(): void {
+    // Check if video record exists
+    if (!this.studentDetails?.classVideoRecord?.document?.documentContant) {
+      console.error('No video content available');
+      this.showNotification('No video content available', 'error');
+      return;
+    }
+
     this.showvideoContainer = true;
     // Allow some time for the video element to be rendered
     setTimeout(() => {
@@ -96,41 +134,64 @@ export class StudentDashboardComponent implements OnInit {
   setupVideoEvents(): void {
     const video = this.videoPlayer.nativeElement;
 
-    video.addEventListener('loadedmetadata', () => {
-      this.videoDuration = video.duration;
-    });
+    // Remove existing event listeners to prevent duplicates
+    video.removeEventListener('loadedmetadata', this.onLoadedMetadata);
+    video.removeEventListener('timeupdate', this.onTimeUpdate);
+    video.removeEventListener('play', this.onPlay);
+    video.removeEventListener('pause', this.onPause);
+    video.removeEventListener('volumechange', this.onVolumeChange);
+    video.removeEventListener('ended', this.onEnded);
 
-    video.addEventListener('timeupdate', () => {
-      this.currentVideoTime = video.currentTime;
-      this.updateVideoProgressBar();
-    });
-
-    video.addEventListener('play', () => {
-      this.isVideoPlaying = true;
-      this.startControlsAutoHide();
-    });
-
-    video.addEventListener('pause', () => {
-      this.isVideoPlaying = false;
-      this.showControls();
-    });
-
-    video.addEventListener('volumechange', () => {
-      this.videoVolume = video.volume;
-      this.isMuted = video.muted;
-      this.updateVolumeProgressBar();
-    });
-
-    video.addEventListener('ended', () => {
-      this.isVideoPlaying = false;
-      this.showControls();
-    });
+    // Add event listeners
+    video.addEventListener('loadedmetadata', this.onLoadedMetadata);
+    video.addEventListener('timeupdate', this.onTimeUpdate);
+    video.addEventListener('play', this.onPlay);
+    video.addEventListener('pause', this.onPause);
+    video.addEventListener('volumechange', this.onVolumeChange);
+    video.addEventListener('ended', this.onEnded);
+    video.addEventListener('error', this.onVideoError);
 
     // Initialize progress bars
     setTimeout(() => {
       this.updateVideoProgressBar();
       this.updateVolumeProgressBar();
     }, 100);
+  }
+
+  // Event handler methods (bound to preserve 'this' context)
+  private onLoadedMetadata = () => {
+    this.videoDuration = this.videoPlayer.nativeElement.duration;
+  }
+
+  private onTimeUpdate = () => {
+    this.currentVideoTime = this.videoPlayer.nativeElement.currentTime;
+    this.updateVideoProgressBar();
+  }
+
+  private onPlay = () => {
+    this.isVideoPlaying = true;
+    this.startControlsAutoHide();
+  }
+
+  private onPause = () => {
+    this.isVideoPlaying = false;
+    this.showControls();
+  }
+
+  private onVolumeChange = () => {
+    this.videoVolume = this.videoPlayer.nativeElement.volume;
+    this.isMuted = this.videoPlayer.nativeElement.muted;
+    this.updateVolumeProgressBar();
+  }
+
+  private onEnded = () => {
+    this.isVideoPlaying = false;
+    this.showControls();
+  }
+
+  private onVideoError = (event: any) => {
+    console.error('Video error:', event);
+    this.showNotification('Error loading video', 'error');
   }
 
   updateVideoProgressBar(): void {
@@ -154,11 +215,23 @@ export class StudentDashboardComponent implements OnInit {
   }
 
   togglePlayPause(): void {
+    if (!this.videoPlayer?.nativeElement) {
+      console.error('Video player not available');
+      return;
+    }
+
     const video = this.videoPlayer.nativeElement;
+
     if (this.isVideoPlaying) {
       video.pause();
     } else {
-      video.play();
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.error('Play failed:', error);
+          this.showNotification('Failed to play video', 'error');
+        });
+      }
     }
     this.showControls();
   }
@@ -397,10 +470,46 @@ export class StudentDashboardComponent implements OnInit {
       clearTimeout(this.controlsTimeout);
     }
 
+    // Pause video and reset
+    if (this.videoPlayer?.nativeElement) {
+      const video = this.videoPlayer.nativeElement;
+      video.pause();
+      video.currentTime = 0;
+
+      // Remove event listeners to prevent memory leaks
+      video.removeEventListener('loadedmetadata', this.onLoadedMetadata);
+      video.removeEventListener('timeupdate', this.onTimeUpdate);
+      video.removeEventListener('play', this.onPlay);
+      video.removeEventListener('pause', this.onPause);
+      video.removeEventListener('volumechange', this.onVolumeChange);
+      video.removeEventListener('ended', this.onEnded);
+      video.removeEventListener('error', this.onVideoError);
+    }
+
     this.showvideoContainer = false;
     this.isVideoPlaying = false;
     this.currentVideoTime = 0;
     this.isControlsVisible = true;
+  }
+
+  // Method to check if video is available
+  hasVideoContent(): boolean {
+    return !!(this.studentDetails?.classVideoRecord?.document?.documentContant);
+  }
+
+  // Method to get video source safely
+  getVideoSource(): string {
+    return this.studentDetails?.classVideoRecord?.document?.documentContant || '';
+  }
+
+  // Method to get video creation date
+  getVideoDate(): string {
+    return this.studentDetails?.classVideoRecord?.document?.createdDate || 'Unknown Date';
+  }
+
+  // Method to get video notes
+  getVideoNotes(): string {
+    return this.studentDetails?.classVideoRecord?.notes || 'No notes available';
   }
 
   // Utility methods
@@ -505,5 +614,11 @@ export class StudentDashboardComponent implements OnInit {
     if (this.isFullscreen) {
       this.exitFullscreen();
     }
+
+    // Close connection and unsubscribe
+    if (this.wsSub) {
+      this.wsSub.unsubscribe();
+    }
+    this.webSocketService.closeConnection();
   }
 }

@@ -10,6 +10,8 @@ import { AppService } from '../../../app.service';
 import { FileSelectorComponent } from '../../../app-core/form-input/file-selector/file-selector.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertComponent, DialogData } from '../../../app-core/alert/alert.component';
+import { Subscription } from 'rxjs';
+import { WebSocketService } from '../../../common/WebSocketService/web-socket-service';
 
 @Component({
   selector: 'app-batch-details',
@@ -23,6 +25,8 @@ import { AlertComponent, DialogData } from '../../../app-core/alert/alert.compon
   styleUrl: './batch-details.component.scss'
 })
 export class BatchDetailsComponent {
+  private wsSub!: Subscription;
+
   isLoading = false;
   isEnabled = true;
   errorTrue = false;
@@ -85,6 +89,7 @@ export class BatchDetailsComponent {
     private apiService: ApplicationApiService,
     public appservice: AppService,
     private dialog: MatDialog,
+    private webSocketService: WebSocketService,
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -97,7 +102,23 @@ export class BatchDetailsComponent {
     };
     this.batchIdPayload = payload;
     this.getBatchDetails(payload);
+    // Connect to backend
+    this.webSocketService.connectClassroomUpdates();
 
+    // Listen for messages
+    this.wsSub = this.webSocketService.getMessages().subscribe(data => {
+      if (this.batchDetails.id === data.id) {
+        this.batchDetails.isActive = data.is_active;
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    // Close connection and unsubscribe
+    if (this.wsSub) {
+      this.wsSub.unsubscribe();
+    }
+    this.webSocketService.closeConnection();
   }
 
   edit_class_room() {
@@ -206,8 +227,8 @@ export class BatchDetailsComponent {
     console.log('Payload:', this.videoRecordForm);
     // Add your API call here
     this.apiService.saveVideoRecord(this.videoRecordForm).subscribe((response: any) => {
-        console.log('Success:', response);
-        this.cancelForm();
+      console.log('Success:', response);
+      this.cancelForm();
 
     });
   }
@@ -259,5 +280,6 @@ export class BatchDetailsComponent {
         });
       }
     }
+
   }
 }

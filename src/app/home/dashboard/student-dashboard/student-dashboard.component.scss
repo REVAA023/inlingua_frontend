@@ -1,5 +1,13 @@
+/* student-dashboard.component.scss */
+
+// Card styles
 .card {
   background-color: #E1EAF9;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
 }
 
 .card-heading p {
@@ -7,58 +15,20 @@
   font-size: 1.2rem;
 }
 
+// Button styles
+.btn {
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+// Circular Progress Chart
 .circular-progress-container {
   position: relative;
   width: 100px;
   height: 100px;
-}
-
-.circular-chart {
-  width: 100%;
-  height: 100%;
-  transform: rotate(-90deg);
-}
-
-.circle-bg {
-  fill: none;
-  stroke: #d6d6d6;
-  stroke-width: 3.8;
-}
-
-.circle {
-  fill: none;
-  stroke: #00bfff;
-  stroke-width: 3.8;
-  transition: stroke-dashoffset 0.5s ease;
-}
-
-.percentage-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-weight: bold;
-  font-size: 20px;
-  color: #000;
-}
-
-.video-container {
-  position: relative;
-  background-color: #fff;
-  border-radius: 0.375rem;
-  overflow: hidden;
-}
-
-.video-controls {
-  transition: opacity 0.3s ease;
-}
-
-.video-container:hover .video-controls {
-  opacity: 1;
-}
-
-.circular-progress-container {
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,9 +36,12 @@
 
 .circular-chart {
   display: block;
-  margin: 10px auto;
+  width: 100%;
+  height: 100%;
   max-width: 80%;
   max-height: 250px;
+  margin: 10px auto;
+  transform: rotate(-90deg);
 }
 
 .circle-bg {
@@ -83,6 +56,7 @@
   stroke-width: 2.8;
   stroke-linecap: round;
   animation: progress 1s ease-in-out forwards;
+  transition: stroke-dashoffset 0.5s ease;
 }
 
 .percentage-text {
@@ -101,20 +75,171 @@
   }
 }
 
-.card {
-  transition: transform 0.2s ease-in-out;
+// Video Player Styles with Screen Recording Protection
+.video-container {
+  position: relative;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+  overflow: hidden;
+  cursor: pointer;
+
+  // Screen recording protection
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+
+  // Prevent dragging
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  // user-drag: none;
+
+  video {
+    width: 100%;
+    height: auto;
+    display: block;
+
+    // Additional video protection
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    // user-drag: none;
+    pointer-events: auto;
+
+    // Disable picture-in-picture and download
+    &::-webkit-media-controls {
+      display: none !important;
+    }
+
+    &::-webkit-media-controls-enclosure {
+      display: none !important;
+    }
+
+    &::-webkit-media-controls-panel {
+      display: none !important;
+    }
+  }
+
+  &.fullscreen-container {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 9999 !important;
+    border-radius: 0 !important;
+    background: #000;
+
+    video {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: contain;
+    }
+  }
 }
 
-.card:hover {
-  transform: translateY(-2px);
+// Screen recording protection overlay
+.video-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  z-index: 1;
+  pointer-events: none;
 }
 
-.btn {
-  transition: all 0.2s ease-in-out;
+// Watermark overlay for additional protection
+.video-container::after {
+  content: 'inlingua Language Center';
+  position: absolute;
+  top: 50%;
+  right: 25%;
+  transform: translate(50%, -50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0.5;
 }
 
-.btn:hover {
-  transform: translateY(-1px);
+.fullscreen-video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain;
+}
+
+// Video Controls
+.video-controls {
+  transition: opacity 0.3s ease;
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.8) !important;
+
+  &.fullscreen-controls {
+    padding: 1rem !important;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8)) !important;
+
+    .time-display {
+      font-size: 1rem !important;
+      margin: 0 0.5rem;
+    }
+
+    .btn {
+      padding: 0.5rem !important;
+      border: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+      }
+
+      i {
+        font-size: 1.2rem !important;
+      }
+    }
+
+    .volume-container {
+      width: 120px;
+    }
+  }
+
+  .btn {
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+    }
+  }
+}
+
+.video-container:hover .video-controls {
+  opacity: 1;
+}
+
+// Show controls when video is paused or in fullscreen
+.video-container.fullscreen-container .video-controls {
+  opacity: 1;
 }
 
 // Custom Range Slider Styles - No Thumb, Keep Progress
@@ -195,7 +320,7 @@
 }
 
 .volume-range {
-  width: 80px;
+  width: 100px;
 }
 
 .video-range {
@@ -219,72 +344,70 @@
   position: relative;
   display: flex;
   align-items: center;
-}
-
-// Add these styles to your existing SCSS file
-
-.video-container {
-  position: relative;
-  background: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.375rem;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
   overflow: hidden;
-  cursor: pointer;
 
-  &.fullscreen-container {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    z-index: 9999 !important;
-    border-radius: 0 !important;
-    background: #000;
+  input[type="range"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+
+    &::-webkit-slider-thumb {
+      appearance: none;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #007bff;
+      cursor: pointer;
+      border: 2px solid white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    &::-moz-range-thumb {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #007bff;
+      cursor: pointer;
+      border: 2px solid white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .progress-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: #007bff;
+    transition: width 0.1s ease;
+    z-index: 1;
+  }
+
+  &.volume-container {
+    width: 100px;
+    margin-left: 5px;
+
+    .progress-overlay {
+      background: #28a745;
+    }
   }
 }
 
-.fullscreen-video {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: contain;
-}
-
-.video-controls {
-  transition: opacity 0.3s ease;
-  opacity: 0;
-
-  &.fullscreen-controls {
-    padding: 1rem !important;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8)) !important;
-
-    .time-display {
-      font-size: 1rem !important;
-      margin: 0 0.5rem;
-    }
-
-    .btn {
-      padding: 0.5rem !important;
-
-      i {
-        font-size: 1.2rem !important;
-      }
-    }
-
-    .volume-container {
-      width: 120px;
-    }
-  }
-}
-
-.video-container:hover .video-controls {
-  opacity: 1;
-}
-
-// Show controls when video is paused or in fullscreen
-.video-container.fullscreen-container .video-controls {
-  opacity: 1;
+// Time display
+.time-display {
+  min-width: 80px;
+  text-align: center;
+  font-family: monospace;
+  color: white;
+  font-size: 0.9rem;
 }
 
 // Fullscreen overlay for play/pause
@@ -303,6 +426,7 @@
   pointer-events: none;
 
   &.show {
+    opacity: 1;
     pointer-events: auto;
   }
 
@@ -315,17 +439,110 @@
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(10px);
-    opacity: 0;
+    opacity: 0.8;
     transform: scale(0.8);
     transition: all 0.3s ease;
 
     i {
-      font-size: 2.5rem;
+      font-size: 3rem;
       color: #000;
-      margin-left: 4px; // Slight offset for play icon
     }
   }
-  .volume-range{
-    width: 100px;
+}
+
+// Additional protection styles
+.protected-content {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  -webkit-touch-callout: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+
+  * {
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    -webkit-user-drag: none !important;
+    -khtml-user-drag: none !important;
+    -moz-user-drag: none !important;
+    -o-user-drag: none !important;
+    // user-drag: none !important;
   }
+}
+
+// Hide scrollbars in fullscreen to prevent UI interference
+.fullscreen-container::-webkit-scrollbar {
+  display: none;
+}
+
+.fullscreen-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+// Screen recording warning overlay
+.screen-recording-warning {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 0, 0, 0.9);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+
+  .warning-content {
+    max-width: 600px;
+    padding: 2rem;
+
+    h2 {
+      margin-bottom: 1rem;
+    }
+
+    p {
+      margin-bottom: 2rem;
+      font-size: 1.2rem;
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .video-container {
+    &.fullscreen-container {
+      .video-controls {
+        padding: 10px;
+
+        .d-flex {
+          flex-wrap: wrap;
+          gap: 5px;
+        }
+
+        .time-display {
+          min-width: 60px;
+          font-size: 0.75rem;
+        }
+      }
+    }
+  }
+
+  .range-container {
+    &.volume-container {
+      width: 60px;
+    }
+  }
+}
+
+// Loading spinner
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
 }

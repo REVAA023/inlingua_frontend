@@ -1,164 +1,285 @@
+<!-- student-dashboard.component.html -->
 @if (isLoading) {
-@if (studentDetails?.classroom) {
-@if (false) {
-<div class="alert alert-success">
-  <div class="">
-    <div class="">
-      <p class="fs-5 fw-bold">
-        Assessment - {{studentDetails?.classroom.assessmentDate}} | {{studentDetails?.classroom.startTime}} -
-        {{studentDetails?.classroom.endTime}}
-      </p>
-      <p>
-        Lorem ipsum dolor aliquid, a magnam ducimus natus nostrum? Autem,
-        incidunt! Quae odio iure perferendis quia porro veritatis
-        laudantium, labore distinctio nemo?
-      </p>
-      <button class="btn btn-sm btn-success">Write assessment</button>
-    </div>
-  </div>
-</div>
-}
-@if (studentDetails?.classroom) {
-<div>
-  <p class="fs-5 fw-bold">Student Dashboard</p>
-
-  <!-- Welcome Section -->
-  <div class="main-container pb-2">
-    <div class="alert" style="background-color: #e1eaf9">
-      <div class="row">
-        <div class="col-md-8">
-          <div class="w-100 h-100 d-flex flex-column justify-content-end align-items-start">
-            <div class="">
-              <p>{{today}}</p>
-            </div>
-            <p class="fs-5 fw-bold text-primary m-0">
-              Welcome Back, {{studentDetails?.studentId}}
+  @if (studentDetails?.classroom) {
+    @if (false) {
+      <div class="alert alert-success">
+        <div class="">
+          <div class="">
+            <p class="fs-5 fw-bold">
+              Assessment - {{studentDetails?.classroom.assessmentDate}} | {{studentDetails?.classroom.startTime}} -
+              {{studentDetails?.classroom.endTime}}
             </p>
             <p>
               Lorem ipsum dolor aliquid, a magnam ducimus natus nostrum? Autem,
               incidunt! Quae odio iure perferendis quia porro veritatis
               laudantium, labore distinctio nemo?
             </p>
-            @if (studentDetails?.classroom.isActive) {
-            <a href="{{studentDetails?.classroom.googleMeetLink}}" class="btn btn-primary px-4 rounded-5"
-              target="_blank">Start Class</a>
-            }
-            @else {
-            <button class="btn btn-primary px-4 rounded-5 disabled">Start
-              Class</button>
-            }
-          </div>
-        </div>
-        <div class="col-md-4 img-container">
-          <img src="Student-Dashboard2.svg" alt="" />
-        </div>
-      </div>
-    </div>
-
-    <!-- showvideoContainer -->
-
-
-    <!-- Tracking Section -->
-    <div class="">
-      <p class="fs-5 fw-bold m-0 mt-3">Tracking</p>
-      <div class="row mb-3">
-        <!-- Attendance Card -->
-        <div class="col-md-3 mt-3">
-          <div class="border p-3 rounded card h-100">
-            <div class="card-heading">
-              <p class="fw-bold fs-5">Attendance</p>
-            </div>
-            <div class="card-body d-flex flex-column justify-content-center align-items-center">
-              <p class="fs-5 fw-bold border p-3 rounded-circle d-flex align-items-center justify-content-center"
-                style="height: 100px; width: 100px;">
-                20/20
-              </p>
-              <p class="text-center">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum quaerat, optio facere
-                natus adipisci voluptatum</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Class Status Card -->
-        <div class="col-md-3 mt-3">
-          <div class="border p-3 rounded card h-100">
-            <div class="card-heading">
-              <p class="fw-bold fs-5">Class Status</p>
-            </div>
-            <div class="card-body d-flex flex-column justify-content-center align-items-center">
-              <div class="circular-progress-container w-100 h-100">
-                <svg viewBox="0 0 36 36" class="circular-chart w-100 h-100">
-                  <circle class="circle-bg" cx="18" cy="18" r="15.9155" />
-                  <circle class="circle" cx="18" cy="18" r="15.9155" [attr.stroke-dasharray]="'100, 100'"
-                    [attr.stroke-dashoffset]="100 - studentDetails?.classroom.isComplited" />
-                </svg>
-                <div class="fs-3 fw-bold percentage-text text-center">{{studentDetails?.classroom.isComplited}}%</div>
-              </div>
-              <div class="d-flex justify-content-between align-items-center w-100 mt-3">
-                <div class="w-100">
-                  <p class="text-truncate">{{studentDetails?.classroom.name}}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Attachment Card -->
-        <div class="col-md-3 mt-3">
-          <div class="border p-3 rounded card h-100">
-            <div class="card-heading">
-              <p class="fw-bold fs-5">Attachment</p>
-            </div>
-            <div class="card-body d-flex flex-column justify-content-center align-items-center">
-              <div class="circular-progress-container w-100 h-100">
-                <img src="studets_metirials.svg" alt="">
-              </div>
-              <div class="d-flex justify-content-between align-items-center w-100 mt-3">
-                <div>
-                  <button class="btn btn-primary px-3 rounded-5">Download</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Missing Class Card -->
-        <div class="col-md-3 mt-3">
-          <div class="border p-3 rounded card h-100">
-            <div class="card-heading">
-              <p class="fw-bold fs-5">Missing class</p>
-            </div>
-            <div class="card-body d-flex flex-column justify-content-center align-items-center">
-              <div class="circular-progress-container w-100 h-100">
-                <img src="assets/svg/online_missing_class.svg" alt="">
-              </div>
-              <div class="d-flex justify-content-between align-items-center w-100 mt-3">
-                <div class="w-100">
-                  <p class="text-truncate">Missing Class Recording</p>
-                  <button class="btn btn-primary px-3 rounded-5" >Show recording class</button>
-                </div>
-              </div>
-            </div>
+            <button class="btn btn-sm btn-success">Write assessment</button>
           </div>
         </div>
       </div>
+    }
+
+    @if (studentDetails?.classroom) {
+      <div>
+        <p class="fs-5 fw-bold">Student Dashboard</p>
+
+        <!-- Welcome Section -->
+        <div class="main-container pb-2">
+          <div class="alert" style="background-color: #e1eaf9">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="w-100 h-100 d-flex flex-column justify-content-end align-items-start">
+                  <div class="">
+                    <p>{{today}}</p>
+                  </div>
+                  <p class="fs-5 fw-bold text-primary m-0">
+                    Welcome Back, {{studentDetails?.studentId}}
+                  </p>
+                  <p>
+                    Lorem ipsum dolor aliquid, a magnam ducimus natus nostrum? Autem,
+                    incidunt! Quae odio iure perferendis quia porro veritatis
+                    laudantium, labore distinctio nemo?
+                  </p>
+                  @if (studentDetails?.classroom.isActive) {
+                    <a href="{{studentDetails?.classroom.googleMeetLink}}" class="btn btn-primary px-4 rounded-5"
+                      target="_blank">Start Class</a>
+                  } @else {
+                    <button class="btn btn-primary px-4 rounded-5 disabled">Start Class</button>
+                  }
+                </div>
+              </div>
+              <div class="col-md-4 img-container">
+                <img src="Student-Dashboard2.svg" alt="" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Video Container -->
+          @if (showvideoContainer && hasVideoContent()) {
+            <!-- Video Player Section -->
+            <div class="mt-3">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <p class="fs-5 fw-bold">{{getVideoDate()}} class record - Online Play</p>
+                <button class="btn btn-sm btn-secondary" (click)="closeVideo()">
+                  <i class="bx fa-times"></i> Close
+                </button>
+              </div>
+
+              <div class="row">
+                <!-- Updated video container section -->
+                <div class="col-6">
+                  <!-- Custom Video Player with Fullscreen Container -->
+                  <div #videoContainer class="video-container protected-content position-relative"
+                       [class.fullscreen-container]="isFullscreen"
+                       (mousemove)="onMouseMove()">
+                    <video #videoPlayer
+                           [src]="getVideoSource()"
+                           class="w-100 rounded"
+                           [class.fullscreen-video]="isFullscreen"
+                           preload="metadata"
+                           (loadeddata)="setupVideoEvents()"
+                           (dblclick)="onVideoDoubleClick()"
+                           controlslist="nodownload noremoteplaybook"
+                           disablepictureinpicture="true"
+                           oncontextmenu="return false">
+                      Your browser does not support the video tag.
+                    </video>
+
+                    <!-- Custom Video Controls -->
+                    <div class="video-controls position-absolute bottom-0 start-0 end-0 bg-dark bg-opacity-75 p-2"
+                         [class.fullscreen-controls]="isFullscreen">
+                      <div class="d-flex align-items-center gap-2">
+                        <!-- Play/Pause Button -->
+                        <button class="btn btn-sm btn-dark m-0 p-1 rounded-5 d-flex align-items-center"
+                                (click)="togglePlayPause()" title="Play/Pause (Spacebar)">
+                          <i class="bx fs-6 text-light"
+                             [class.bx-play]="!isVideoPlaying"
+                             [class.bx-pause]="isVideoPlaying"></i>
+                        </button>
+
+                        <!-- Progress Bar -->
+                        <div class="flex-grow-1 range-container">
+                          <input type="range"
+                                 class="video-range"
+                                 #videoRange
+                                 [value]="getProgressPercentage()"
+                                 (input)="seekVideo($event)"
+                                 min="0"
+                                 max="100"
+                                 title="Seek video">
+                          <div class="progress-overlay" [style.width.%]="getProgressPercentage()"></div>
+                        </div>
+
+                        <!-- Time Display -->
+                        <span class="text-white small time-display">
+                          {{formatTime(currentVideoTime)}} / {{formatTime(videoDuration)}}
+                        </span>
+
+                        <!-- Volume Control -->
+                        <div class="d-flex align-items-center gap-1">
+                          <button class="btn btn-sm btn-dark m-0 p-1 rounded-5 d-flex align-items-center justify-content-center"
+                                  (click)="toggleMute()" title="Mute/Unmute">
+                            <i class="bx fs-6 text-light"
+                               [class.bx-volume-full]="!isMuted && videoVolume > 0"
+                               [class.bx-volume-mute]="isMuted || videoVolume === 0"></i>
+                          </button>
+                          <div class="range-container volume-container">
+                            <input type="range"
+                                   class="volume-range"
+                                   #volumeRange
+                                   [value]="videoVolume * 100"
+                                   (input)="changeVolume($event)"
+                                   min="0"
+                                   max="100"
+                                   title="Volume">
+                            <div class="progress-overlay" [style.width.%]="videoVolume * 100"></div>
+                          </div>
+                        </div>
+
+                        <!-- Fullscreen Button -->
+                        <button class="btn btn-sm btn-dark m-0 p-1 rounded-5 d-flex align-items-center justify-content-center"
+                                (click)="toggleFullscreen()" title="Toggle Fullscreen (F)">
+                          <i class="bx fs-6 text-light"
+                             [class.bx-fullscreen]="!isFullscreen"
+                             [class.bx-exit-fullscreen]="isFullscreen"></i>
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Fullscreen overlay for better UX -->
+                    <div class="fullscreen-overlay" [class.show]="isFullscreen" (click)="togglePlayPause()">
+                      @if (!isVideoPlaying) {
+                        <div class="play-pause-overlay">
+                          <i class="bx bx-play-circle"></i>
+                        </div>
+                      }
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <p class="fs-5 text-muted fw-bold">Notes :-</p>
+                  <div style="height: 250px; overflow-y:auto;" class="m-0 p-3 border rounded">
+                    <p>{{getVideoNotes()}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+
+          <!-- Tracking Section -->
+          <div class="">
+            <p class="fs-5 fw-bold m-0 mt-3">Tracking</p>
+            <div class="row mb-3">
+              <!-- Attendance Card -->
+              <div class="col-md-3 mt-3">
+                <div class="border p-3 rounded card h-100">
+                  <div class="card-heading">
+                    <p class="fw-bold fs-5">Attendance</p>
+                  </div>
+                  <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                    <p class="fs-5 fw-bold border p-3 rounded-circle d-flex align-items-center justify-content-center"
+                       style="height: 100px; width: 100px;">
+                      20/20
+                    </p>
+                    <p class="text-center">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum quaerat, optio facere
+                      natus adipisci voluptatum</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Class Status Card -->
+              <div class="col-md-3 mt-3">
+                <div class="border p-3 rounded card h-100">
+                  <div class="card-heading">
+                    <p class="fw-bold fs-5">Class Status</p>
+                  </div>
+                  <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                    <div class="circular-progress-container w-100 h-100">
+                      <svg viewBox="0 0 36 36" class="circular-chart w-100 h-100">
+                        <circle class="circle-bg" cx="18" cy="18" r="15.9155" />
+                        <circle class="circle" cx="18" cy="18" r="15.9155"
+                                [attr.stroke-dasharray]="'100, 100'"
+                                [attr.stroke-dashoffset]="100 - studentDetails?.classroom.isComplited" />
+                      </svg>
+                      <div class="fs-3 fw-bold percentage-text text-center">{{studentDetails?.classroom.isComplited}}%</div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center w-100 mt-3">
+                      <div class="w-100">
+                        <p class="text-truncate">{{studentDetails?.classroom.name}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Attachment Card -->
+              <div class="col-md-3 mt-3">
+                <div class="border p-3 rounded card h-100">
+                  <div class="card-heading">
+                    <p class="fw-bold fs-5">Attachment</p>
+                  </div>
+                  <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                    <div class="circular-progress-container w-100 h-100">
+                      <img src="studets_metirials.svg" alt="">
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center w-100 mt-3">
+                      <div>
+                        <button class="btn btn-primary px-3 rounded-5"
+                                (click)="download()"
+                                [disabled]="!canDownload()">
+                          Download
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Missing Class Card -->
+              <div class="col-md-3 mt-3">
+                <div class="border p-3 rounded card h-100">
+                  <div class="card-heading">
+                    <p class="fw-bold fs-5">Missing class</p>
+                  </div>
+                  <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                    <div class="circular-progress-container w-100 h-100">
+                      <img src="assets/svg/online_missing_class.svg" alt="">
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center w-100 mt-3">
+                      <div class="w-100">
+                        <p class="text-truncate">Missing Class Recording</p>
+                        @if (hasVideoContent()) {
+                          <button class="btn btn-primary px-3 rounded-5" (click)="playVideo()">
+                            Show recording class
+                          </button>
+                        } @else {
+                          <button class="btn btn-primary px-3 rounded-5 disabled">
+                            No recording available
+                          </button>
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  } @else {
+    <div class="d-flex flex-column align-items-center justify-content-center h-100">
+      <img src="assets/svg/4530296_19283.jpg" alt="" class="w-25">
+      <div>
+        <p class="fs-5 fw-bold">Account Created Successfully</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum dolorum, ipsa magnam exercitationem delectus
+          quae? Praesentium adipisci quod molestias dolorum modi rem ratione assumenda? Sint culpa laboriosam tempore
+          aperiam reprehenderit?</p>
+      </div>
     </div>
-  </div>
-</div>
-}
-}
-@else {
-<div class="d-flex flex-column align-items-center justify-content-center h-100">
-  <img src="assets/svg/4530296_19283.jpg" alt="" class="w-25">
-  <div>
-    <p class="fs-5 fw-bold">Account Created Successfully</p>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum dolorum, ipsa magnam exercitationem delectus
-      quae? Praesentium adipisci quod molestias dolorum modi rem ratione assumenda? Sint culpa laboriosam tempore
-      aperiam reprehenderit?</p>
-  </div>
-</div>
-}
-}
-@else {
-<app-page-loding></app-page-loding>
+  }
+} @else {
+  <app-page-loding></app-page-loding>
 }

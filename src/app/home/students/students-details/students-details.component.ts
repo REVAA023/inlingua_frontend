@@ -85,7 +85,7 @@ export class StudentsDetailsComponent implements OnInit {
       this.nameOfTheCounselor = this.counselorFullName;
       this.videoRecords = response.class_records;
       console.log(this.studentDetails);
-      console.log(this.videoRecords);
+      console.log("video",this.videoRecords);
 
       this.isEnabled = true;
       this.isLoading = true;

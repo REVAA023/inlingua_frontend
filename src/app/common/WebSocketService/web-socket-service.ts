@@ -11,72 +11,58 @@ export class WebSocketService {
 
   constructor() {}
 
-  // Connect to WebSocket
-  connect(url?: string): void {
-  if (!this.socket$ || this.socket$.closed) {
-    const wsUrl = url || 'null'; // must be absolute
+  // Connect to WebSocket with dynamic room
+  connect(roomName: string, url?: string): void {
+    if (!this.socket$ || this.socket$.closed) {
+      const wsUrl = url || `ws://localhost:8000/meeting/${roomName}/`;
 
-    this.socket$ = webSocket({
-      url: wsUrl,
-      openObserver: {
-        next: () => console.log('✅ WebSocket connected')
-      },
-      closeObserver: {
-        next: () => {
-          console.log('❌ WebSocket closed');
-          this.socket$ = null;
+      this.socket$ = webSocket({
+        url: wsUrl,
+        openObserver: {
+          next: () => console.log(`✅ Connected to room: ${roomName}`)
+        },
+        closeObserver: {
+          next: () => {
+            console.log(`❌ Disconnected from room: ${roomName}`);
+            this.socket$ = null;
+          }
         }
-      }
-    });
+      });
 
-    this.socket$.subscribe({
-      next: msg => {
-        console.log('📩 Message received:', msg);
-        this.messagesSubject$.next(msg);
-      },
-      error: err => console.error('⚠️ WebSocket error:', err)
-    });
+      this.socket$.subscribe({
+        next: msg => {
+          console.log('📩 Message received:', msg);
+          this.messagesSubject$.next(msg);
+        },
+        error: err => console.error('⚠️ WebSocket error:', err)
+      });
+    }
   }
-}
 
+  // Special helper for classroom updates
+  connectClassroomUpdates(): void {
+    this.connect('classroom', 'ws://localhost:8000/ws/classroom/');
+  }
 
-  // Send a message to the server
+  // Send message
   sendMessage(message: any): void {
     if (this.socket$ && !this.socket$.closed) {
       this.socket$.next(message);
     } else {
-      console.warn('WebSocket is not connected. Attempting to reconnect...');
-      this.connect();
-      // Retry sending after connection attempt
-      setTimeout(() => {
-        if (this.socket$ && !this.socket$.closed) {
-          this.socket$.next(message);
-        }
-      }, 1000);
+      console.warn('WebSocket is not connected.');
     }
   }
 
-  // Receive messages from the server
+  // Receive messages
   getMessages(): Observable<any> {
     return this.messagesSubject$.asObservable();
   }
 
-  // Check connection status
-  isConnected(): boolean {
-    return this.socket$ !== null && !this.socket$.closed;
-  }
-
-  // Close the WebSocket connection
+  // Close connection
   closeConnection(): void {
     if (this.socket$) {
       this.socket$.complete();
       this.socket$ = null;
     }
-  }
-
-  // Reconnect
-  reconnect(): void {
-    this.closeConnection();
-    this.connect();
   }
 }
