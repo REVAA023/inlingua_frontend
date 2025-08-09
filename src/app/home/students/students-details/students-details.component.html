@@ -303,12 +303,15 @@
                 </a>
                 <div>
                   <span class="text-truncate d-block">
-                    {{videoRecord.document.documentName}}
+
+                    <p class="p-0 m-0  text-truncate" style="width: 300px !important;">{{videoRecord.document.documentName}}</p>
                   </span>
                 </div>
               </div>
             </td>
-            <td class="email align-middle white-space-nowrap ps-4  border-translucent">{{videoRecord.notes}}
+            <td class="email align-middle white-space-nowrap ps-4 border-translucent"
+               title="{{ videoRecord.notes }}">
+              <p class="p-0 m-0  text-truncate" style="width: 300px !important;">{{ videoRecord.notes }}</p>
             </td>
             <td
               class="date small align-middle white-space-nowrap text-body-tertiary text-opacity-85 ps-4 text-body-tertiary">
@@ -316,7 +319,8 @@
             </td>
             <td
               class="date small align-middle white-space-nowrap text-body-tertiary text-opacity-85 ps-4 text-body-tertiary">
-              @if ( videoRecord.id !== studentDetails.student.classVideoRecord?.id || studentDetails.student.classVideoRecord === null ) {
+              @if ( videoRecord.id !== studentDetails.student.classVideoRecord?.id ||
+              studentDetails.student.classVideoRecord === null ) {
               <button class="btn btn-sm btn-primary" (click)="sendRecordVideo(videoRecord.id)">
                 Send video
               </button>
