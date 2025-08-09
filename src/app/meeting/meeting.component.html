@@ -1,0 +1,495 @@
+<div class="vh-100 bg-dark">
+  <div class="p-3" style="height: 90vh;">
+    <!-- Single User Layout -->
+    @if (users == 1) {
+    <div class="h-100">
+      <div class="user-container container h-100 bg-danger rounded position-relative">
+        <div class="profile d-flex justify-content-center align-items-center h-100">
+          <div class="d-flex flex-column align-items-center">
+            @if (false) {
+            <img src="assets/meeting/user.svg" class="rounded-circle border" style="width: 100px; height: 100px;" />
+            }
+            @else {
+            <div class="rounded-circle border d-flex align-items-center justify-content-center"
+              style="width: 100px; height: 100px;">
+              <span class="fs-2 fw-bold text-light">JD</span>
+            </div>
+            }
+            <div class="text-light fs-5 fw-bold mt-2 position-absolute bottom-0 px-3" style="right: 0;"> John Doe </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+
+    <!-- Two Users Layout -->
+    @else if (users == 2) {
+    <div class="h-100 d-flex gap-3">
+      <div class="user-container flex-fill bg-danger rounded position-relative">
+        <div class="profile d-flex justify-content-center align-items-center h-100">
+          <div class="d-flex flex-column align-items-center">
+            <div class="rounded-circle border d-flex align-items-center justify-content-center"
+              style="width: 100px; height: 100px;">
+              <span class="fs-2 fw-bold text-light">JD</span>
+            </div>
+            <div class="text-light fs-6 fw-bold mt-2 position-absolute bottom-0 start-0 px-3 pb-2">John Doe</div>
+          </div>
+        </div>
+      </div>
+      <div class="user-container flex-fill bg-primary rounded position-relative">
+        <div class="profile d-flex justify-content-center align-items-center h-100">
+          <div class="d-flex flex-column align-items-center">
+            <div class="rounded-circle border d-flex align-items-center justify-content-center"
+              style="width: 100px; height: 100px;">
+              <span class="fs-2 fw-bold text-light">JS</span>
+            </div>
+            <div class="text-light fs-6 fw-bold mt-2 position-absolute bottom-0 start-0 px-3 pb-2">Jane Smith</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+
+    <!-- Three Users Layout -->
+    @else if (users == 3) {
+    <div class="h-100 d-flex flex-column gap-3">
+      <div class="flex-fill d-flex gap-3">
+        <div class="user-container flex-fill bg-primary rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 100px; height: 100px;">
+                <span class="fs-2 fw-bold text-light">JS</span>
+              </div>
+              <div class="text-light fs-6 fw-bold mt-1 position-absolute bottom-0 start-0 px-2 pb-1">Jane Smith</div>
+            </div>
+          </div>
+        </div>
+        <div class="user-container flex-fill bg-primary rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 100px; height: 100px;">
+                <span class="fs-2 fw-bold text-light">JS</span>
+              </div>
+              <div class="text-light fs-6 fw-bold mt-1 position-absolute bottom-0 start-0 px-2 pb-1">Jane Smith</div>
+            </div>
+          </div>
+        </div>
+        <div class="user-container flex-fill bg-success rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 100px; height: 100px;">
+                <span class="fs-2 fw-bold text-light">MB</span>
+              </div>
+              <div class="text-light fs-6 fw-bold mt-1 position-absolute bottom-0 start-0 px-2 pb-1">Mike Brown</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+
+    <!-- Four Users Layout -->
+    @else if (users == 4) {
+    <div class="h-100 d-flex flex-column gap-3">
+      <div class="flex-fill d-flex gap-3">
+        <div class="user-container flex-fill bg-danger rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 100px; height: 100px;">
+                <span class="fs-2 fw-bold text-light">JD</span>
+              </div>
+              <div class="text-light fs-6 fw-bold mt-1 position-absolute bottom-0 start-0 px-2 pb-1">John Doe</div>
+            </div>
+          </div>
+        </div>
+        <div class="user-container flex-fill bg-primary rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 100px; height: 100px;">
+                <span class="fs-2 fw-bold text-light">JS</span>
+              </div>
+              <div class="text-light fs-6 fw-bold mt-1 position-absolute bottom-0 start-0 px-2 pb-1">Jane Smith</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex-fill d-flex gap-3">
+        <div class="user-container flex-fill bg-success rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 100px; height: 100px;">
+                <span class="fs-2 fw-bold text-light">MB</span>
+              </div>
+              <div class="text-light fs-6 fw-bold mt-1 position-absolute bottom-0 start-0 px-2 pb-1">Mike Brown</div>
+            </div>
+          </div>
+        </div>
+        <div class="user-container flex-fill bg-warning rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 100px; height: 100px;">
+                <span class="fs-2 fw-bold text-light">LW</span>
+              </div>
+              <div class="text-dark fs-6 fw-bold mt-1 position-absolute bottom-0 start-0 px-2 pb-1">Lisa Wilson</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+
+    <!-- Five Users Layout -->
+    @else if (users == 5) {
+    <div class="h-100 d-flex flex-column gap-2">
+      <div class="flex-fill d-flex gap-2">
+        <div class="user-container flex-fill bg-danger rounded position-relative tacking-user">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center active-user"
+                style="width: 100px; height: 100px;">
+                <span class="fs-2 fw-bold text-light">JD</span>
+              </div>
+              <div class="text-light fw-bold mt-1 position-absolute bottom-0 start-0 px-2 pb-1"
+                style="font-size: 0.75rem;">John Doe</div>
+            </div>
+          </div>
+        </div>
+        <div class="user-container flex-fill bg-primary rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 100px; height: 100px;">
+                <span class="fs-2 fw-bold text-light">JS</span>
+              </div>
+              <div class="text-light fw-bold mt-1 position-absolute bottom-0 start-0 px-2 pb-1"
+                style="font-size: 0.75rem;">Jane Smith</div>
+            </div>
+          </div>
+        </div>
+        <div class="user-container flex-fill bg-success rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 100px; height: 100px;">
+                <span class="fs-2 fw-bold text-light">MB</span>
+              </div>
+              <div class="text-light fw-bold mt-1 position-absolute bottom-0 start-0 px-2 pb-1"
+                style="font-size: 0.75rem;">Mike Brown</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex-fill d-flex gap-2">
+        <div class="user-container flex-fill bg-warning rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 100px; height: 100px;">
+                <span class="fs-2 fw-bold text-dark">LW</span>
+              </div>
+              <div class="text-dark fw-bold mt-1 position-absolute bottom-0 start-0 px-2 pb-1"
+                style="font-size: 0.75rem;">Lisa Wilson</div>
+            </div>
+          </div>
+        </div>
+        <div class="user-container flex-fill bg-info rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 100px; height: 100px;">
+                <span class="fs-2 fw-bold text-dark">DJ</span>
+              </div>
+              <div class="text-dark fw-bold mt-1 position-absolute bottom-0 start-0 px-2 pb-1"
+                style="font-size: 0.75rem;">David Johnson</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    }
+
+    <!-- Six Users Layout -->
+    @else if (users == 6) {
+    <div class="h-100 d-flex flex-column gap-2">
+      <div class="flex-fill d-flex gap-2">
+        <div class="user-container flex-fill bg-danger rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 100px; height: 100px;">
+                <span  class="fs-2 fw-bold text-light">JD</span>
+              </div>
+              <div class="text-light fw-bold mt-1 position-absolute bottom-0 start-0 px-2 pb-1"
+                style="font-size: 0.7rem;">John Doe</div>
+            </div>
+          </div>
+        </div>
+        <div class="user-container flex-fill bg-primary rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 100px; height: 100px;">
+                <span  class="fs-2 fw-bold text-light">JS</span>
+              </div>
+              <div class="text-light fw-bold mt-1 position-absolute bottom-0 start-0 px-2 pb-1"
+                style="font-size: 0.7rem;">Jane Smith</div>
+            </div>
+          </div>
+        </div>
+        <div class="user-container flex-fill bg-success rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 100px; height: 100px;">
+                <span  class="fs-2 fw-bold text-light">MB</span>
+              </div>
+              <div class="text-light fw-bold mt-1 position-absolute bottom-0 start-0 px-2 pb-1"
+                style="font-size: 0.7rem;">Mike Brown</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex-fill d-flex gap-2">
+        <div class="user-container flex-fill bg-warning rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 100px; height: 100px;">
+                <span class="fs-2 fw-bold text-light">LW</span>
+              </div>
+              <div class="text-dark fw-bold mt-1 position-absolute bottom-0 start-0 px-2 pb-1"
+                style="font-size: 0.7rem;">Lisa Wilson</div>
+            </div>
+          </div>
+        </div>
+        <div class="user-container flex-fill bg-info rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 100px; height: 100px;">
+                <span class="fs-2 fw-bold text-light">DJ</span>
+              </div>
+              <div class="text-dark fw-bold mt-1 position-absolute bottom-0 start-0 px-2 pb-1"
+                style="font-size: 0.7rem;">David Johnson</div>
+            </div>
+          </div>
+        </div>
+        <div class="user-container flex-fill bg-secondary rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 100px; height: 100px;">
+                <span  class="fs-2 fw-bold text-light">SW</span>
+              </div>
+              <div class="text-light fw-bold mt-1 position-absolute bottom-0 start-0 px-2 pb-1"
+                style="font-size: 0.7rem;">Sarah White</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+
+    <!-- Ten or More Users Layout -->
+    @else {
+    <div class="h-100 d-flex flex-column gap-1">
+      <div class="flex-fill d-flex gap-1">
+        <div class="user-container flex-fill bg-danger rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 35px; height: 35px;">
+                <span class="fw-bold text-light" style="font-size: 0.6rem;">JD</span>
+              </div>
+              <div class="text-light fw-bold position-absolute bottom-0 start-0 px-1"
+                style="font-size: 0.6rem;">John</div>
+            </div>
+          </div>
+        </div>
+        <div class="user-container flex-fill bg-primary rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 35px; height: 35px;">
+                <span class="fw-bold text-light" style="font-size: 0.6rem;">JS</span>
+              </div>
+              <div class="text-light fw-bold position-absolute bottom-0 start-0 px-1"
+                style="font-size: 0.6rem;">Jane</div>
+            </div>
+          </div>
+        </div>
+        <div class="user-container flex-fill bg-success rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 35px; height: 35px;">
+                <span class="fw-bold text-light" style="font-size: 0.6rem;">MB</span>
+              </div>
+              <div class="text-light fw-bold position-absolute bottom-0 start-0 px-1"
+                style="font-size: 0.6rem;">Mike</div>
+            </div>
+          </div>
+        </div>
+        <div class="user-container flex-fill bg-warning rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 35px; height: 35px;">
+                <span class="fw-bold text-dark" style="font-size: 0.6rem;">LW</span>
+              </div>
+              <div class="text-dark fw-bold position-absolute bottom-0 start-0 px-1"
+                style="font-size: 0.6rem;">Lisa</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex-fill d-flex gap-1">
+        <div class="user-container flex-fill bg-info rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 35px; height: 35px;">
+                <span class="fw-bold text-dark" style="font-size: 0.6rem;">DJ</span>
+              </div>
+              <div class="text-dark fw-bold position-absolute bottom-0 start-0 px-1"
+                style="font-size: 0.6rem;">David</div>
+            </div>
+          </div>
+        </div>
+        <div class="user-container flex-fill bg-secondary rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 35px; height: 35px;">
+                <span class="fw-bold text-light" style="font-size: 0.6rem;">SW</span>
+              </div>
+              <div class="text-light fw-bold position-absolute bottom-0 start-0 px-1"
+                style="font-size: 0.6rem;">Sarah</div>
+            </div>
+          </div>
+        </div>
+        <div class="user-container flex-fill bg-dark border rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 35px; height: 35px;">
+                <span class="fw-bold text-light" style="font-size: 0.6rem;">TC</span>
+              </div>
+              <div class="text-light fw-bold position-absolute bottom-0 start-0 px-1"
+                style="font-size: 0.6rem;">Tom</div>
+            </div>
+          </div>
+        </div>
+        <div class="user-container flex-fill bg-light rounded position-relative">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border border-dark d-flex align-items-center justify-content-center"
+                style="width: 35px; height: 35px;">
+                <span class="fw-bold text-dark" style="font-size: 0.6rem;">EM</span>
+              </div>
+              <div class="text-dark fw-bold position-absolute bottom-0 start-0 px-1"
+                style="font-size: 0.6rem;">Emma</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex-fill d-flex gap-1">
+        <div class="user-container flex-fill rounded position-relative" style="background-color: #6f42c1;">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 35px; height: 35px;">
+                <span class="fw-bold text-light" style="font-size: 0.6rem;">RG</span>
+              </div>
+              <div class="text-light fw-bold position-absolute bottom-0 start-0 px-1"
+                style="font-size: 0.6rem;">Robert</div>
+            </div>
+          </div>
+        </div>
+        <div class="user-container flex-fill rounded position-relative" style="background-color: #e83e8c;">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 35px; height: 35px;">
+                <span class="fw-bold text-light" style="font-size: 0.6rem;">AL</span>
+              </div>
+              <div class="text-light fw-bold position-absolute bottom-0 start-0 px-1"
+                style="font-size: 0.6rem;">Alice</div>
+            </div>
+          </div>
+        </div>
+        <div class="user-container flex-fill rounded position-relative" style="background-color: #20c997;">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 35px; height: 35px;">
+                <span class="fw-bold text-dark" style="font-size: 0.6rem;">BT</span>
+              </div>
+              <div class="text-dark fw-bold position-absolute bottom-0 start-0 px-1"
+                style="font-size: 0.6rem;">Bob</div>
+            </div>
+          </div>
+        </div>
+        <div class="user-container flex-fill rounded position-relative" style="background-color: #fd7e14;">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 35px; height: 35px;">
+                <span class="fw-bold text-light" style="font-size: 0.6rem;">CR</span>
+              </div>
+              <div class="text-light fw-bold position-absolute bottom-0 start-0 px-1"
+                style="font-size: 0.6rem;">Carol</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      @if (users > 12) {
+      <div class="flex-fill d-flex gap-1">
+        <div class="user-container flex-fill rounded position-relative" style="background-color: #dc3545;">
+          <div class="profile d-flex justify-content-center align-items-center h-100">
+            <div class="d-flex flex-column align-items-center">
+              <div class="rounded-circle border d-flex align-items-center justify-content-center"
+                style="width: 30px; height: 30px;">
+                <span class="fw-bold text-light" style="font-size: 0.5rem;">+{{users - 12}}</span>
+              </div>
+              <div class="text-light fw-bold position-absolute bottom-0 start-0 px-1"
+                style="font-size: 0.55rem;">More</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+    }
+  </div>
+  <div class="d-flex justify-content-between align-items-center gap-3 px-3" style="height: 10vh;">
+    <div class="text-light fs-5 fw-bold">
+      10:12 | jmh-yioh-bue
+    </div>
+    <div class="d-flex align-items-center gap-1">
+      <div class="p-2 d-flex bg-secondary cr-pointer rounded">
+        <ion-icon src="assets/meeting/mic.svg" class="fs-3 text-white"></ion-icon>
+      </div>
+      <div class="p-2 d-flex bg-secondary cr-pointer rounded">
+        <ion-icon src="assets/meeting/videocam.svg" class="fs-3 text-white"></ion-icon>
+      </div>
+      <div class="p-2 d-flex bg-secondary cr-pointer rounded">
+        <ion-icon src="assets/meeting/screen_share.svg" class="fs-3 text-white"></ion-icon>
+      </div>
+      <div class="p-2 d-flex bg-secondary cr-pointer rounded">
+        <ion-icon src="assets/meeting/hand.svg" class="fs-3 text-white"></ion-icon>
+      </div>
+      <div class="p-2 d-flex bg-danger cr-pointer rounded">
+        <ion-icon src="assets/meeting/call_end.svg" class="fs-3 text-white"></ion-icon>
+      </div>
+    </div>
+  </div>
+</div>

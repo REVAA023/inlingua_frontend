@@ -35,8 +35,8 @@
           Room</a>}
         }
         @if (appservice.user.userRole === "SUSER" || appservice.user.userRole === "TRAINER") {
-        @if (isEnabled && batchDetails?.isComplited < 100) { <button class="btn btn-sm btn-outline-primary"
-          (click)="edit_class_room()">Edit Class Room</button>
+        @if (isEnabled && batchDetails?.isComplited < 100) {
+          <button class="btn btn-sm btn-outline-primary" (click)="edit_class_room()">Edit Class Room</button>
           }
           }
     </div>
@@ -267,7 +267,7 @@
                   <span>Phone</span>
                 </div>
               </th>
-              <th class="sort small text-nowrap align-middle text-uppercase border-end border-translucent" scope="col"
+              <th class="sort small text-nowrap align-middle text-uppercase border-translucent" scope="col"
                 data-sort="phone">
                 <div class="d-inline-flex flex-center">
                   <div class="d-flex align-items-center px-1 py-1 bg-primary-subtle rounded me-2">

@@ -1,0 +1,12 @@
+.tacking-user{
+  border: 3px solid #007bff !important;
+}
+.active-user {
+  border: 2px solid #007bff !important;
+  box-shadow:
+    0 0 10px #007bff,
+    0 0 20px #007bff,
+    0 0 40px #007bff,
+    0 0 80px #007bff,
+    0 0 160px #007bff !important;
+}

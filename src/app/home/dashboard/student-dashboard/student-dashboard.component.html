@@ -55,92 +55,9 @@
       </div>
     </div>
 
-    @if (showvideoContainer) {
-    <!-- Video Player Section -->
-    <div class="mt-3">
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <p class="fs-5 fw-bold">{{studentDetails.classVideoRecord.document.createdDate}} class record - Online Play</p>
-        <button class="btn btn-sm btn-secondary" (click)="closeVideo()">
-          <i class="bx fa-times"></i> Close
-        </button>
-      </div>
+    <!-- showvideoContainer -->
 
-      <div class="row">
-        <!-- Updated video container section in your HTML template -->
-        <div class="col-6">
-          <!-- Custom Video Player with Fullscreen Container -->
-          <div #videoContainer class="video-container position-relative" [class.fullscreen-container]="isFullscreen">
-            <video #videoPlayer [src]="studentDetails.classVideoRecord.document.documentContant" class="w-100 rounded"
-              [class.fullscreen-video]="isFullscreen" preload="metadata" (loadeddata)="setupVideoEvents()"
-              (dblclick)="onVideoDoubleClick()">
-              Your browser does not support the video tag.
-            </video>
 
-            <!-- Custom Video Controls -->
-            <div class="video-controls position-absolute bottom-0 start-0 end-0 bg-dark bg-opacity-75 p-2"
-              [class.fullscreen-controls]="isFullscreen">
-              <div class="d-flex align-items-center gap-2">
-                <!-- Play/Pause Button -->
-                <button class="btn btn-sm btn-dark m-0 p-1 rounded-5 d-flex align-items-center"
-                  (click)="togglePlayPause()" title="Play/Pause (Spacebar)">
-                  <i class="bx fs-6 text-light" [class.bx-play]="!isVideoPlaying" [class.bx-pause]="isVideoPlaying"></i>
-                </button>
-
-                <!-- Progress Bar -->
-                <div class="flex-grow-1 range-container">
-                  <input type="range" class="video-range" #videoRange [value]="getProgressPercentage()"
-                    (input)="seekVideo($event)" min="0" max="100" title="Seek video">
-                  <div class="progress-overlay" [style.width.%]="getProgressPercentage()"></div>
-                </div>
-
-                <!-- Time Display -->
-                <span class="text-white small time-display">
-                  {{formatTime(currentVideoTime)}} / {{formatTime(videoDuration)}}
-                </span>
-
-                <!-- Volume Control -->
-                <div class="d-flex align-items-center gap-1">
-                  <button class="btn btn-sm btn-dark m-0 p-1 rounded-5 d-flex align-items-center justify-content-center"
-                    (click)="toggleMute()" title="Mute/Unmute">
-                    <i class="bx fs-6 text-light" [class.bx-volume-full]="!isMuted && videoVolume > 0"
-                      [class.bx-volume-mute]="isMuted || videoVolume === 0"></i>
-                  </button>
-                  <div class="range-container volume-container">
-                    <input type="range" class="volume-range" #volumeRange [value]="videoVolume * 100"
-                      (input)="changeVolume($event)" min="0" max="100" title="Volume">
-                    <div class="progress-overlay" [style.width.%]="videoVolume * 100"></div>
-                  </div>
-                </div>
-
-                <!-- Fullscreen Button -->
-                <button class="btn btn-sm btn-dark m-0 p-1 rounded-5 d-flex align-items-center justify-content-center"
-                  (click)="toggleFullscreen()" title="Toggle Fullscreen (F)">
-                  <i class="bx fs-6 text-light" [class.bx-fullscreen]="!isFullscreen"
-                    [class.bx-exit-fullscreen]="isFullscreen"></i>
-                </button>
-              </div>
-            </div>
-
-            <!-- Fullscreen overlay for better UX -->
-            <div class="fullscreen-overlay" [class.show]="isFullscreen" (click)="togglePlayPause()">
-              @if (!isVideoPlaying) {
-              <div class="play-pause-overlay">
-                <i class="bx bx-play-circle"></i>
-              </div>
-              }
-            </div>
-          </div>
-        </div>
-
-        <div class="col-6">
-          <p class="fs-5 text-muted fw-bold">Notes :-</p>
-          <div style="height: 250px; overflow-y:auto;" class="m-0 p-3 border rounded">
-            <p>{{studentDetails.classVideoRecord.notes}}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    }
     <!-- Tracking Section -->
     <div class="">
       <p class="fs-5 fw-bold m-0 mt-3">Tracking</p>
@@ -198,7 +115,7 @@
               </div>
               <div class="d-flex justify-content-between align-items-center w-100 mt-3">
                 <div>
-                  <button class="btn btn-primary px-3 rounded-5" (click)="download(StudyMaterial)">Download</button>
+                  <button class="btn btn-primary px-3 rounded-5">Download</button>
                 </div>
               </div>
             </div>
@@ -218,7 +135,7 @@
               <div class="d-flex justify-content-between align-items-center w-100 mt-3">
                 <div class="w-100">
                   <p class="text-truncate">Missing Class Recording</p>
-                  <button class="btn btn-primary px-3 rounded-5" (click)="playVideo()">Show recording class</button>
+                  <button class="btn btn-primary px-3 rounded-5" >Show recording class</button>
                 </div>
               </div>
             </div>

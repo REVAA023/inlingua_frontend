@@ -182,6 +182,12 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'meeting/:id',
+    data: { title: 'Inlingua | Meeting' },
+    loadComponent: () =>
+      import('./meeting/meeting.component').then((m) => m.MeetingComponent),
+  },
+  {
     path: '**',
     loadComponent: () =>
       import('./not-found/not-found.component').then(

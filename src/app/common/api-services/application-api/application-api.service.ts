@@ -330,6 +330,29 @@ export class ApplicationApiService {
       );
   }
 
+  checkReloadStatus(options?: any): Observable<any> {
+    this.data.serviceStarted();
+    options === undefined
+      ? (options = this.apiData.defaultOptions)
+      : (options = this.apiData.setOptions(options));
+    return this.apiData
+      .getData(
+        this.appSettings.environment.applicationPath + 'check-reload',
+        options
+      )
+      .pipe(
+        finalize(() => this.data.serviceCompleted()),
+        catchError((err) => {
+          options
+            ? options.hideErrorMethod
+              ? ''
+              : this.data.errorMethod(err)
+            : '';
+          return throwError(() => new Error(err));
+        })
+      );
+  }
+
   changeStudentStatus(body: any, options?: any): Observable<any> {
     this.data.serviceStarted();
     options === undefined
