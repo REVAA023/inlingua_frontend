@@ -38,9 +38,8 @@ export class BatchDetailsComponent {
 
   containeropen = false;
 
-  // Initialize with default values - will be updated after batchDetails is loaded
   videoRecordForm = {
-    batchId: null as any, // Will be set when batchDetails is loaded
+    batchId: null as any,
     video: {
       createdDate: "",
       documentContant: "",
@@ -50,34 +49,6 @@ export class BatchDetailsComponent {
     },
     note: ""
   };
-
-  getDocument(event: any, type?: string) {
-    const documentObj = {
-      documentName: event.fileName,
-      documentSize: event.fileSize,
-      documentContant: event.content,
-      documentsExtention: event.fileType,
-      createdDate: new Date().toISOString()
-    };
-
-    if (type === 'VIRC') {
-      this.videoRecordForm.video = documentObj;
-    }
-  }
-
-  removeImage(type: string) {
-    const emptyDoc = {
-      documentName: '',
-      documentSize: '',
-      documentContant: '',
-      documentsExtention: '',
-      createdDate: ''
-    };
-
-    if (type === 'VIRC') {
-      this.videoRecordForm.video = emptyDoc;
-    }
-  }
 
   batchIdPayload: any;
 
@@ -97,61 +68,20 @@ export class BatchDetailsComponent {
 
     let paramsId = this.route.snapshot.paramMap.get('id');
     let obj: any = await this.urlService.decode(paramsId);
-    const payload = {
-      batchId: obj
-    };
-    this.batchIdPayload = payload;
-    this.getBatchDetails(payload);
-    // Connect to backend
+    this.batchIdPayload = { batchId: obj };
+
+    // Connect to backend socket
     this.webSocketService.connectClassroomUpdates();
 
-    // Listen for messages
-    this.wsSub = this.webSocketService.getMessages().subscribe(data => {
-      if (this.batchDetails.id === data.id) {
-        this.batchDetails.isActive = data.is_active;
-      }
-    });
+    // Load batch details
+    this.getBatchDetails(this.batchIdPayload);
   }
 
   ngOnDestroy() {
-    // Close connection and unsubscribe
     if (this.wsSub) {
       this.wsSub.unsubscribe();
     }
     this.webSocketService.closeConnection();
-  }
-
-  edit_class_room() {
-    this.isEnabled = !this.isEnabled;
-  }
-
-  updatetrainer(id: any) {
-    const payload = {
-      trainerId: id,
-      batchId: this.batchDetails.id
-    };
-    this.apiService.updatetrainer(payload).subscribe((response: any) => {
-      this.getBatchDetails(this.batchIdPayload);
-    });
-  }
-
-  removestudent(id: any) {
-    const payload = {
-      studentId: id
-    };
-    this.apiService.removestudent(payload).subscribe((response: any) => {
-      this.getBatchDetails(this.batchIdPayload);
-    });
-  }
-
-  addStudent(id: any) {
-    const payload = {
-      studentId: id,
-      batchId: this.batchDetails.id
-    };
-    this.apiService.addStudent(payload).subscribe((response: any) => {
-      this.getBatchDetails(this.batchIdPayload);
-    });
   }
 
   getBatchDetails(payload: any) {
@@ -163,6 +93,69 @@ export class BatchDetailsComponent {
       this.videoRecords = response.get_videos;
       this.videoRecordForm.batchId = this.batchDetails.id;
       this.isLoading = true;
+
+      // ✅ Subscribe to WebSocket only after batchDetails is loaded
+      if (!this.wsSub) {
+        this.wsSub = this.webSocketService.getMessages().subscribe(msg => {
+          console.log('📩 WebSocket message received:', msg);
+
+          if (msg?.data?.id === this.batchDetails.id) {
+            this.batchDetails.isActive = msg.data.is_active;
+            console.log('✅ Batch updated from WebSocket:', msg);
+          }
+        });
+      }
+    });
+  }
+
+  getDocument(event: any, type?: string) {
+    const documentObj = {
+      documentName: event.fileName,
+      documentSize: event.fileSize,
+      documentContant: event.content,
+      documentsExtention: event.fileType,
+      createdDate: new Date().toISOString()
+    };
+    if (type === 'VIRC') {
+      this.videoRecordForm.video = documentObj;
+    }
+  }
+
+  removeImage(type: string) {
+    const emptyDoc = {
+      documentName: '',
+      documentSize: '',
+      documentContant: '',
+      documentsExtention: '',
+      createdDate: ''
+    };
+    if (type === 'VIRC') {
+      this.videoRecordForm.video = emptyDoc;
+    }
+  }
+
+  edit_class_room() {
+    this.isEnabled = !this.isEnabled;
+  }
+
+  updatetrainer(id: any) {
+    const payload = { trainerId: id, batchId: this.batchDetails.id };
+    this.apiService.updatetrainer(payload).subscribe(() => {
+      this.getBatchDetails(this.batchIdPayload);
+    });
+  }
+
+  removestudent(id: any) {
+    const payload = { studentId: id };
+    this.apiService.removestudent(payload).subscribe(() => {
+      this.getBatchDetails(this.batchIdPayload);
+    });
+  }
+
+  addStudent(id: any) {
+    const payload = { studentId: id, batchId: this.batchDetails.id };
+    this.apiService.addStudent(payload).subscribe(() => {
+      this.getBatchDetails(this.batchIdPayload);
     });
   }
 
@@ -171,24 +164,20 @@ export class BatchDetailsComponent {
   }
 
   startClass() {
-    const payload = {
-      batchId: this.batchDetails.id,
-    };
-    this.apiService.startClass(payload).subscribe((response: any) => {
+    const payload = { batchId: this.batchDetails.id };
+    this.apiService.startClass(payload).subscribe(() => {
       this.batchDetails.isActive = true;
-      console.log('Batch updated successfully');
+      console.log('Batch started successfully');
     });
     window.open(this.batchDetails.googleMeetLink, '_blank');
   }
 
   endClass() {
-    const payload = {
-      batchId: this.batchDetails.id,
-    };
-    this.apiService.endClass(payload).subscribe((response: any) => {
+    const payload = { batchId: this.batchDetails.id };
+    this.apiService.endClass(payload).subscribe(() => {
       this.batchDetails.isActive = false;
       this.isEnabled = true;
-      console.log('Batch updated successfully');
+      console.log('Batch ended successfully');
     });
   }
 
@@ -201,7 +190,6 @@ export class BatchDetailsComponent {
       this.errorTrue = true;
       return;
     }
-
     this.errorTrue = false;
 
     if (!this.videoRecordForm.video.documentName) {
@@ -220,21 +208,17 @@ export class BatchDetailsComponent {
       return;
     }
 
-    // Ensure batchId is set
     if (!this.videoRecordForm.batchId && this.batchDetails?.id) {
       this.videoRecordForm.batchId = this.batchDetails.id;
     }
-    console.log('Payload:', this.videoRecordForm);
-    // Add your API call here
-    this.apiService.saveVideoRecord(this.videoRecordForm).subscribe((response: any) => {
-      console.log('Success:', response);
-      this.cancelForm();
 
+    this.apiService.saveVideoRecord(this.videoRecordForm).subscribe((response: any) => {
+      console.log('Video record saved:', response);
+      this.cancelForm();
     });
   }
 
   cancelForm(): void {
-    // Reset form
     this.videoRecordForm = {
       batchId: this.batchDetails?.id || null,
       video: {
@@ -251,35 +235,28 @@ export class BatchDetailsComponent {
   }
 
   onSubmit(form: NgForm): void {
+    if (!form.valid) return;
+
     if (this.appservice.user.userRole === "SUSER") {
-      if (!form.valid) {
-        return;
-      } else {
-        const payload = {
-          batchId: this.batchDetails.id,
-          googleMeetLink: this.batchDetails.googleMeetLink
-        };
-        this.apiService.updateBatchGoogleMeetLink(payload).subscribe((response: any) => {
-          console.log('Batch updated successfully');
-          this.isEnabled = true;
-        });
-      }
+      const payload = {
+        batchId: this.batchDetails.id,
+        googleMeetLink: this.batchDetails.googleMeetLink
+      };
+      this.apiService.updateBatchGoogleMeetLink(payload).subscribe(() => {
+        console.log('Meet link updated successfully');
+        this.isEnabled = true;
+      });
     }
 
     if (this.appservice.user.userRole === "TRAINER") {
-      if (!form.valid) {
-        return;
-      } else {
-        const payload = {
-          batchId: this.batchDetails.id,
-          Complited: this.batchDetails.isComplited
-        };
-        this.apiService.updatecomplitedclass(payload).subscribe((response: any) => {
-          console.log('Batch updated successfully');
-          this.isEnabled = true;
-        });
-      }
+      const payload = {
+        batchId: this.batchDetails.id,
+        Complited: this.batchDetails.isComplited
+      };
+      this.apiService.updatecomplitedclass(payload).subscribe(() => {
+        console.log('Class marked completed successfully');
+        this.isEnabled = true;
+      });
     }
-
   }
 }
